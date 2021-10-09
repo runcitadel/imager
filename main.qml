@@ -13,8 +13,8 @@ ApplicationWindow {
     id: window
     visible: true
 
-    width: imageWriter.isEmbeddedMode() ? -1 : 680
-    height: imageWriter.isEmbeddedMode() ? -1 : 420
+    width: imageWriter.isEmbeddedMode() ? -1 : 880
+    height: imageWriter.isEmbeddedMode() ? -1 : 620
     minimumWidth: imageWriter.isEmbeddedMode() ? -1 : 680
     //maximumWidth: imageWriter.isEmbeddedMode() ? -1 : 680
     minimumHeight: imageWriter.isEmbeddedMode() ? -1 : 420
@@ -56,25 +56,32 @@ ApplicationWindow {
         spacing: 0
 
         Rectangle {
-            implicitHeight: window.height/2
+            visible: true
+            Layout.fillWidth: true
+            width: window.width
+            height: window.height * 61.8 / 100
+            implicitHeight: window.height * 70 / 100
+            color: "#3E3E3E"
 
             Image {
                 id: image
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                 fillMode: Image.PreserveAspectFit
-                source: window.height > 700 ? "icons/rpi2-hires.png" : "icons/rpi2.png"
+                source: "icons/dark-logo-stacked.svg"
                 width: window.width
-                height: window.height/2
+                height: window.height * 40 / 100
+                anchors.centerIn: parent
             }
         }
 
         Rectangle {
-            color: "#c31c4a"
+            color: "#3E3E3E"
             implicitWidth: window.width
-            implicitHeight: window.height/2
+            implicitHeight: window.height * 38.2 / 100
 
             GridLayout {
+                anchors.centerIn: parent
                 id: gridLayout
                 rowSpacing: 25
 
@@ -84,7 +91,7 @@ ApplicationWindow {
                 anchors.leftMargin: 50
 
                 rows: 3
-                columns: 3
+                columns: 4
                 columnSpacing: 25
 
                 ColumnLayout {
@@ -120,9 +127,49 @@ ApplicationWindow {
                             osswipeview.currentItem.forceActiveFocus()
                         }
                         Material.background: "#ffffff"
-                        Material.foreground: "#c51a4a"
-                        Accessible.ignored: ospopup.visible || dstpopup.visible
+                        Material.foreground: "#000"
+                        Accessible.ignored: ospopup.visible || dstpopup.visible || optionspopup.visible
                         Accessible.description: qsTr("Select this button to change the operating system")
+                        Accessible.onPressAction: clicked()
+                    }
+                }
+
+                ColumnLayout {
+                    id: columnLayout5
+                    spacing: 0
+                    Layout.fillWidth: true
+
+                    Text {
+                        id: text5
+                        color: "#ffffff"
+                        text: qsTr("Select additional options")
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: 17
+                        Layout.preferredWidth: 100
+                        font.pixelSize: 12
+                        font.family: robotoBold.name
+                        font.bold: true
+                        horizontalAlignment: Text.AlignHCenter
+                    }
+
+                    Button {
+                        id: settingsbutton
+                        text: imageWriter.srcFileName() === "" ? qsTr("CONFIGURE") : imageWriter.srcFileName()
+                        font.family: roboto.name
+                        spacing: 0
+                        padding: 0
+                        bottomPadding: 0
+                        topPadding: 0
+                        Layout.minimumHeight: 40
+                        Layout.fillWidth: true
+                        onClicked: {
+                            optionspopup.open()
+                            osswipeview.currentItem.forceActiveFocus()
+                        }
+                        Material.background: "#ffffff"
+                        Material.foreground: "#000"
+                        Accessible.ignored: ospopup.visible || dstpopup.visible || optionspopup.visible
+                        Accessible.description: qsTr("Select this button to change operating system settinh")
                         Accessible.onPressAction: clicked()
                     }
                 }
@@ -158,8 +205,8 @@ ApplicationWindow {
                             dstlist.forceActiveFocus()
                         }
                         Material.background: "#ffffff"
-                        Material.foreground: "#c51a4a"
-                        Accessible.ignored: ospopup.visible || dstpopup.visible
+                        Material.foreground: "#000"
+                        Accessible.ignored: ospopup.visible || dstpopup.visible || optionspopup.visible
                         Accessible.description: qsTr("Select this button to change the destination storage device")
                         Accessible.onPressAction: clicked()
                     }
@@ -181,12 +228,12 @@ ApplicationWindow {
                         font.family: roboto.name
                         Layout.minimumHeight: 40
                         Layout.fillWidth: true
-                        Accessible.ignored: ospopup.visible || dstpopup.visible
+                        Accessible.ignored: ospopup.visible || dstpopup.visible || optionspopup.visible
                         Accessible.description: qsTr("Select this button to start writing the image")
 
                         enabled: false
                         Material.background: "#ffffff"
-                        Material.foreground: "#c51a4a"
+                        Material.foreground: "#000"
                         onClicked: {
                             if (!imageWriter.readyToWrite()) {
                                 return
@@ -234,7 +281,7 @@ ApplicationWindow {
                             imageWriter.cancelWrite()
                         }
                         Material.background: "#ffffff"
-                        Material.foreground: "#c51a4a"
+                        Material.foreground: "#000"
                         Layout.alignment: Qt.AlignRight
                         visible: false
                         font.family: roboto.name
@@ -249,7 +296,7 @@ ApplicationWindow {
                             imageWriter.setVerifyEnabled(false)
                         }
                         Material.background: "#ffffff"
-                        Material.foreground: "#c51a4a"
+                        Material.foreground: "#000"
                         Layout.alignment: Qt.AlignRight
                         visible: false
                         font.family: roboto.name
@@ -1082,3 +1129,9 @@ ApplicationWindow {
         }
     }
 }
+
+/*##^##
+Designer {
+    D{i:0;formeditorZoom:16}
+}
+##^##*/
