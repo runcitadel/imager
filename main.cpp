@@ -66,10 +66,10 @@ int main(int argc, char *argv[])
 #else
     QApplication app(argc, argv);
 #endif
-    app.setOrganizationName("Raspberry Pi");
-    app.setOrganizationDomain("raspberrypi.org");
-    app.setApplicationName("Imager");
-    app.setWindowIcon(QIcon(":/icons/rpi-imager.ico"));
+    app.setOrganizationName("Citadel");
+    app.setOrganizationDomain("runcitadel.space");
+    app.setApplicationName("Citadel Imager");
+    app.setWindowIcon(QIcon(":/icons/citadel-imager.ico"));
     ImageWriter imageWriter;
     NetworkAccessManagerFactory namf;
     QQmlApplicationEngine engine;
@@ -206,7 +206,7 @@ int main(int argc, char *argv[])
         QLocale::setDefault(QLocale(langcode));
 #endif
 
-        if (translator.load(QLocale(), "rpi-imager", "_", QLatin1String(":/i18n")))
+        if (translator.load(QLocale(), "citadel-imager", "_", QLatin1String(":/i18n")))
             QCoreApplication::installTranslator(&translator);
     }
     else

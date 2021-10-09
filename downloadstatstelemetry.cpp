@@ -15,7 +15,7 @@ DownloadStatsTelemetry::DownloadStatsTelemetry(const QByteArray &url, const QByt
     _postfields = "url="+QUrl::toPercentEncoding(url)
             +"&os="+QUrl::toPercentEncoding(parentcategory)
             +"&image="+QUrl::toPercentEncoding(osname);
-    _useragent = "Mozilla/5.0 rpi-imager/" IMAGER_VERSION_STR;
+    _useragent = "Mozilla/5.0 citadel-imager/" IMAGER_VERSION_STR;
 }
 
 void DownloadStatsTelemetry::run()
