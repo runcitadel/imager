@@ -169,7 +169,7 @@ ApplicationWindow {
                         Material.background: "#ffffff"
                         Material.foreground: "#000"
                         Accessible.ignored: ospopup.visible || dstpopup.visible || optionspopup.visible
-                        Accessible.description: qsTr("Select this button to change operating system settinh")
+                        Accessible.description: qsTr("Select this button to change operating system settings")
                         Accessible.onPressAction: clicked()
                     }
                 }
