@@ -106,11 +106,6 @@ Popup {
 
                 ColumnLayout {
                     spacing: -10
-
-                    CheckBox {
-                        id: chkOverscan
-                        text: qsTr("Disable overscan")
-                    }
                     RowLayout {
                         CheckBox {
                             id: chkHostname
@@ -124,7 +119,7 @@ Popup {
                         TextField {
                             id: fieldHostname
                             enabled: chkHostname.checked
-                            text: "raspberrypi"
+                            text: "citadel"
                         }
                         Text {
                             text : ".local"
@@ -134,16 +129,8 @@ Popup {
                     CheckBox {
                         id: chkSSH
                         text: qsTr("Enable SSH")
-                        onCheckedChanged: {
-                            if (checked) {
-                                if (!radioPasswordAuthentication.checked && !radioPubKeyAuthentication.checked) {
-                                    radioPasswordAuthentication.checked = true
-                                }
-                                if (radioPasswordAuthentication.checked && !fieldUserPassword.length) {
-                                    fieldUserPassword.forceActiveFocus()
-                                }
-                            }
-                        }
+                        checked: true
+                        enabled: false
                     }
                     ColumnLayout {
                         enabled: chkSSH.checked
@@ -168,7 +155,7 @@ Popup {
                             enabled: radioPasswordAuthentication.checked
 
                             Text {
-                                text: qsTr("Set password for 'pi' user:")
+                                text: qsTr("Set password for 'citadel' user (will be changed during setup):")
                                 color: parent.enabled ? (fieldUserPassword.indicateError ? "red" : "black") : "grey"
                             }
                             TextField {
@@ -209,7 +196,7 @@ Popup {
                             enabled: radioPubKeyAuthentication.checked
 
                             Text {
-                                text: qsTr("Set authorized_keys for 'pi':")
+                                text: qsTr("Set authorized_keys for 'citadel':")
                                 color: parent.enabled ? "black" : "grey"
                             }
                             TextField {
@@ -388,6 +375,7 @@ Popup {
     }
 
     function initialize() {
+        radioPasswordAuthentication.checked = true
         chkBeep.checked = imageWriter.getBoolSetting("beep")
         chkEject.checked = imageWriter.getBoolSetting("eject")
         var settings = imageWriter.getSavedCustomizationSettings()
@@ -415,6 +403,7 @@ Popup {
         if ('sshAuthorizedKeys' in settings) {
             fieldPublicKey.text = settings.sshAuthorizedKeys
             chkSSH.checked = true
+            radioPasswordAuthentication.checked = false
             radioPubKeyAuthentication.checked = true
         }
         if ('wifiSSID' in settings) {
