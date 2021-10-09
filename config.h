@@ -13,10 +13,6 @@
 /* Time synchronization URL (only used on eglfs QPA platform, URL must be HTTP) */
 #define TIME_URL                          "http://downloads.raspberrypi.org/os_list_imagingutility_v2.json?time_synchronization"
 
-/* Phone home the name of images downloaded for image popularity ranking */
-#define TELEMETRY_URL                     "https://rpi-imager-stats.raspberrypi.org/downloads"
-#define TELEMETRY_ENABLED_DEFAULT         false
-
 /* Hash algorithm for verifying (uncompressed image) checksum */
 #define OSLIST_HASH_ALGORITHM             QCryptographicHash::Sha256
 

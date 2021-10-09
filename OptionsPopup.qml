@@ -336,10 +336,6 @@ Popup {
                         id: chkEject
                         text: qsTr("Eject media when finished")
                     }
-                    CheckBox {
-                        id: chkTelemtry
-                        text: qsTr("Enable telemetry")
-                    }
                 }
             }
           }
@@ -393,7 +389,6 @@ Popup {
 
     function initialize() {
         chkBeep.checked = imageWriter.getBoolSetting("beep")
-        chkTelemtry.checked = imageWriter.getBoolSetting("telemetry")
         chkEject.checked = imageWriter.getBoolSetting("eject")
         var settings = imageWriter.getSavedCustomizationSettings()
         fieldTimezone.model = imageWriter.getTimezoneList()
@@ -621,6 +616,5 @@ Popup {
 
         imageWriter.setSetting("beep", chkBeep.checked)
         imageWriter.setSetting("eject", chkEject.checked)
-        imageWriter.setSetting("telemetry", chkTelemtry.checked)
     }
 }

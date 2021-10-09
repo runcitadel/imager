@@ -10,7 +10,6 @@
 #include "dependencies/sha256crypt/sha256crypt.h"
 #include "driveformatthread.h"
 #include "localfileextractthread.h"
-#include "downloadstatstelemetry.h"
 #include <archive.h>
 #include <archive_entry.h>
 #include <random>
@@ -212,19 +211,9 @@ void ImageWriter::startWrite()
         urlstr = QUrl::fromLocalFile(_cacheFileName).toString(_src.FullyEncoded).toLatin1();
     }
 
-    if (QUrl(urlstr).isLocalFile())
-    {
-        _thread = new LocalFileExtractThread(urlstr, _dst.toLatin1(), _expectedHash, this);
-    }
-    else if (compressed)
+    if (QUrl(urlstr).isLocalFile() || compressed)
     {
         _thread = new DownloadExtractThread(urlstr, _dst.toLatin1(), _expectedHash, this);
-        if (_repo.toString() == OSLIST_URL)
-        {
-            DownloadStatsTelemetry *tele = new DownloadStatsTelemetry(urlstr, _parentCategory.toLatin1(), _osName.toLatin1(), this);
-            connect(tele, SIGNAL(finished()), tele, SLOT(deleteLater()));
-            tele->start();
-        }
     }
     else
     {
@@ -927,9 +916,7 @@ QString ImageWriter::getPSK(const QString &ssid)
 bool ImageWriter::getBoolSetting(const QString &key)
 {
     /* Some keys have defaults */
-    if (key == "telemetry")
-        return _settings.value(key, TELEMETRY_ENABLED_DEFAULT).toBool();
-    else if (key == "eject")
+    if (key == "eject")
         return _settings.value(key, true).toBool();
     else
         return _settings.value(key).toBool();

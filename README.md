@@ -142,33 +142,6 @@ On Windows start the application with the command-line option --debug to let it 
 If the application is started with "--repo [your own URL]" it will use a custom image repository.
 So can simply create another 'start menu shortcut' to the application with that parameter to use the application with your own images.
 
-### Telemetry
-
-In order to understand which images and operating systems are most popular and re-organise the application accordingly, when using the default image repository, the URL, operating system name and category (if present) of a selected image are sent to https://rpi-imager-stats.raspberrypi.org by [`downloadstatstelemetry.cpp`](https://github.com/raspberrypi/rpi-imager/blob/qml/downloadstatstelemetry.cpp).
-
-This web service is hosted by [Heroku](https://www.heroku.com) and only stores an incrementing counter using a [Redis Sorted Set](https://redis.io/topics/data-types#sorted-sets) for each URL, operating system name and category per day in the `eu-west-1` region and does not associate any personal data with those counts. This allows us to query the number of downloads over time and nothing else.
-
-The last 1,500 requests to the service are logged for one week before expiring as this is the [minimum log retention period for Heroku](https://devcenter.heroku.com/articles/logging#log-history-limits).
-
-On Windows, you can opt out of telemetry by disabling it in the Registry:
-
-```
-reg add "HKCU\Software\Raspberry Pi\Imager" /v telemetry /t REG_DWORD /d 0
-```
-
-On Linux, run `rpi-imager --disable-telemetry` or add the following to `~/.config/Raspberry Pi/Imager.conf`:
-
-```ini
-[General]
-telemetry=false
-```
-
-On macOS, disable it by editing the property list for the application:
-
-```
-defaults write org.raspberrypi.Imager.plist telemetry -bool NO
-```
-
 ### Advanced options
 
 When using the app, press <kbd>CTRL</kbd> + <kbd>SHIFT</kbd> + <kbd>X</kbd> to reveal the **Advanced options** dialog.

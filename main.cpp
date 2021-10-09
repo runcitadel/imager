@@ -159,7 +159,7 @@ int main(int argc, char *argv[])
         }
         else if (args[i] == "--help")
         {
-            cerr << args[0] << " [--debug] [--version] [--repo <repository URL>] [--qm <custom qm translation file>] [--disable-telemetry] [<image file to write>]" << Qt::endl;
+            cerr << args[0] << " [--debug] [--version] [--repo <repository URL>] [--qm <custom qm translation file>] [<image file to write>]" << Qt::endl;
             cerr << "-OR- " << args[0] << " --cli [--disable-verify] [--sha256 <expected hash>] [--debug] [--quiet] <image file to write> <destination drive device>" << Qt::endl;
             return 0;
         }
@@ -168,18 +168,6 @@ int main(int argc, char *argv[])
             cerr << args[0] << " version " << imageWriter.constantVersion() << Qt::endl;
             cerr << "Repository: " << imageWriter.constantOsListUrl().toString() << Qt::endl;
             return 0;
-        }
-        else if (args[i] == "--disable-telemetry")
-        {
-            cerr << "Disabled telemetry" << Qt::endl;
-            settings.setValue("telemetry", false);
-            settings.sync();
-        }
-        else if (args[i] == "--enable-telemetry")
-        {
-            cerr << "Using default telemetry setting" << Qt::endl;
-            settings.remove("telemetry");
-            settings.sync();
         }
         else
         {
