@@ -154,7 +154,7 @@ ApplicationWindow {
 
                     Button {
                         id: settingsbutton
-                        text: imageWriter.srcFileName() === "" ? qsTr("CONFIGURE") : imageWriter.srcFileName()
+                        text: qsTr("CONFIGURE")
                         font.family: roboto.name
                         spacing: 0
                         padding: 0
@@ -163,8 +163,7 @@ ApplicationWindow {
                         Layout.minimumHeight: 40
                         Layout.fillWidth: true
                         onClicked: {
-                            optionspopup.open()
-                            osswipeview.currentItem.forceActiveFocus()
+                            optionspopup.openPopup()
                         }
                         Material.background: "#ffffff"
                         Material.foreground: "#000"

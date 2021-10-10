@@ -300,10 +300,6 @@ Popup {
                             Layout.minimumWidth: 200
                             text: "us"
                         }
-                        CheckBox {
-                            id: chkSkipFirstUse
-                            text: qsTr("Skip first-run wizard")
-                        }
                     }
                 }
             }
@@ -453,9 +449,6 @@ Popup {
                 fieldKeyboardLayout.text = "gb"
             }
         }
-        if ('skipFirstUse' in settings) {
-            chkSkipFirstUse.checked = true
-        }
 
         initialized = true
     }
@@ -535,10 +528,6 @@ Popup {
             addFirstRun("done")
         }
         if (chkLocale.checked) {
-            if (chkSkipFirstUse) {
-                addFirstRun("rm -f /etc/xdg/autostart/piwiz.desktop")
-            }
-
             addFirstRun("rm -f /etc/localtime")
             addFirstRun("echo \""+fieldTimezone.editText+"\" >/etc/timezone")
             addFirstRun("dpkg-reconfigure -f noninteractive tzdata")
@@ -591,9 +580,6 @@ Popup {
             if (chkLocale.checked) {
                 settings.timezone = fieldTimezone.editText
                 settings.keyboardLayout = fieldKeyboardLayout.text
-                if (chkSkipFirstUse.checked) {
-                    settings.skipFirstUse = true
-                }
             }
 
             imageWriter.setSavedCustomizationSettings(settings)
