@@ -20,7 +20,7 @@ ApplicationWindow {
     minimumHeight: imageWriter.isEmbeddedMode() ? -1 : 520
     //maximumHeight: imageWriter.isEmbeddedMode() ? -1 : 420
 
-    title: qsTr("Raspberry Pi Imager v%1").arg(imageWriter.constantVersion())
+    title: qsTr("Citadel Pi Imager v%1").arg(imageWriter.constantVersion())
 
     FontLoader {id: roboto;      source: "fonts/Roboto-Regular.ttf"}
     FontLoader {id: robotoLight; source: "fonts/Roboto-Light.ttf"}
@@ -59,8 +59,8 @@ ApplicationWindow {
             visible: true
             Layout.fillWidth: true
             width: window.width
-            height: window.height * 80 / 100
-            implicitHeight: window.height * 80 / 100
+            height: window.height * 75 / 100
+            implicitHeight: window.height * 75 / 100
             color: "#3E3E3E"
 
             Image {
@@ -78,7 +78,7 @@ ApplicationWindow {
         Rectangle {
             color: "#3E3E3E"
             implicitWidth: window.width
-            implicitHeight: window.height * 20 / 100
+            implicitHeight: window.height * 25 / 100
 
             GridLayout {
                 anchors.centerIn: parent
