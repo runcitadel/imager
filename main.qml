@@ -60,7 +60,7 @@ ApplicationWindow {
             Layout.fillWidth: true
             width: window.width
             height: window.height * 61.8 / 100
-            implicitHeight: window.height * 70 / 100
+            implicitHeight: window.height * 61.8 / 100
             color: "#3E3E3E"
 
             Image {
