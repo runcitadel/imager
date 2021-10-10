@@ -123,7 +123,7 @@ Bitte stellen Sie sicher, dass &apos;Raspberry Pi Imager&apos; Zugriff auf &apos
     <message>
         <location filename="../downloadthread.cpp" line="952"/>
         <source>Unable to customize. File &apos;%1&apos; does not exist.</source>
-        <translation type="unfinished"></translation>
+        <translation>Anpassungen können nicht durchgeführt werden. Die Datei &apos;%1&apos; existiert nicht.</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="956"/>
@@ -266,7 +266,7 @@ Bitte stellen Sie sicher, dass &apos;Raspberry Pi Imager&apos; Zugriff auf &apos
     <message>
         <location filename="../imagewriter.cpp" line="893"/>
         <source>Would you like to prefill the wifi password from the system keychain?</source>
-        <translation type="unfinished"></translation>
+        <translation>Möchten Sie das WiFi-Passwort dieses Systems übernehmen?</translation>
     </message>
 </context>
 <context>
@@ -302,7 +302,7 @@ Bitte stellen Sie sicher, dass &apos;Raspberry Pi Imager&apos; Zugriff auf &apos
     <message>
         <location filename="../MsgPopup.qml" line="135"/>
         <source>QUIT</source>
-        <translation type="unfinished"></translation>
+        <translation>BEENDEN</translation>
     </message>
 </context>
 <context>
@@ -362,12 +362,12 @@ Bitte stellen Sie sicher, dass &apos;Raspberry Pi Imager&apos; Zugriff auf &apos
     <message>
         <location filename="../OptionsPopup.qml" line="158"/>
         <source>Set password for &apos;citadel&apos; user (will be changed during setup):</source>
-        <translation type="unfinished"></translation>
+        <translation>Passwort für &apos;citadel&apos; (Wird nach der Installation geändert):</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="199"/>
         <source>Set authorized_keys for &apos;citadel&apos;:</source>
-        <translation type="unfinished"></translation>
+        <translation>authorized_keys für &apos;citadel&apos;:</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="211"/>
@@ -574,22 +574,22 @@ Bitte stellen Sie sicher, dass &apos;Raspberry Pi Imager&apos; Zugriff auf &apos
     <message>
         <location filename="../main.qml" line="23"/>
         <source>Citadel Pi Imager v%1</source>
-        <translation type="unfinished"></translation>
+        <translation>Citadel Pi Imager v%1</translation>
     </message>
     <message>
         <location filename="../main.qml" line="145"/>
         <source>Select additional options</source>
-        <translation type="unfinished"></translation>
+        <translation>Erweiterte Optionen auswählen</translation>
     </message>
     <message>
         <location filename="../main.qml" line="157"/>
         <source>CONFIGURE</source>
-        <translation type="unfinished"></translation>
+        <translation>ANPASSEN</translation>
     </message>
     <message>
         <location filename="../main.qml" line="171"/>
         <source>Select this button to change operating system settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Klicke auf diesen Knopf, um die Betriebssystemseinstellungen zu ädern</translation>
     </message>
     <message>
         <location filename="../main.qml" line="209"/>
