@@ -665,7 +665,7 @@ bool ImageWriter::mountUsbSourceMedia()
     if (!dir.exists("/media"))
         dir.mkdir("/media");
 
-    for (auto devname : list)
+    for (const auto &devname : qAsConst(list))
     {
         if (!devname.startsWith("mmcblk0") && !QFile::symLinkTarget("/sys/class/block/"+devname).contains("/devices/virtual/"))
         {
@@ -698,11 +698,11 @@ QByteArray ImageWriter::getUsbSourceOSlist()
     QStringList medialist = dir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
     QStringList namefilters = {"*.img", "*.zip", "*.gz", "*.xz"};
 
-    for (auto devname : medialist)
+    for (const auto &devname : qAsConst(medialist))
     {
         QDir subdir("/media/"+devname);
         QStringList files = subdir.entryList(namefilters, QDir::Files, QDir::Name);
-        for (auto file : files)
+        for (const auto &file : qAsConst(files))
         {
             QString path = "/media/"+devname+"/"+file;
             QFileInfo fi(path);
@@ -806,7 +806,7 @@ QString ImageWriter::getSSID()
             QRegExp rx(regexpstr);
             QList<QByteArray> outputlines = proc.readAll().replace('\r', "").split('\n');
 
-            for (QByteArray line : outputlines) {
+            for (const QByteArray &line : qAsConst(outputlines)) {
                 if (rx.indexIn(line) != -1)
                 {
                     ssid = rx.cap(1);
@@ -974,8 +974,8 @@ void ImageWriter::setSavedCustomizationSettings(const QVariantMap &map)
 {
     _settings.beginGroup("imagecustomization");
     _settings.remove("");
-    for (QString key : map.keys()) {
-        _settings.setValue(key, map.value(key));
+    for (QVariantMap::const_iterator it = map.cbegin(), end = map.cend(); it != end; ++it) {
+        _settings.setValue(it.key(), it.value());
     }
     _settings.endGroup();
 }
@@ -985,8 +985,8 @@ QVariantMap ImageWriter::getSavedCustomizationSettings()
     QVariantMap result;
 
     _settings.beginGroup("imagecustomization");
-    for (QString key : _settings.childKeys()) {
-        result.insert(key, _settings.value(key));
+    for (QVariantMap::const_iterator it = result.cbegin(), end = result.cend(); it != end; ++it) {
+        result.insert(it.key(), _settings.value(it.key()));
     }
     _settings.endGroup();
 

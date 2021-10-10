@@ -1,0 +1,9 @@
+[
+    {
+        "name": "Clazy (C++) & Clang (C)",
+        "compilers": {
+            "CC": "/usr/bin/clang",
+            "CXX": "/usr/local/bin/clazy"
+        }
+    }
+]

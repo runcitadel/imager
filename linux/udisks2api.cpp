@@ -71,7 +71,7 @@ void UDisks2Api::_unmountDrive(const QString &driveDbusPath)
     if (!manager.isValid() || !list.isValid())
         return;
 
-    for (auto devpath : list.value())
+    for (const auto & devpath : list.value())
     {
         QString devpathStr = devpath.path();
 

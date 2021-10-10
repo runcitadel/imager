@@ -355,7 +355,7 @@ void DownloadExtractThread::extractMultiFileRun()
             _cachefile.remove();
 
         qDebug() << "Deleting extracted files";
-        for (auto filename : filesExtracted)
+        for (const auto & filename : filesExtracted)
         {
             QFileInfo fi(filename);
             QString path = fi.path();
