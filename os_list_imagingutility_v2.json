@@ -7,7 +7,7 @@
         {
             "name": "Citadel OS",
             "description": "The operating system for Citadel nodes",
-            "icon": "https://raw.githubusercontent.com/runcitadel/citadel/main/dark-logo-glyph.png",
+            "icon": "https://raw.githubusercontent.com/runcitadel/citadel/main/light-logo-glyph.png",
             "url": "https://downloads.raspberrypi.org/raspios_armhf/images/raspios_armhf-2021-05-28/2021-05-07-raspios-buster-armhf.zip",
             "extract_size": 3980394496,
             "extract_sha256": "4467155be4f15327ae8ae389f5cf5ed8c9beb35f9c451227952a6db22d539548",
