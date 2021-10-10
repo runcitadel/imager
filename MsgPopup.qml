@@ -99,8 +99,8 @@ Popup {
                     msgpopup.close()
                     msgpopup.no()
                 }
-                Material.foreground: "#ffffff"
-                Material.background: "#c51a4a"
+                Material.foreground: "#000"
+                Material.background: "#fff"
                 font.family: roboto.name
                 visible: msgpopup.noButton
                 Accessible.onPressAction: clicked()
@@ -112,8 +112,8 @@ Popup {
                     msgpopup.close()
                     msgpopup.yes()
                 }
-                Material.foreground: "#ffffff"
-                Material.background: "#c51a4a"
+                Material.foreground: "#000"
+                Material.background: "#fff"
                 font.family: roboto.name
                 visible: msgpopup.yesButton
                 Accessible.onPressAction: clicked()
@@ -124,8 +124,8 @@ Popup {
                 onClicked: {
                     msgpopup.close()
                 }
-                Material.foreground: "#ffffff"
-                Material.background: "#c51a4a"
+                Material.foreground: "#000"
+                Material.background: "#fff"
                 font.family: roboto.name
                 visible: msgpopup.continueButton
                 Accessible.onPressAction: clicked()
@@ -136,8 +136,8 @@ Popup {
                 onClicked: {
                     Qt.quit()
                 }
-                Material.foreground: "#ffffff"
-                Material.background: "#c51a4a"
+                Material.foreground: "#000"
+                Material.background: "#fff"
                 font.family: roboto.name
                 visible: msgpopup.quitButton
                 Accessible.onPressAction: clicked()

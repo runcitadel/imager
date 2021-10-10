@@ -96,8 +96,8 @@ Popup {
                     msgpopup.close()
                     msgpopup.no()
                 }
-                Material.foreground: "#ffffff"
-                Material.background: "#c51a4a"
+                Material.foreground: "#000"
+                Material.background: "#fff"
                 font.family: roboto.name
                 Accessible.onPressAction: clicked()
             }
@@ -108,8 +108,8 @@ Popup {
                     msgpopup.close()
                     msgpopup.yes()
                 }
-                Material.foreground: "#ffffff"
-                Material.background: "#c51a4a"
+                Material.foreground: "#000"
+                Material.background: "#fff"
                 font.family: roboto.name
                 Accessible.onPressAction: clicked()
             }
@@ -120,8 +120,8 @@ Popup {
                     msgpopup.close()
                     msgpopup.editSettings()
                 }
-                Material.foreground: "#ffffff"
-                Material.background: "#c51a4a"
+                Material.foreground: "#000"
+                Material.background: "#fff"
                 font.family: roboto.name
                 Accessible.onPressAction: clicked()
             }

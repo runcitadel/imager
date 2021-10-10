@@ -364,8 +364,8 @@ Popup {
                     saveSettings()
                     popup.close()
                 }
-                Material.foreground: "#ffffff"
-                Material.background: "#c51a4a"
+                Material.foreground: "#000"
+                Material.background: "#fff"
                 font.family: roboto.name
                 Accessible.onPressAction: clicked()
             }
