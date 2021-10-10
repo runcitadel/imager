@@ -13,11 +13,11 @@ ApplicationWindow {
     id: window
     visible: true
 
-    width: imageWriter.isEmbeddedMode() ? -1 : 880
-    height: imageWriter.isEmbeddedMode() ? -1 : 620
-    minimumWidth: imageWriter.isEmbeddedMode() ? -1 : 680
+    width: imageWriter.isEmbeddedMode() ? -1 : 780
+    height: imageWriter.isEmbeddedMode() ? -1 : 520
+    minimumWidth: imageWriter.isEmbeddedMode() ? -1 : 780
     //maximumWidth: imageWriter.isEmbeddedMode() ? -1 : 680
-    minimumHeight: imageWriter.isEmbeddedMode() ? -1 : 420
+    minimumHeight: imageWriter.isEmbeddedMode() ? -1 : 520
     //maximumHeight: imageWriter.isEmbeddedMode() ? -1 : 420
 
     title: qsTr("Raspberry Pi Imager v%1").arg(imageWriter.constantVersion())
@@ -59,8 +59,8 @@ ApplicationWindow {
             visible: true
             Layout.fillWidth: true
             width: window.width
-            height: window.height * 61.8 / 100
-            implicitHeight: window.height * 61.8 / 100
+            height: window.height * 80 / 100
+            implicitHeight: window.height * 80 / 100
             color: "#3E3E3E"
 
             Image {
@@ -70,7 +70,7 @@ ApplicationWindow {
                 fillMode: Image.PreserveAspectFit
                 source: "icons/dark-logo-stacked.svg"
                 width: window.width
-                height: window.height * 40 / 100
+                height: window.height * 45 / 100
                 anchors.centerIn: parent
             }
         }
@@ -78,7 +78,7 @@ ApplicationWindow {
         Rectangle {
             color: "#3E3E3E"
             implicitWidth: window.width
-            implicitHeight: window.height * 38.2 / 100
+            implicitHeight: window.height * 20 / 100
 
             GridLayout {
                 anchors.centerIn: parent
