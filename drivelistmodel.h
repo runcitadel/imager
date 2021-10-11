@@ -28,7 +28,7 @@ public:
     };
 
 public slots:
-    void processDriveList(std::vector<Drivelist::DeviceDescriptor> l);
+    void processDriveList(const std::vector<Drivelist::DeviceDescriptor>& l);
 
 protected:
     QMap<QString,DriveListItem *> _drivelist;

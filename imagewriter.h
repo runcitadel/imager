@@ -132,13 +132,13 @@ protected slots:
     void pollNetwork();
     void syncTime();
     void onSuccess();
-    void onError(QString msg);
-    void onFileSelected(QString filename);
+    void onError(const QString& msg);
+    void onFileSelected(const QString& filename);
     void onCancelled();
-    void onCacheFileUpdated(QByteArray sha256);
+    void onCacheFileUpdated(const QByteArray& sha256);
     void onFinalizing();
     void onTimeSyncReply(QNetworkReply *reply);
-    void onPreparationStatusUpdate(QString msg);
+    void onPreparationStatusUpdate(const QString& msg);
 
 protected:
     QUrl _src, _repo;

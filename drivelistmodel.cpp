@@ -49,7 +49,7 @@ QVariant DriveListModel::data(const QModelIndex &index, int role) const
         return _drivelist.values().at(row)->property(propertyName);
 }
 
-void DriveListModel::processDriveList(std::vector<Drivelist::DeviceDescriptor> l)
+void DriveListModel::processDriveList(const std::vector<Drivelist::DeviceDescriptor>& l)
 {
     bool changes = false;
     bool filterSystemDrives = DRIVELIST_FILTER_SYSTEM_DRIVES;

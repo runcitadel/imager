@@ -22,15 +22,15 @@ protected:
     QByteArray _lastMsg;
     bool _quiet;
 
-    void _printProgress(const QByteArray &msg, QVariant now, QVariant total);
+    void _printProgress(const QByteArray &msg, const QVariant& now, const QVariant& total);
     void _clearLine();
 
 protected slots:
     void onSuccess();
-    void onError(QVariant msg);
+    void onError(const QVariant& msg);
     void onDownloadProgress(QVariant dlnow, QVariant dltotal);
     void onVerifyProgress(QVariant now, QVariant total);
-    void onPreparationStatusUpdate(QVariant msg);
+    void onPreparationStatusUpdate(const QVariant& msg);
 
 signals:
 

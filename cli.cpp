@@ -4,13 +4,14 @@
  */
 
 #include "cli.h"
-#include "imagewriter.h"
-#include <iostream>
-#include <QCoreApplication>
-#include <QCommandLineParser>
-#include <QFileInfo>
-#include "drivelistmodel.h"
 #include "dependencies/drivelist/src/drivelist.hpp"
+#include "drivelistmodel.h"
+#include "imagewriter.h"
+#include <QCommandLineParser>
+#include <QCoreApplication>
+#include <QFileInfo>
+#include <iostream>
+#include <utility>
 
 /* Message handler to discard qDebug() output if using cli (unless --debug is set) */
 static void devnullMsgHandler(QtMsgType, const QMessageLogContext &, const QString &)
@@ -165,7 +166,7 @@ void Cli::_clearLine()
     std::cerr << "                                          \r";
 }
 
-void Cli::onError(QVariant msg)
+void Cli::onError(const QVariant& msg)
 {
     QByteArray m = msg.toByteArray();
 
@@ -179,15 +180,15 @@ void Cli::onError(QVariant msg)
 
 void Cli::onDownloadProgress(QVariant dlnow, QVariant dltotal)
 {
-    _printProgress("Writing",  dlnow, dltotal);
+    _printProgress("Writing",  std::move(dlnow), std::move(dltotal));
 }
 
 void Cli::onVerifyProgress(QVariant now, QVariant total)
 {
-    _printProgress("Verifying", now, total);
+    _printProgress("Verifying", std::move(now), std::move(total));
 }
 
-void Cli::onPreparationStatusUpdate(QVariant msg)
+void Cli::onPreparationStatusUpdate(const QVariant& msg)
 {
     if (!_quiet)
     {
@@ -197,7 +198,7 @@ void Cli::onPreparationStatusUpdate(QVariant msg)
     }
 }
 
-void Cli::_printProgress(const QByteArray &msg, QVariant now, QVariant total)
+void Cli::_printProgress(const QByteArray &msg, const QVariant& now, const QVariant& total)
 {
     if (_quiet)
         return;

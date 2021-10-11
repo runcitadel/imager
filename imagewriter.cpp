@@ -31,8 +31,9 @@
 #include <QDebug>
 #include <QVersionNumber>
 #ifndef QT_NO_WIDGETS
-#include <QFileDialog>
 #include <QApplication>
+#include <QFileDialog>
+#include <utility>
 #endif
 #ifdef Q_OS_DARWIN
 #include <QtNetwork>
@@ -142,10 +143,10 @@ void ImageWriter::setSrc(const QUrl &url, quint64 downloadLen, quint64 extrLen, 
     _src = url;
     _downloadLen = downloadLen;
     _extrLen = extrLen;
-    _expectedHash = expectedHash;
+    _expectedHash = std::move(expectedHash);
     _multipleFilesInZip = multifilesinzip;
-    _parentCategory = parentcategory;
-    _osName = osname;
+    _parentCategory = std::move(parentcategory);
+    _osName = std::move(osname);
 
     if (!_downloadLen && url.isLocalFile())
     {
@@ -280,7 +281,7 @@ void ImageWriter::startWrite()
     startProgressPolling();
 }
 
-void ImageWriter::onCacheFileUpdated(QByteArray sha256)
+void ImageWriter::onCacheFileUpdated(const QByteArray& sha256)
 {
     _settings.setValue("caching/lastDownloadSHA256", sha256);
     _settings.sync();
@@ -474,7 +475,7 @@ void ImageWriter::onSuccess()
 #endif
 }
 
-void ImageWriter::onError(QString msg)
+void ImageWriter::onError(const QString& msg)
 {
     stopProgressPolling();
     emit error(msg);
@@ -491,7 +492,7 @@ void ImageWriter::onFinalizing()
     emit finalizing();
 }
 
-void ImageWriter::onPreparationStatusUpdate(QString msg)
+void ImageWriter::onPreparationStatusUpdate(const QString& msg)
 {
     emit preparationStatusUpdate(msg);
 }
@@ -526,7 +527,7 @@ void ImageWriter::openFileDialog()
 #endif
 }
 
-void ImageWriter::onFileSelected(QString filename)
+void ImageWriter::onFileSelected(const QString& filename)
 {
 #ifndef QT_NO_WIDGETS
     QFileInfo fi(filename);
@@ -1009,7 +1010,7 @@ bool ImageWriter::hasSavedCustomizationSettings()
     return result;
 }
 
-void MountUtilsLog(std::string msg) {
+void MountUtilsLog(const std::string& msg) {
     Q_UNUSED(msg)
     //qDebug() << "mountutils:" << msg.c_str();
 }
