@@ -2,6 +2,7 @@
     <qresource prefix="/i18n">
         <file>citadel-imager_de.qm</file>
         <file>citadel-imager_en.qm</file>
+        <file>citadel-imager_es.qm</file>
         <file>citadel-imager_fr.qm</file>
         <file>citadel-imager_it.qm</file>
         <file>citadel-imager_nl.qm</file>
