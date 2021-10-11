@@ -1,3 +1,0 @@
-[submodule "dependencies/mountutils"]
-	path = dependencies/mountutils
-	url = https://github.com/balena-io-modules/mountutils.git
