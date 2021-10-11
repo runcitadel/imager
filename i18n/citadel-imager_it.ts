@@ -80,7 +80,7 @@
     <message>
         <location filename="../downloadthread.cpp" line="403"/>
         <source>Controlled Folder Access seems to be enabled. Please add both citadel-imager.exe and fat32format.exe to the list of allowed apps and try again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sembra sia abilitato l&apos;accesso controllato alle cartelle.&lt;br&gt;Aggiungi sia &apos;rpi-imager.exe&apos; che &apos;fat32format.exe&apos; all&apos;elenco delle app consentite e riprova.</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="740"/>
@@ -105,7 +105,7 @@
     <message>
         <location filename="../downloadthread.cpp" line="952"/>
         <source>Unable to customize. File &apos;%1&apos; does not exist.</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossibile personalizzzare. &apos;%1&apos; del file non esiste.</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="956"/>
@@ -268,7 +268,7 @@ Aggiungi sia &apos;rpi-imager.exe&apos; che &apos;fat32format.exe&apos; all&apos
     <message>
         <location filename="../imagewriter.cpp" line="893"/>
         <source>Would you like to prefill the wifi password from the system keychain?</source>
-        <translation type="unfinished"></translation>
+        <translation>Vuoi impostare la password del wifi dal tuo portachiavi?</translation>
     </message>
 </context>
 <context>
@@ -304,7 +304,7 @@ Aggiungi sia &apos;rpi-imager.exe&apos; che &apos;fat32format.exe&apos; all&apos
     <message>
         <location filename="../MsgPopup.qml" line="135"/>
         <source>QUIT</source>
-        <translation type="unfinished"></translation>
+        <translation>CHIUDI</translation>
     </message>
 </context>
 <context>
@@ -364,12 +364,12 @@ Aggiungi sia &apos;rpi-imager.exe&apos; che &apos;fat32format.exe&apos; all&apos
     <message>
         <location filename="../OptionsPopup.qml" line="158"/>
         <source>Set password for &apos;citadel&apos; user (will be changed during setup):</source>
-        <translation type="unfinished"></translation>
+        <translation>Imposta la password per l&apos;utente &apos;citadel&apos; (verrà cambiata durante l&apos;installazione)</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="199"/>
         <source>Set authorized_keys for &apos;citadel&apos;:</source>
-        <translation type="unfinished"></translation>
+        <translation>Imposta le chiavi di autorizzazione (authrozied_keys) per l&apos;utente &apos;citadel&apos;</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="211"/>
@@ -576,22 +576,22 @@ Aggiungi sia &apos;rpi-imager.exe&apos; che &apos;fat32format.exe&apos; all&apos
     <message>
         <location filename="../main.qml" line="23"/>
         <source>Citadel Pi Imager v%1</source>
-        <translation type="unfinished"></translation>
+        <translation>Citadel Pi Imager v%1</translation>
     </message>
     <message>
         <location filename="../main.qml" line="145"/>
         <source>Select additional options</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleziona opzioni aggiuntive</translation>
     </message>
     <message>
         <location filename="../main.qml" line="157"/>
         <source>CONFIGURE</source>
-        <translation type="unfinished"></translation>
+        <translation>CONFIGURA</translation>
     </message>
     <message>
         <location filename="../main.qml" line="171"/>
         <source>Select this button to change operating system settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Seleziona questo pulsante per cambiare le impostazioni del sistema operativo</translation>
     </message>
     <message>
         <location filename="../main.qml" line="209"/>
