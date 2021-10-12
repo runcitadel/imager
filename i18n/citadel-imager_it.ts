@@ -4,28 +4,28 @@
 <context>
     <name>DownloadExtractThread</name>
     <message>
-        <location filename="../downloadextractthread.cpp" line="167"/>
+        <location filename="../downloadextractthread.cpp" line="173"/>
         <source>Error writing to storage</source>
         <translation>Errore scrittura nello storage</translation>
     </message>
     <message>
-        <location filename="../downloadextractthread.cpp" line="189"/>
-        <location filename="../downloadextractthread.cpp" line="378"/>
+        <location filename="../downloadextractthread.cpp" line="196"/>
+        <location filename="../downloadextractthread.cpp" line="394"/>
         <source>Error extracting archive: %1</source>
         <translation>Errore estrazione archivio: %1</translation>
     </message>
     <message>
-        <location filename="../downloadextractthread.cpp" line="254"/>
+        <location filename="../downloadextractthread.cpp" line="264"/>
         <source>Error mounting FAT32 partition</source>
         <translation>Errore montaggio partizione FAT32</translation>
     </message>
     <message>
-        <location filename="../downloadextractthread.cpp" line="274"/>
+        <location filename="../downloadextractthread.cpp" line="285"/>
         <source>Operating system did not mount FAT32 partition</source>
         <translation>Il sistema operativo non ha montato la partizione FAT32</translation>
     </message>
     <message>
-        <location filename="../downloadextractthread.cpp" line="297"/>
+        <location filename="../downloadextractthread.cpp" line="310"/>
         <source>Error changing to directory &apos;%1&apos;</source>
         <translation>Errore passaggio a cartella &apos;%1&apos;</translation>
     </message>
@@ -33,102 +33,102 @@
 <context>
     <name>DownloadThread</name>
     <message>
-        <location filename="../downloadthread.cpp" line="146"/>
+        <location filename="../downloadthread.cpp" line="155"/>
         <source>Error running diskpart: %1</source>
         <translation>Errore esecuzione diskpart: %1</translation>
     </message>
     <message>
-        <location filename="../downloadthread.cpp" line="167"/>
+        <location filename="../downloadthread.cpp" line="176"/>
         <source>Error removing existing partitions</source>
         <translation>Errore rimozione partizioni esistenti</translation>
     </message>
     <message>
-        <location filename="../downloadthread.cpp" line="193"/>
+        <location filename="../downloadthread.cpp" line="203"/>
         <source>Authentication cancelled</source>
         <translation>Autenticazione annullata</translation>
     </message>
     <message>
-        <location filename="../downloadthread.cpp" line="196"/>
+        <location filename="../downloadthread.cpp" line="208"/>
         <source>Error running authopen to gain access to disk device &apos;%1&apos;</source>
         <translation>Errore esecuzione auhopen per ottenere accesso al dispositivo disco %1</translation>
     </message>
     <message>
-        <location filename="../downloadthread.cpp" line="197"/>
+        <location filename="../downloadthread.cpp" line="209"/>
         <source>Please verify if &apos;Raspberry Pi Imager&apos; is allowed access to &apos;removable volumes&apos; in privacy settings (under &apos;files and folders&apos; or alternatively give it &apos;full disk access&apos;).</source>
         <translation>Verifica se a &apos;Raspberry Pi Imager&apos; è consentito l&apos;accesso a &apos;volumi rimovibili&apos; nelle impostazioni privacy (in &apos;file e cartelle&apos; o in alternativa concedi &apos;accesso completo al disco&apos;).</translation>
     </message>
     <message>
-        <location filename="../downloadthread.cpp" line="218"/>
+        <location filename="../downloadthread.cpp" line="230"/>
         <source>Cannot open storage device &apos;%1&apos;.</source>
         <translation>Impossibile aprire dispositivo storage &apos;%1&apos;.</translation>
     </message>
     <message>
-        <location filename="../downloadthread.cpp" line="260"/>
+        <location filename="../downloadthread.cpp" line="278"/>
         <source>discarding existing data on drive</source>
         <translation>elimina i dati esistenti nell&apos;unità</translation>
     </message>
     <message>
-        <location filename="../downloadthread.cpp" line="280"/>
+        <location filename="../downloadthread.cpp" line="298"/>
         <source>zeroing out first and last MB of drive</source>
         <translation>azzera il primo e l&apos;ultimo MB dell&apos;unità</translation>
     </message>
     <message>
-        <location filename="../downloadthread.cpp" line="286"/>
+        <location filename="../downloadthread.cpp" line="304"/>
         <source>Write error while zero&apos;ing out MBR</source>
         <translation>Errore scrittura durante azzeramento MBR</translation>
     </message>
     <message>
-        <location filename="../downloadthread.cpp" line="403"/>
+        <location filename="../downloadthread.cpp" line="424"/>
         <source>Controlled Folder Access seems to be enabled. Please add both citadel-imager.exe and fat32format.exe to the list of allowed apps and try again.</source>
         <translation>Sembra sia abilitato l&apos;accesso controllato alle cartelle.&lt;br&gt;Aggiungi sia &apos;rpi-imager.exe&apos; che &apos;fat32format.exe&apos; all&apos;elenco delle app consentite e riprova.</translation>
     </message>
     <message>
-        <location filename="../downloadthread.cpp" line="740"/>
+        <location filename="../downloadthread.cpp" line="785"/>
         <source>Error reading from storage.&lt;br&gt;SD card may be broken.</source>
         <translation>Errore lettura dallo storage.&lt;br&gt;La scheda SD potrebbe essere danneggiata.</translation>
     </message>
     <message>
-        <location filename="../downloadthread.cpp" line="813"/>
+        <location filename="../downloadthread.cpp" line="862"/>
         <source>Waiting for FAT partition to be mounted</source>
         <translation>Attesa montaggio partizione FAT</translation>
     </message>
     <message>
-        <location filename="../downloadthread.cpp" line="897"/>
+        <location filename="../downloadthread.cpp" line="952"/>
         <source>Error mounting FAT32 partition</source>
         <translation>Errore montaggio partizione FAT32</translation>
     </message>
     <message>
-        <location filename="../downloadthread.cpp" line="919"/>
+        <location filename="../downloadthread.cpp" line="975"/>
         <source>Operating system did not mount FAT32 partition</source>
         <translation>Il sistema operativo non ha montato la partizione FAT32</translation>
     </message>
     <message>
-        <location filename="../downloadthread.cpp" line="952"/>
+        <location filename="../downloadthread.cpp" line="1012"/>
         <source>Unable to customize. File &apos;%1&apos; does not exist.</source>
         <translation>Impossibile personalizzzare. &apos;%1&apos; del file non esiste.</translation>
     </message>
     <message>
-        <location filename="../downloadthread.cpp" line="956"/>
+        <location filename="../downloadthread.cpp" line="1016"/>
         <source>Customizing image</source>
         <translation>Personalizza immagine</translation>
     </message>
     <message>
-        <location filename="../downloadthread.cpp" line="967"/>
+        <location filename="../downloadthread.cpp" line="1027"/>
         <source>Error creating firstrun.sh on FAT partition</source>
         <translation>Errore creazione firstrun.sh nella partizione FAT</translation>
     </message>
     <message>
-        <location filename="../downloadthread.cpp" line="1007"/>
+        <location filename="../downloadthread.cpp" line="1076"/>
         <source>Error writing to config.txt on FAT partition</source>
         <translation>Errore scrittura in config.txt nella partizione FAT</translation>
     </message>
     <message>
-        <location filename="../downloadthread.cpp" line="1030"/>
+        <location filename="../downloadthread.cpp" line="1099"/>
         <source>Error writing to cmdline.txt on FAT partition</source>
         <translation>Errore scrittura in cmdline.txt nella partizione FAT</translation>
     </message>
     <message>
-        <location filename="../downloadthread.cpp" line="398"/>
+        <location filename="../downloadthread.cpp" line="419"/>
         <source>Access denied error while writing file to disk.</source>
         <translation>Errore accesso negato durante la scrittura del file su disco.</translation>
     </message>
@@ -138,52 +138,52 @@
 Aggiungi sia &apos;rpi-imager.exe&apos; che &apos;fat32format.exe&apos; all&apos;elenco delle app consentite e riprova.</translation>
     </message>
     <message>
-        <location filename="../downloadthread.cpp" line="409"/>
+        <location filename="../downloadthread.cpp" line="430"/>
         <source>Error writing file to disk</source>
         <translation>Errore scrittura file su disco</translation>
     </message>
     <message>
-        <location filename="../downloadthread.cpp" line="428"/>
+        <location filename="../downloadthread.cpp" line="455"/>
         <source>Error downloading: %1</source>
         <translation>Errore download: %1</translation>
     </message>
     <message>
-        <location filename="../downloadthread.cpp" line="647"/>
+        <location filename="../downloadthread.cpp" line="685"/>
         <source>Error writing to storage (while flushing)</source>
         <translation>Errore scrittura nello storage (durante flushing)</translation>
     </message>
     <message>
-        <location filename="../downloadthread.cpp" line="654"/>
+        <location filename="../downloadthread.cpp" line="693"/>
         <source>Error writing to storage (while fsync)</source>
         <translation>Errore scrittura nello storage (durante fsync)</translation>
     </message>
     <message>
-        <location filename="../downloadthread.cpp" line="635"/>
+        <location filename="../downloadthread.cpp" line="673"/>
         <source>Download corrupt. Hash does not match</source>
         <translation>Download corrotto.&lt;br&gt;L&apos;hash non corrisponde</translation>
     </message>
     <message>
-        <location filename="../downloadthread.cpp" line="113"/>
+        <location filename="../downloadthread.cpp" line="121"/>
         <source>opening drive</source>
         <translation>apertura unità</translation>
     </message>
     <message>
-        <location filename="../downloadthread.cpp" line="298"/>
+        <location filename="../downloadthread.cpp" line="313"/>
         <source>Write error while trying to zero out last part of card.&lt;br&gt;Card could be advertising wrong capacity (possible counterfeit).</source>
         <translation>Errore di scrittura durante il tentativo di azzerare l&apos;ultima parte della scheda.&lt;br&gt;La scheda potrebbe riportare una capacità maggiore di quella reale (possibile contraffazione).</translation>
     </message>
     <message>
-        <location filename="../downloadthread.cpp" line="356"/>
+        <location filename="../downloadthread.cpp" line="377"/>
         <source>starting download</source>
         <translation>avvio download</translation>
     </message>
     <message>
-        <location filename="../downloadthread.cpp" line="680"/>
+        <location filename="../downloadthread.cpp" line="719"/>
         <source>Error writing first block (partition table)</source>
         <translation>Errore scrittura primo blocco (tabella partizione)</translation>
     </message>
     <message>
-        <location filename="../downloadthread.cpp" line="759"/>
+        <location filename="../downloadthread.cpp" line="803"/>
         <source>Verifying write failed. Contents of SD card is different from what was written to it.</source>
         <translation>Verifica scrittura fallita.&lt;br&gt;Il contenuto della SD è differente da quello che vi è stato scritto.</translation>
     </message>
@@ -192,8 +192,8 @@ Aggiungi sia &apos;rpi-imager.exe&apos; che &apos;fat32format.exe&apos; all&apos
     <name>DriveFormatThread</name>
     <message>
         <location filename="../driveformatthread.cpp" line="63"/>
-        <location filename="../driveformatthread.cpp" line="124"/>
-        <location filename="../driveformatthread.cpp" line="185"/>
+        <location filename="../driveformatthread.cpp" line="127"/>
+        <location filename="../driveformatthread.cpp" line="191"/>
         <source>Error partitioning: %1</source>
         <translation>Errore partizionamento: %1</translation>
     </message>
@@ -218,27 +218,27 @@ Aggiungi sia &apos;rpi-imager.exe&apos; che &apos;fat32format.exe&apos; all&apos
         <translation>Dispositivo non valido: %1</translation>
     </message>
     <message>
-        <location filename="../driveformatthread.cpp" line="146"/>
+        <location filename="../driveformatthread.cpp" line="149"/>
         <source>Error formatting (through udisks2)</source>
         <translation>Errore formattazione (attraverso udisk2)</translation>
     </message>
     <message>
-        <location filename="../driveformatthread.cpp" line="174"/>
+        <location filename="../driveformatthread.cpp" line="180"/>
         <source>Error starting sfdisk</source>
         <translation>Errore avvio sfdisk</translation>
     </message>
     <message>
-        <location filename="../driveformatthread.cpp" line="196"/>
+        <location filename="../driveformatthread.cpp" line="202"/>
         <source>Error starting mkfs.fat</source>
         <translation>Errore avvio mkfs.fat</translation>
     </message>
     <message>
-        <location filename="../driveformatthread.cpp" line="206"/>
+        <location filename="../driveformatthread.cpp" line="212"/>
         <source>Error running mkfs.fat: %1</source>
         <translation>Errore esecuzione mkfs.fat: %1</translation>
     </message>
     <message>
-        <location filename="../driveformatthread.cpp" line="213"/>
+        <location filename="../driveformatthread.cpp" line="219"/>
         <source>Formatting not implemented for this platform</source>
         <translation>Formattazione non implementata per questa piattaforma</translation>
     </message>
@@ -246,27 +246,27 @@ Aggiungi sia &apos;rpi-imager.exe&apos; che &apos;fat32format.exe&apos; all&apos
 <context>
     <name>ImageWriter</name>
     <message>
-        <location filename="../imagewriter.cpp" line="198"/>
+        <location filename="../imagewriter.cpp" line="201"/>
         <source>Storage capacity is not large enough.&lt;br&gt;Needs to be at least %1 GB.</source>
         <translation>La capacità dello storage non è sufficiente.&lt;br&gt;Sono necessari almeno %1 GB.</translation>
     </message>
     <message>
-        <location filename="../imagewriter.cpp" line="204"/>
+        <location filename="../imagewriter.cpp" line="207"/>
         <source>Input file is not a valid disk image.&lt;br&gt;File size %1 bytes is not a multiple of 512 bytes.</source>
         <translation>Il file sorgente non è un&apos;immagine disco valida.&lt;br&gt;La dimensione file %1 non è un multiplo di 512 byte.</translation>
     </message>
     <message>
-        <location filename="../imagewriter.cpp" line="376"/>
+        <location filename="../imagewriter.cpp" line="379"/>
         <source>Downloading and writing image</source>
         <translation>Download e scrittura file immagine</translation>
     </message>
     <message>
-        <location filename="../imagewriter.cpp" line="509"/>
+        <location filename="../imagewriter.cpp" line="522"/>
         <source>Select image</source>
         <translation>Seleziona file immagine</translation>
     </message>
     <message>
-        <location filename="../imagewriter.cpp" line="893"/>
+        <location filename="../imagewriter.cpp" line="921"/>
         <source>Would you like to prefill the wifi password from the system keychain?</source>
         <translation>Vuoi impostare la password del wifi dal tuo portachiavi?</translation>
     </message>
@@ -274,12 +274,12 @@ Aggiungi sia &apos;rpi-imager.exe&apos; che &apos;fat32format.exe&apos; all&apos
 <context>
     <name>LocalFileExtractThread</name>
     <message>
-        <location filename="../localfileextractthread.cpp" line="34"/>
+        <location filename="../localfileextractthread.cpp" line="36"/>
         <source>opening image file</source>
         <translation>apertura file immagine</translation>
     </message>
     <message>
-        <location filename="../localfileextractthread.cpp" line="39"/>
+        <location filename="../localfileextractthread.cpp" line="41"/>
         <source>Error opening image file</source>
         <translation>Errore durante l&apos;apertura del file immagine</translation>
     </message>
@@ -443,7 +443,7 @@ Aggiungi sia &apos;rpi-imager.exe&apos; che &apos;fat32format.exe&apos; all&apos
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../linux/linuxdrivelist.cpp" line="111"/>
+        <location filename="../linux/linuxdrivelist.cpp" line="112"/>
         <source>Internal SD card reader</source>
         <translation>Lettore scheda SD interno</translation>
     </message>
