@@ -17,6 +17,7 @@ add_compile_definitions(QT_DISABLE_DEPRECATED_BEFORE=0x050F00)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
+set(CMAKE_CXX_STANDARD 20)
 
 # Adding headers explicity so they are displayed in Qt Creator
 set(HEADERS config.h imagewriter.h networkaccessmanagerfactory.h nan.h drivelistitem.h drivelistmodel.h drivelistmodelpollthread.h driveformatthread.h powersaveblocker.h cli.h

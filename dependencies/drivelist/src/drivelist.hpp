@@ -54,8 +54,8 @@ struct DeviceDescriptor {
   bool isUASNull;
 };
 
-std::vector<DeviceDescriptor> ListStorageDevices();
-v8::Local<v8::Object> PackDriveDescriptor(const DeviceDescriptor *instance);
+auto ListStorageDevices() -> std::vector<DeviceDescriptor>;
+auto PackDriveDescriptor(const DeviceDescriptor *instance) -> v8::Local<v8::Object>;
 
 }  // namespace Drivelist
 

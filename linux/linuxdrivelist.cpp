@@ -36,14 +36,14 @@ namespace Drivelist
             }
 
             QJsonArray subca = child["children"].toArray();
-            if (subca.count())
+            if (subca.count() != 0)
             {
                 _walkStorageChildren(d, labels, subca);
             }
         }
     }
 
-    std::vector<Drivelist::DeviceDescriptor> ListStorageDevices()
+    auto ListStorageDevices() -> std::vector<Drivelist::DeviceDescriptor>
     {
         std::vector<DeviceDescriptor> deviceList;
 
@@ -53,7 +53,7 @@ namespace Drivelist
         p.waitForFinished(2000);
         QByteArray output = p.readAll();
 
-        if (p.exitStatus() != QProcess::NormalExit || p.exitCode() || output.isEmpty())
+        if (p.exitStatus() != QProcess::NormalExit || (p.exitCode() != 0) || output.isEmpty())
         {
             qDebug() << "Error executing lsblk";
             return deviceList;
@@ -67,12 +67,13 @@ namespace Drivelist
             QJsonObject bdev = i.toObject();
             QString name = bdev["kname"].toString();
             QString subsystems = bdev["subsystems"].toString();
-            if (name.startsWith("/dev/loop") || name.startsWith("/dev/sr") || name.startsWith("/dev/ram") || name.startsWith("/dev/zram") || name.isEmpty())
+            if (name.startsWith("/dev/loop") || name.startsWith("/dev/sr") || name.startsWith("/dev/ram") || name.startsWith("/dev/zram") || name.isEmpty()) {
                 continue;
+}
 
             d.busType    = bdev["busType"].toString().toStdString();
             d.device     = name.toStdString();
-            d.raw        = true;
+            d.raw        = 1u;
             d.isVirtual  = subsystems == "block";
             if (bdev["ro"].isBool())
             {
@@ -107,8 +108,9 @@ namespace Drivelist
             if (name == "/dev/mmcblk0")
             {
                 dp.removeAll("");
-                if (dp.empty())
+                if (dp.empty()) {
                     dp.append(QObject::tr("Internal SD card reader"));
+}
             }
 
             QString mp = bdev["mountpoint"].toString();
@@ -121,7 +123,7 @@ namespace Drivelist
             QJsonArray ca = bdev["children"].toArray();
             _walkStorageChildren(d, labels, ca);
 
-            if (labels.count()) {
+            if (labels.count() != 0) {
                 dp.append("("+labels.join(", ")+")");
             }
             dp.removeAll("");

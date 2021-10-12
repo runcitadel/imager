@@ -22,14 +22,16 @@ LocalFileExtractThread::~LocalFileExtractThread()
 void LocalFileExtractThread::_cancelExtract()
 {
     _cancelled = true;
-    if (_inputfile.isOpen())
+    if (_inputfile.isOpen()) {
         _inputfile.close();
+}
 }
 
 void LocalFileExtractThread::run()
 {
-    if (isImage() && !_openAndPrepareDevice())
+    if (isImage() && !_openAndPrepareDevice()) {
         return;
+}
 
     emit preparationStatusUpdate(tr("opening image file"));
     _timer.start();
@@ -42,19 +44,22 @@ void LocalFileExtractThread::run()
     }
     _lastDlTotal = _inputfile.size();
 
-    if (isImage())
+    if (isImage()) {
         extractImageRun();
-    else
+    } else {
         extractMultiFileRun();
-
-    if (_cancelled)
-        _closeFiles();
 }
 
-ssize_t LocalFileExtractThread::_on_read(struct archive *, const void **buff)
+    if (_cancelled) {
+        _closeFiles();
+}
+}
+
+auto LocalFileExtractThread::_on_read(struct archive * /*a*/, const void **buff) -> ssize_t
 {
-    if (_cancelled)
+    if (_cancelled) {
         return -1;
+}
 
     *buff = _inputBuf;
     ssize_t len = _inputfile.read(_inputBuf, IMAGEWRITER_UNCOMPRESSED_BLOCKSIZE);
@@ -71,7 +76,7 @@ ssize_t LocalFileExtractThread::_on_read(struct archive *, const void **buff)
     return len;
 }
 
-int LocalFileExtractThread::_on_close(struct archive *)
+auto LocalFileExtractThread::_on_close(struct archive * /*a*/) -> int
 {
     _inputfile.close();
     return 0;

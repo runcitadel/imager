@@ -10,14 +10,15 @@
 AcceleratedCryptographicHash::AcceleratedCryptographicHash(QCryptographicHash::Algorithm method)
 {
     if (method != QCryptographicHash::Sha256)
+    {
         throw std::runtime_error("Only sha256 implemented");
+    }
 
     SHA256_Init(&_sha256);
 }
 
 AcceleratedCryptographicHash::~AcceleratedCryptographicHash()
-{
-}
+= default;
 
 void AcceleratedCryptographicHash::addData(const char *data, int length)
 {
@@ -29,9 +30,9 @@ void AcceleratedCryptographicHash::addData(const QByteArray &data)
     addData(data.constData(), data.size());
 }
 
-QByteArray AcceleratedCryptographicHash::result()
+auto AcceleratedCryptographicHash::result() -> QByteArray
 {
     unsigned char binhash[SHA256_DIGEST_LENGTH];
     SHA256_Final(binhash, &_sha256);
-    return QByteArray((char *) binhash, sizeof binhash);
+    return QByteArray((char *)binhash, sizeof binhash);
 }

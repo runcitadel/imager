@@ -25,7 +25,7 @@ class ImageWriter : public QObject
     Q_OBJECT
 public:
     explicit ImageWriter(QObject *parent = nullptr);
-    virtual ~ImageWriter();
+    ~ImageWriter() override;
     void setEngine(QQmlApplicationEngine *engine);
 
     /* Set URL to download from, and if known download length and uncompressed length */
@@ -65,7 +65,7 @@ public:
     Q_INVOKABLE QUrl constantOsListUrl() const;
 
     /* Function to return version */
-    Q_INVOKABLE QString constantVersion() const;
+    Q_INVOKABLE static QString constantVersion();
 
     /* Returns true if version argument is newer than current program */
     Q_INVOKABLE bool isVersionNewer(const QString &version);
@@ -114,15 +114,15 @@ public:
 signals:
     /* We are emiting signals with QVariant as parameters because QML likes it that way */
 
-    void downloadProgress(QVariant dlnow, QVariant dltotal);
-    void verifyProgress(QVariant now, QVariant total);
-    void error(QVariant msg);
+    void downloadProgress(QVariant _t1, QVariant _t2);
+    void verifyProgress(QVariant _t1, QVariant _t2);
+    void error(QVariant _t1);
     void success();
-    void fileSelected(QVariant filename);
+    void fileSelected(QVariant _t1);
     void cancelled();
     void finalizing();
     void networkOnline();
-    void preparationStatusUpdate(QVariant msg);
+    void preparationStatusUpdate(QVariant _t1);
 
 protected slots:
 
@@ -144,13 +144,13 @@ protected:
     QUrl _src, _repo;
     QString _dst, _cacheFileName, _parentCategory, _osName;
     QByteArray _expectedHash, _cachedFileHash, _cmdline, _config, _firstrun;
-    quint64 _downloadLen, _extrLen, _devLen, _dlnow, _verifynow;
+    quint64 _downloadLen, _extrLen, _devLen, _dlnow{0}, _verifynow{0};
     DriveListModel _drivelist;
-    QQmlApplicationEngine *_engine;
+    QQmlApplicationEngine *_engine{nullptr};
     QTimer _polltimer, _networkchecktimer;
     PowerSaveBlocker _powersave;
-    DownloadThread *_thread;
-    bool _verifyEnabled, _multipleFilesInZip, _cachingEnabled, _embeddedMode, _online;
+    DownloadThread *_thread{nullptr};
+    bool _verifyEnabled{false}, _multipleFilesInZip, _cachingEnabled{false}, _embeddedMode{false}, _online{false};
     QSettings _settings;
 #ifdef Q_OS_WIN
     QWinTaskbarButton *_taskbarButton;

@@ -35,7 +35,7 @@ static void consoleMsgHandler(QtMsgType, const QMessageLogContext &, const QStri
 }
 #endif
 
-int main(int argc, char *argv[])
+auto main(int argc, char *argv[]) -> int
 {
     for (int i = 1; i < argc; i++)
     {
@@ -66,10 +66,10 @@ int main(int argc, char *argv[])
 #else
     QApplication app(argc, argv);
 #endif
-    app.setOrganizationName("Citadel");
-    app.setOrganizationDomain("runcitadel.space");
-    app.setApplicationName("Citadel Imager");
-    app.setWindowIcon(QIcon(":/icons/citadel-imager.ico"));
+    QApplication::setOrganizationName("Citadel");
+    QApplication::setOrganizationDomain("runcitadel.space");
+    QApplication::setApplicationName("Citadel Imager");
+    QApplication::setWindowIcon(QIcon(":/icons/citadel-imager.ico"));
     ImageWriter imageWriter;
     NetworkAccessManagerFactory namf;
     QQmlApplicationEngine engine;
@@ -80,7 +80,7 @@ int main(int argc, char *argv[])
     /* Parse commandline arguments (if any) */
     QString customRepo;
     QUrl url;
-    QStringList args = app.arguments();
+    QStringList args = QApplication::arguments();
     for (int i=1; i < args.size(); i++)
     {
         if (!args[i].startsWith("-") && url.isEmpty())
@@ -165,7 +165,7 @@ int main(int argc, char *argv[])
         }
         else if (args[i] == "--version")
         {
-            cerr << args[0] << " version " << imageWriter.constantVersion() << Qt::endl;
+            cerr << args[0] << " version " << ImageWriter::constantVersion() << Qt::endl;
             cerr << "Repository: " << imageWriter.constantOsListUrl().toString() << Qt::endl;
             return 0;
         }
@@ -194,40 +194,44 @@ int main(int argc, char *argv[])
         QLocale::setDefault(QLocale(langcode));
 #endif
 
-        if (translator.load(QLocale(), "citadel-imager", "_", QLatin1String(":/i18n")))
+        if (translator.load(QLocale(), "citadel-imager", "_", QLatin1String(":/i18n"))) {
             QCoreApplication::installTranslator(&translator);
+}
     }
     else
     {
-        if (translator.load(customQm))
+        if (translator.load(customQm)) {
             QCoreApplication::installTranslator(&translator);
+}
     }
 
-    if (!url.isEmpty())
+    if (!url.isEmpty()) {
         imageWriter.setSrc(url);
+}
     imageWriter.setEngine(&engine);
     engine.setNetworkAccessManagerFactory(&namf);
     engine.rootContext()->setContextProperty("imageWriter", &imageWriter);
     engine.rootContext()->setContextProperty("driveListModel", imageWriter.getDriveList());
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
-    if (engine.rootObjects().isEmpty())
+    if (engine.rootObjects().isEmpty()) {
         return -1;
+}
 
     QObject *qmlwindow = engine.rootObjects().value(0);
-    qmlwindow->connect(&imageWriter, SIGNAL(downloadProgress(QVariant,QVariant)), qmlwindow, SLOT(onDownloadProgress(QVariant,QVariant)));
-    qmlwindow->connect(&imageWriter, SIGNAL(verifyProgress(QVariant,QVariant)), qmlwindow, SLOT(onVerifyProgress(QVariant,QVariant)));
-    qmlwindow->connect(&imageWriter, SIGNAL(preparationStatusUpdate(QVariant)), qmlwindow, SLOT(onPreparationStatusUpdate(QVariant)));
-    qmlwindow->connect(&imageWriter, SIGNAL(error(QVariant)), qmlwindow, SLOT(onError(QVariant)));
-    qmlwindow->connect(&imageWriter, SIGNAL(success()), qmlwindow, SLOT(onSuccess()));
-    qmlwindow->connect(&imageWriter, SIGNAL(fileSelected(QVariant)), qmlwindow, SLOT(onFileSelected(QVariant)));
-    qmlwindow->connect(&imageWriter, SIGNAL(cancelled()), qmlwindow, SLOT(onCancelled()));
-    qmlwindow->connect(&imageWriter, SIGNAL(finalizing()), qmlwindow, SLOT(onFinalizing()));
-    qmlwindow->connect(&imageWriter, SIGNAL(networkOnline()), qmlwindow, SLOT(fetchOSlist()));
+    QObject::connect(&imageWriter, SIGNAL(downloadProgress(QVariant,QVariant)), qmlwindow, SLOT(onDownloadProgress(QVariant,QVariant)));
+    QObject::connect(&imageWriter, SIGNAL(verifyProgress(QVariant,QVariant)), qmlwindow, SLOT(onVerifyProgress(QVariant,QVariant)));
+    QObject::connect(&imageWriter, SIGNAL(preparationStatusUpdate(QVariant)), qmlwindow, SLOT(onPreparationStatusUpdate(QVariant)));
+    QObject::connect(&imageWriter, SIGNAL(error(QVariant)), qmlwindow, SLOT(onError(QVariant)));
+    QObject::connect(&imageWriter, SIGNAL(success()), qmlwindow, SLOT(onSuccess()));
+    QObject::connect(&imageWriter, SIGNAL(fileSelected(QVariant)), qmlwindow, SLOT(onFileSelected(QVariant)));
+    QObject::connect(&imageWriter, SIGNAL(cancelled()), qmlwindow, SLOT(onCancelled()));
+    QObject::connect(&imageWriter, SIGNAL(finalizing()), qmlwindow, SLOT(onFinalizing()));
+    QObject::connect(&imageWriter, SIGNAL(networkOnline()), qmlwindow, SLOT(fetchOSlist()));
 
 #ifndef QT_NO_WIDGETS
     /* Set window position */
-    auto screensize = app.primaryScreen()->geometry();
+    auto screensize = QApplication::primaryScreen()->geometry();
     int x = settings.value("x", -1).toInt();
     int y = settings.value("y", -1).toInt();
     int w = qmlwindow->property("width").toInt();
@@ -235,7 +239,7 @@ int main(int argc, char *argv[])
 
     if (x != -1 && y != -1)
     {
-        if ( !app.screenAt(QPoint(x,y)) || !app.screenAt(QPoint(x+w,y+h)) )
+        if ( (QApplication::screenAt(QPoint(x,y)) == nullptr) || (QApplication::screenAt(QPoint(x+w,y+h)) == nullptr) )
         {
             qDebug() << "Not restoring saved window position as it falls outside any currently attached screen";
             x = y = -1;
@@ -252,7 +256,7 @@ int main(int argc, char *argv[])
     qmlwindow->setProperty("y", y);
 #endif
 
-    int rc = app.exec();
+    int rc = QApplication::exec();
 
 #ifndef QT_NO_WIDGETS
     int newX = qmlwindow->property("x").toInt();

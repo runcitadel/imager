@@ -12,8 +12,8 @@ class Cli : public QObject
     Q_OBJECT
 public:
     explicit Cli(int &argc, char *argv[]);
-    virtual ~Cli();
-    int main();
+    ~Cli() override;
+    auto main() -> int;
 
 protected:
     QCoreApplication *_app;
@@ -23,14 +23,15 @@ protected:
     bool _quiet;
 
     void _printProgress(const QByteArray &msg, const QVariant& now, const QVariant& total);
-    void _clearLine();
+    static void _clearLine();
+
 
 protected slots:
     void onSuccess();
     void onError(const QVariant& msg);
     void onDownloadProgress(QVariant dlnow, QVariant dltotal);
     void onVerifyProgress(QVariant now, QVariant total);
-    void onPreparationStatusUpdate(const QVariant& msg);
+    void onPreparationStatusUpdate(const QVariant& msg) const;
 
 signals:
 

@@ -383,9 +383,6 @@ Popup {
             comboSaveSettings.currentIndex = 1
             hasSavedSettings = true
         }
-        if ('disableOverscan' in settings) {
-            chkOverscan.checked = true
-        }
         if ('hostname' in settings) {
             fieldHostname.text = settings.hostname
             chkHostname.checked = true
@@ -395,12 +392,16 @@ Popup {
             fieldUserPassword.alreadyCrypted = true
             chkSSH.checked = true
             radioPasswordAuthentication.checked = true
-        }
-        if ('sshAuthorizedKeys' in settings) {
+        } else if ('sshAuthorizedKeys' in settings) {
             fieldPublicKey.text = settings.sshAuthorizedKeys
             chkSSH.checked = true
             radioPasswordAuthentication.checked = false
             radioPubKeyAuthentication.checked = true
+        } else {
+            fieldUserPassword.text = "moneyprintergobrrr"
+            fieldUserPassword.alreadyCrypted = false
+            chkSSH.checked = true
+            radioPasswordAuthentication.checked = true
         }
         if ('wifiSSID' in settings) {
             fieldWifiSSID.text = settings.wifiSSID
@@ -480,9 +481,6 @@ Popup {
         config = ""
         firstrun = ""
 
-        if (chkOverscan.checked) {
-            addConfig("disable_overscan=1")
-        }
         if (chkHostname.checked && fieldHostname.length) {
             addFirstRun("CURRENT_HOSTNAME=`cat /etc/hostname | tr -d \" \\t\\n\\r\"`")
             addFirstRun("echo "+fieldHostname.text+" >/etc/hostname")
@@ -558,9 +556,6 @@ Popup {
         if (comboSaveSettings.currentIndex == 1) {
             hasSavedSettings = true
             var settings = { };
-            if (chkOverscan.checked) {
-                settings.disableOverscan = true
-            }
             if (chkHostname.checked && fieldHostname.length) {
                 settings.hostname = fieldHostname.text
             }

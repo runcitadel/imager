@@ -8,15 +8,16 @@
  */
 
 DriveListModelPollThread::DriveListModelPollThread(QObject *parent)
-    : QThread(parent), _terminate(false)
+    : QThread(parent) 
 {
-    qRegisterMetaType< std::vector<Drivelist::DeviceDescriptor> >( "std::vector<Drivelist::DeviceDescriptor>" );
+    qRegisterMetaType<std::vector<Drivelist::DeviceDescriptor>>("std::vector<Drivelist::DeviceDescriptor>");
 }
 
 DriveListModelPollThread::~DriveListModelPollThread()
 {
     _terminate = true;
-    if (!wait(2000)) {
+    if (!wait(2000))
+    {
         terminate();
     }
 }
@@ -39,9 +40,11 @@ void DriveListModelPollThread::run()
     while (!_terminate)
     {
         t1.start();
-        emit newDriveList( Drivelist::ListStorageDevices() );
+        emit newDriveList(Drivelist::ListStorageDevices());
         if (t1.elapsed() > 1000)
-            qDebug() << "Enumerating drives took a long time:" << t1.elapsed()/1000.0 << "seconds";
+        {
+            qDebug() << "Enumerating drives took a long time:" << t1.elapsed() / 1000.0 << "seconds";
+        }
         QThread::sleep(1);
     }
 }

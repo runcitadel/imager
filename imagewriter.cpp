@@ -57,14 +57,12 @@
 #endif
 
 ImageWriter::ImageWriter(QObject *parent)
-    : QObject(parent), _repo(QUrl(QString(OSLIST_URL))), _dlnow(0), _verifynow(0),
-      _engine(nullptr), _thread(nullptr), _verifyEnabled(false), _cachingEnabled(false),
-      _embeddedMode(false), _online(false)
+    : QObject(parent), _repo(QUrl(QString(OSLIST_URL))) 
 {
     connect(&_polltimer, SIGNAL(timeout()), SLOT(pollProgress()));
 
     QString platform;
-    if (qobject_cast<QGuiApplication*>(QCoreApplication::instance()) )
+    if (qobject_cast<QGuiApplication *>(QCoreApplication::instance()) != nullptr)
     {
         platform = QGuiApplication::platformName();
     }
@@ -113,11 +111,11 @@ ImageWriter::ImageWriter(QObject *parent)
     _settings.beginGroup("caching");
     _cachingEnabled = !_embeddedMode && _settings.value("enabled", IMAGEWRITER_ENABLE_CACHE_DEFAULT).toBool();
     _cachedFileHash = _settings.value("lastDownloadSHA256").toByteArray();
-    _cacheFileName = QStandardPaths::writableLocation(QStandardPaths::CacheLocation)+QDir::separator()+"lastdownload.cache";
+    _cacheFileName = QStandardPaths::writableLocation(QStandardPaths::CacheLocation) + QDir::separator() + "lastdownload.cache";
     if (!_cachedFileHash.isEmpty())
     {
         QFileInfo f(_cacheFileName);
-        if (!f.exists() || !f.isReadable() || !f.size())
+        if (!f.exists() || !f.isReadable() || (f.size() == 0))
         {
             _cachedFileHash.clear();
             _settings.remove("lastDownloadSHA256");
@@ -128,9 +126,7 @@ ImageWriter::ImageWriter(QObject *parent)
 }
 
 ImageWriter::~ImageWriter()
-{
-
-}
+= default;
 
 void ImageWriter::setEngine(QQmlApplicationEngine *engine)
 {
@@ -148,7 +144,7 @@ void ImageWriter::setSrc(const QUrl &url, quint64 downloadLen, quint64 extrLen, 
     _parentCategory = std::move(parentcategory);
     _osName = std::move(osname);
 
-    if (!_downloadLen && url.isLocalFile())
+    if ((_downloadLen == 0u) && url.isLocalFile())
     {
         QFileInfo fi(url.toLocalFile());
         _downloadLen = fi.size();
@@ -163,7 +159,7 @@ void ImageWriter::setDst(const QString &device, quint64 deviceSize)
 }
 
 /* Returns true if src and dst are set */
-bool ImageWriter::readyToWrite()
+auto ImageWriter::readyToWrite() -> bool
 {
     return !_src.isEmpty() && !_dst.isEmpty();
 }
@@ -172,11 +168,13 @@ bool ImageWriter::readyToWrite()
 void ImageWriter::startWrite()
 {
     if (!readyToWrite())
+    {
         return;
+    }
 
     if (_src.toString() == "internal://format")
     {
-        DriveFormatThread *dft = new DriveFormatThread(_dst.toLatin1(), this);
+        auto *dft = new DriveFormatThread(_dst.toLatin1(), this);
         connect(dft, SIGNAL(success()), SLOT(onSuccess()));
         connect(dft, SIGNAL(error(QString)), SLOT(onError(QString)));
         dft->start();
@@ -186,21 +184,25 @@ void ImageWriter::startWrite()
     QByteArray urlstr = _src.toString(_src.FullyEncoded).toLatin1();
     QString lowercaseurl = urlstr.toLower();
     bool compressed = lowercaseurl.endsWith(".zip") || lowercaseurl.endsWith(".xz") || lowercaseurl.endsWith(".bz2") || lowercaseurl.endsWith(".gz") || lowercaseurl.endsWith(".7z") || lowercaseurl.endsWith(".cache");
-    if (!_extrLen && _src.isLocalFile())
+    if ((_extrLen == 0u) && _src.isLocalFile())
     {
         if (!compressed)
+        {
             _extrLen = _downloadLen;
+        }
         else if (lowercaseurl.endsWith(".zip"))
+        {
             _parseCompressedFile();
+        }
     }
 
-    if (_devLen && _extrLen > _devLen)
+    if ((_devLen != 0u) && _extrLen > _devLen)
     {
-        emit error(tr("Storage capacity is not large enough.<br>Needs to be at least %1 GB.").arg(QString::number(_extrLen/1000000000.0, 'f', 1)));
+        emit error(tr("Storage capacity is not large enough.<br>Needs to be at least %1 GB.").arg(QString::number(_extrLen / 1000000000.0, 'f', 1)));
         return;
     }
 
-    if (_extrLen && !_multipleFilesInZip && _extrLen % 512 != 0)
+    if ((_extrLen != 0u) && !_multipleFilesInZip && _extrLen % 512 != 0)
     {
         emit error(tr("Input file is not a valid disk image.<br>File size %1 bytes is not a multiple of 512 bytes.").arg(_extrLen));
         return;
@@ -251,9 +253,9 @@ void ImageWriter::startWrite()
         {
             QStorageInfo si(QStandardPaths::writableLocation(QStandardPaths::CacheLocation));
             qint64 avail = si.bytesAvailable();
-            qDebug() << "Available disk space for caching:" << avail/1024/1024/1024 << "GB";
+            qDebug() << "Available disk space for caching:" << avail / 1024 / 1024 / 1024 << "GB";
 
-            if (avail-_downloadLen < IMAGEWRITER_MINIMAL_SPACE_FOR_CACHING)
+            if (avail - _downloadLen < IMAGEWRITER_MINIMAL_SPACE_FOR_CACHING)
             {
                 qDebug() << "Low disk space. Not caching files to disk.";
             }
@@ -268,7 +270,7 @@ void ImageWriter::startWrite()
     if (_multipleFilesInZip)
     {
         static_cast<DownloadExtractThread *>(_thread)->enableMultipleFileExtraction();
-        DriveFormatThread *dft = new DriveFormatThread(_dst.toLatin1(), this);
+        auto *dft = new DriveFormatThread(_dst.toLatin1(), this);
         connect(dft, SIGNAL(success()), _thread, SLOT(start()));
         connect(dft, SIGNAL(error(QString)), SLOT(onError(QString)));
         dft->start();
@@ -281,7 +283,7 @@ void ImageWriter::startWrite()
     startProgressPolling();
 }
 
-void ImageWriter::onCacheFileUpdated(const QByteArray& sha256)
+void ImageWriter::onCacheFileUpdated(const QByteArray &sha256)
 {
     _settings.setValue("caching/lastDownloadSHA256", sha256);
     _settings.sync();
@@ -292,13 +294,13 @@ void ImageWriter::onCacheFileUpdated(const QByteArray& sha256)
 /* Cancel write */
 void ImageWriter::cancelWrite()
 {
-    if (_thread)
+    if (_thread != nullptr)
     {
         connect(_thread, SIGNAL(finished()), SLOT(onCancelled()));
         _thread->cancelDownload();
     }
 
-    if (!_thread || !_thread->isRunning())
+    if ((_thread == nullptr) || !_thread->isRunning())
     {
         emit cancelled();
     }
@@ -315,37 +317,37 @@ void ImageWriter::onCancelled()
 }
 
 /* Return true if url is in our local disk cache */
-bool ImageWriter::isCached(const QUrl &, const QByteArray &sha256)
+auto ImageWriter::isCached(const QUrl & /*unused*/, const QByteArray &sha256) -> bool
 {
     return !sha256.isEmpty() && _cachedFileHash == sha256;
 }
 
 /* Utility function to return filename part from URL */
-QString ImageWriter::fileNameFromUrl(const QUrl &url)
+auto ImageWriter::fileNameFromUrl(const QUrl &url) -> QString
 {
     //return QFileInfo(url.toLocalFile()).fileName();
     return url.fileName();
 }
 
-QString ImageWriter::srcFileName()
+auto ImageWriter::srcFileName() -> QString
 {
     return _src.isEmpty() ? "" : _src.fileName();
 }
 
 /* Function to return OS list URL */
-QUrl ImageWriter::constantOsListUrl() const
+auto ImageWriter::constantOsListUrl() const -> QUrl
 {
     return _repo;
 }
 
 /* Function to return version */
-QString ImageWriter::constantVersion() const
+QString ImageWriter::constantVersion()
 {
     return IMAGER_VERSION_STR;
 }
 
 /* Returns true if version argument is newer than current program */
-bool ImageWriter::isVersionNewer(const QString &version)
+auto ImageWriter::isVersionNewer(const QString &version) -> bool
 {
     return QVersionNumber::fromString(version) > QVersionNumber::fromString(IMAGER_VERSION_STR);
 }
@@ -367,7 +369,7 @@ void ImageWriter::stopDriveListPolling()
     _drivelist.stopPolling();
 }
 
-DriveListModel *ImageWriter::getDriveList()
+auto ImageWriter::getDriveList() -> DriveListModel *
 {
     return &_drivelist;
 }
@@ -378,7 +380,7 @@ void ImageWriter::startProgressPolling()
 #ifdef Q_OS_WIN
     if (!_taskbarButton && _engine)
     {
-        QWindow* window = qobject_cast<QWindow*>( _engine->rootObjects().at(0) );
+        QWindow *window = qobject_cast<QWindow *>(_engine->rootObjects().at(0));
         if (window)
         {
             _taskbarButton = new QWinTaskbarButton(this);
@@ -388,7 +390,8 @@ void ImageWriter::startProgressPolling()
         }
     }
 #endif
-    _dlnow = 0; _verifynow = 0;
+    _dlnow = 0;
+    _verifynow = 0;
     _polltimer.start(PROGRESS_UPDATE_INTERVAL);
 }
 
@@ -409,11 +412,14 @@ void ImageWriter::stopProgressPolling()
 
 void ImageWriter::pollProgress()
 {
-    if (!_thread)
+    if (_thread == nullptr)
+    {
         return;
+    }
 
-    quint64 newDlNow, dlTotal;
-    if (_extrLen)
+    quint64 newDlNow;
+    quint64 dlTotal;
+    if (_extrLen != 0u)
     {
         newDlNow = _thread->bytesWritten();
         dlTotal = _extrLen;
@@ -430,8 +436,8 @@ void ImageWriter::pollProgress()
 #ifdef Q_OS_WIN
         if (_taskbarButton)
         {
-            _taskbarButton->progress()->setMaximum(dlTotal/1048576);
-            _taskbarButton->progress()->setValue(newDlNow/1048576);
+            _taskbarButton->progress()->setMaximum(dlTotal / 1048576);
+            _taskbarButton->progress()->setValue(newDlNow / 1048576);
         }
 #endif
         emit downloadProgress(newDlNow, dlTotal);
@@ -446,8 +452,8 @@ void ImageWriter::pollProgress()
 #ifdef Q_OS_WIN
         if (_taskbarButton)
         {
-            _taskbarButton->progress()->setMaximum(verifyTotal/1048576);
-            _taskbarButton->progress()->setValue(newVerifyNow/1048576);
+            _taskbarButton->progress()->setMaximum(verifyTotal / 1048576);
+            _taskbarButton->progress()->setValue(newVerifyNow / 1048576);
         }
 #endif
         emit verifyProgress(newVerifyNow, verifyTotal);
@@ -457,8 +463,10 @@ void ImageWriter::pollProgress()
 void ImageWriter::setVerifyEnabled(bool verify)
 {
     _verifyEnabled = verify;
-    if (_thread)
+    if (_thread != nullptr)
+    {
         _thread->setVerifyEnabled(verify);
+    }
 }
 
 /* Relay events from download thread to QML */
@@ -468,21 +476,23 @@ void ImageWriter::onSuccess()
     emit success();
 
 #ifndef QT_NO_WIDGETS
-    if (_settings.value("beep").toBool() && qobject_cast<QApplication*>(QCoreApplication::instance()) )
+    if (_settings.value("beep").toBool() && (qobject_cast<QApplication *>(QCoreApplication::instance()) != nullptr))
     {
         QApplication::beep();
     }
 #endif
 }
 
-void ImageWriter::onError(const QString& msg)
+void ImageWriter::onError(const QString &msg)
 {
     stopProgressPolling();
     emit error(msg);
 
 #ifndef QT_NO_WIDGETS
-    if (_settings.value("beep").toBool() && qobject_cast<QApplication*>(QCoreApplication::instance()) )
+    if (_settings.value("beep").toBool() && (qobject_cast<QApplication *>(QCoreApplication::instance()) != nullptr))
+    {
         QApplication::beep();
+    }
 #endif
 }
 
@@ -492,7 +502,7 @@ void ImageWriter::onFinalizing()
     emit finalizing();
 }
 
-void ImageWriter::onPreparationStatusUpdate(const QString& msg)
+void ImageWriter::onPreparationStatusUpdate(const QString &msg)
 {
     emit preparationStatusUpdate(msg);
 }
@@ -504,20 +514,22 @@ void ImageWriter::openFileDialog()
     QString path = settings.value("lastpath").toString();
     QFileInfo fi(path);
 
-    if (path.isEmpty() || !fi.exists() || !fi.isReadable() )
+    if (path.isEmpty() || !fi.exists() || !fi.isReadable())
+    {
         path = QStandardPaths::writableLocation(QStandardPaths::DownloadLocation);
+    }
 
-    QFileDialog *fd = new QFileDialog(nullptr, tr("Select image"),
+    auto *fd = new QFileDialog(nullptr, tr("Select image"),
                                       path,
                                       "Image files (*.img *.zip *.iso *.gz *.xz);;All files (*.*)");
     connect(fd, SIGNAL(fileSelected(QString)), SLOT(onFileSelected(QString)));
 
-    if (_engine)
+    if (_engine != nullptr)
     {
         fd->createWinId();
         QWindow *handle = fd->windowHandle();
         QWindow *qmlwindow = qobject_cast<QWindow *>(_engine->rootObjects().value(0));
-        if (qmlwindow)
+        if (qmlwindow != nullptr)
         {
             handle->setTransientParent(qmlwindow);
         }
@@ -527,7 +539,7 @@ void ImageWriter::openFileDialog()
 #endif
 }
 
-void ImageWriter::onFileSelected(const QString& filename)
+void ImageWriter::onFileSelected(const QString &filename)
 {
 #ifndef QT_NO_WIDGETS
     QFileInfo fi(filename);
@@ -566,18 +578,20 @@ void ImageWriter::_parseCompressedFile()
 
     if (archive_read_open_filename(a, fn.data(), 10240) == ARCHIVE_OK)
     {
-        while ( (archive_read_next_header(a, &entry)) == ARCHIVE_OK)
+        while ((archive_read_next_header(a, &entry)) == ARCHIVE_OK)
         {
             if (archive_entry_size(entry) > 0)
             {
-              _extrLen += archive_entry_size(entry);
-              numFiles++;
+                _extrLen += archive_entry_size(entry);
+                numFiles++;
             }
         }
     }
 
     if (numFiles > 1)
+    {
         _multipleFilesInZip = true;
+    }
 
     qDebug() << "Parsed .zip file containing" << numFiles << "files, uncompressed size:" << _extrLen;
 }
@@ -618,7 +632,7 @@ void ImageWriter::syncTime()
 {
 #ifdef Q_OS_LINUX
     qDebug() << "Network online. Synchronizing time.";
-    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+    auto *manager = new QNetworkAccessManager(this);
     connect(manager, SIGNAL(finished(QNetworkReply*)), SLOT(onTimeSyncReply(QNetworkReply*)));
     manager->head(QNetworkRequest(QUrl(TIME_URL)));
 #endif
@@ -632,9 +646,8 @@ void ImageWriter::onTimeSyncReply(QNetworkReply *reply)
         QDateTime dt = QDateTime::fromString(reply->rawHeader("Date"), Qt::RFC2822Date);
         qDebug() << "Received current time from server:" << dt;
         struct timeval tv = {
-            (time_t) dt.toSecsSinceEpoch(), 0
-        };
-        ::settimeofday(&tv, NULL);
+            (time_t)dt.toSecsSinceEpoch(), 0};
+        ::settimeofday(&tv, nullptr);
 
         emit networkOnline();
     }
@@ -656,7 +669,7 @@ bool ImageWriter::isEmbeddedMode()
 }
 
 /* Mount any USB sticks that can contain source images under /media */
-bool ImageWriter::mountUsbSourceMedia()
+auto ImageWriter::mountUsbSourceMedia() -> bool
 {
     int devices = 0;
 #ifdef Q_OS_LINUX
@@ -664,13 +677,15 @@ bool ImageWriter::mountUsbSourceMedia()
     QStringList list = dir.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
 
     if (!dir.exists("/media"))
+    {
         dir.mkdir("/media");
+    }
 
     for (const auto &devname : qAsConst(list))
     {
-        if (!devname.startsWith("mmcblk0") && !QFile::symLinkTarget("/sys/class/block/"+devname).contains("/devices/virtual/"))
+        if (!devname.startsWith("mmcblk0") && !QFile::symLinkTarget("/sys/class/block/" + devname).contains("/devices/virtual/"))
         {
-            QString mntdir = "/media/"+devname;
+            QString mntdir = "/media/" + devname;
 
             if (dir.exists(mntdir))
             {
@@ -679,19 +694,23 @@ bool ImageWriter::mountUsbSourceMedia()
             }
 
             dir.mkdir(mntdir);
-            QStringList args = { "-o", "ro", QString("/dev/")+devname, mntdir };
+            QStringList args = {"-o", "ro", QString("/dev/") + devname, mntdir};
 
-            if ( QProcess::execute("mount", args) == 0 )
+            if (QProcess::execute("mount", args) == 0)
+            {
                 devices++;
+            }
             else
+            {
                 dir.rmdir(mntdir);
+            }
         }
     }
 #endif
     return devices > 0;
 }
 
-QByteArray ImageWriter::getUsbSourceOSlist()
+auto ImageWriter::getUsbSourceOSlist() -> QByteArray
 {
 #ifdef Q_OS_LINUX
     QJsonArray oslist;
@@ -701,20 +720,19 @@ QByteArray ImageWriter::getUsbSourceOSlist()
 
     for (const auto &devname : qAsConst(medialist))
     {
-        QDir subdir("/media/"+devname);
+        QDir subdir("/media/" + devname);
         QStringList files = subdir.entryList(namefilters, QDir::Files, QDir::Name);
         for (const auto &file : qAsConst(files))
         {
-            QString path = "/media/"+devname+"/"+file;
+            QString path = "/media/" + devname + "/" + file;
             QFileInfo fi(path);
 
             QJsonObject f = {
                 {"name", file},
-                {"description", devname+"/"+file},
-                {"url", QUrl::fromLocalFile(path).toString() },
+                {"description", devname + "/" + file},
+                {"url", QUrl::fromLocalFile(path).toString()},
                 {"release_date", ""},
-                {"image_download_size", fi.size()}
-            };
+                {"image_download_size", fi.size()}};
             oslist.append(f);
         }
     }
@@ -725,10 +743,10 @@ QByteArray ImageWriter::getUsbSourceOSlist()
 #endif
 }
 
-QString ImageWriter::getDefaultPubKey()
+auto ImageWriter::getDefaultPubKey() -> QString
 {
     QByteArray pubkey;
-    QFile pubfile(QDir::homePath()+"/.ssh/id_rsa.pub");
+    QFile pubfile(QDir::homePath() + "/.ssh/id_rsa.pub");
 
     if (pubfile.exists() && pubfile.open(QFile::ReadOnly))
     {
@@ -739,16 +757,16 @@ QString ImageWriter::getDefaultPubKey()
     return pubkey;
 }
 
-QString ImageWriter::getTimezone()
+auto ImageWriter::getTimezone() -> QString
 {
     return QTimeZone::systemTimeZoneId();
 }
 
-QStringList ImageWriter::getTimezoneList()
+auto ImageWriter::getTimezoneList() -> QStringList
 {
     QStringList timezones;
     QFile f(":/timezones.txt");
-    if ( f.open(f.ReadOnly) )
+    if (f.open(f.ReadOnly))
     {
         timezones = QString(f.readAll()).split('\n');
         f.close();
@@ -757,11 +775,11 @@ QStringList ImageWriter::getTimezoneList()
     return timezones;
 }
 
-QStringList ImageWriter::getCountryList()
+auto ImageWriter::getCountryList() -> QStringList
 {
     QStringList countries;
     QFile f(":/countries.txt");
-    if ( f.open(f.ReadOnly) )
+    if (f.open(f.ReadOnly))
     {
         countries = QString(f.readAll()).split('\n');
         f.close();
@@ -770,19 +788,23 @@ QStringList ImageWriter::getCountryList()
     return countries;
 }
 
-QString ImageWriter::getSSID()
+auto ImageWriter::getSSID() -> QString
 {
     /* Qt used to have proper bearer management that was able to provide a list of
        SSIDs, but since they retired it, resort to calling platform specific tools for now.
        Minimal implementation that only gets the currently connected SSID */
 
-    QString program, regexpstr, ssid;
+    QString program;
+    QString regexpstr;
+    QString ssid;
     QStringList args;
     QProcess proc;
 
 #ifdef Q_OS_WIN
     program = "netsh";
-    args << "wlan" << "show" << "interfaces";
+    args << "wlan"
+         << "show"
+         << "interfaces";
     regexpstr = "[ \t]+SSID[ \t]*: (.+)";
 #else
 #ifdef Q_OS_DARWIN
@@ -807,7 +829,8 @@ QString ImageWriter::getSSID()
             QRegExp rx(regexpstr);
             QList<QByteArray> outputlines = proc.readAll().replace('\r', "").split('\n');
 
-            for (const QByteArray &line : qAsConst(outputlines)) {
+            for (const QByteArray &line : qAsConst(outputlines))
+            {
                 if (rx.indexIn(line) != -1)
                 {
                     ssid = rx.cap(1);
@@ -820,7 +843,7 @@ QString ImageWriter::getSSID()
     return ssid;
 }
 
-QString ImageWriter::getPSK(const QString &ssid)
+auto ImageWriter::getPSK(const QString &ssid) -> QString
 {
 #ifdef Q_OS_WIN
     /* Windows allows retrieving wifi PSK */
@@ -837,31 +860,34 @@ QString ImageWriter::getPSK(const QString &ssid)
 
     if (WlanEnumInterfaces(h, NULL, &ifList) == ERROR_SUCCESS)
     {
-        for (int i=0; i < ifList->dwNumberOfItems; i++)
+        for (int i = 0; i < ifList->dwNumberOfItems; i++)
         {
             PWLAN_PROFILE_INFO_LIST profileList = NULL;
 
             if (WlanGetProfileList(h, &ifList->InterfaceInfo[i].InterfaceGuid,
                                    NULL, &profileList) == ERROR_SUCCESS)
             {
-                for (int j=0; j < profileList->dwNumberOfItems; j++)
+                for (int j = 0; j < profileList->dwNumberOfItems; j++)
                 {
                     QString s = QString::fromWCharArray(profileList->ProfileInfo[j].strProfileName);
                     qDebug() << "Enumerating wifi profiles, SSID found:" << s << " looking for:" << ssid;
 
-                    if (s == ssid) {
+                    if (s == ssid)
+                    {
                         DWORD flags = WLAN_PROFILE_GET_PLAINTEXT_KEY;
                         DWORD access = 0;
                         DWORD ret = 0;
                         LPWSTR xmlstr = NULL;
 
-                        if ( (ret = WlanGetProfile(h, &ifList->InterfaceInfo[i].InterfaceGuid, profileList->ProfileInfo[j].strProfileName,
-                                          NULL, &xmlstr, &flags, &access)) == ERROR_SUCCESS && xmlstr)
+                        if ((ret = WlanGetProfile(h, &ifList->InterfaceInfo[i].InterfaceGuid, profileList->ProfileInfo[j].strProfileName,
+                                                  NULL, &xmlstr, &flags, &access)) == ERROR_SUCCESS &&
+                            xmlstr)
                         {
                             QString xml = QString::fromWCharArray(xmlstr);
                             qDebug() << "XML wifi profile:" << xml;
                             QRegExp rx("<keyMaterial>(.+)</keyMaterial>");
-                            if (rx.indexIn(xml) != -1) {
+                            if (rx.indexIn(xml) != -1)
+                            {
                                 psk = rx.cap(1);
                             }
 
@@ -872,7 +898,8 @@ QString ImageWriter::getPSK(const QString &ssid)
                 }
             }
 
-            if (profileList) {
+            if (profileList)
+            {
                 WlanFreeMemory(profileList);
             }
         }
@@ -891,7 +918,7 @@ QString ImageWriter::getPSK(const QString &ssid)
     QByteArray ssidAscii = ssid.toLatin1();
 
     if (QMessageBox::question(nullptr, "",
-                          tr("Would you like to prefill the wifi password from the system keychain?")) == QMessageBox::Yes)
+                              tr("Would you like to prefill the wifi password from the system keychain?")) == QMessageBox::Yes)
     {
         if (SecKeychainOpen("/Library/Keychains/System.keychain", &keychainRef) == errSecSuccess)
         {
@@ -899,7 +926,7 @@ QString ImageWriter::getPSK(const QString &ssid)
             void *result;
             if (SecKeychainFindGenericPassword(keychainRef, 0, NULL, ssidAscii.length(), ssidAscii.constData(), &resultLen, &result, NULL) == errSecSuccess)
             {
-                psk = QByteArray((char *) result, resultLen);
+                psk = QByteArray((char *)result, resultLen);
                 SecKeychainItemFreeContent(NULL, result);
             }
             CFRelease(keychainRef);
@@ -914,13 +941,14 @@ QString ImageWriter::getPSK(const QString &ssid)
 #endif
 }
 
-bool ImageWriter::getBoolSetting(const QString &key)
+auto ImageWriter::getBoolSetting(const QString &key) -> bool
 {
     /* Some keys have defaults */
     if (key == "eject")
+    {
         return _settings.value(key, true).toBool();
-    else
-        return _settings.value(key).toBool();
+    }
+    return _settings.value(key).toBool();
 }
 
 void ImageWriter::setSetting(const QString &key, const QVariant &value)
@@ -940,22 +968,24 @@ void ImageWriter::setImageCustomization(const QByteArray &config, const QByteArr
     qDebug() << "Custom firstuse.sh:" << firstrun;
 }
 
-QString ImageWriter::crypt(const QByteArray &password)
+auto ImageWriter::crypt(const QByteArray &password) -> QString
 {
     QByteArray salt = "$5$";
     QByteArray saltchars =
-      "./0123456789ABCDEFGHIJKLMNOPQRST"
-      "UVWXYZabcdefghijklmnopqrstuvwxyz";
+        "./0123456789ABCDEFGHIJKLMNOPQRST"
+        "UVWXYZabcdefghijklmnopqrstuvwxyz";
     std::mt19937 gen(static_cast<unsigned>(QDateTime::currentMSecsSinceEpoch()));
-    std::uniform_int_distribution<> uid(0, saltchars.length()-1);
+    std::uniform_int_distribution<> uid(0, saltchars.length() - 1);
 
-    for (int i=0; i<10; i++)
+    for (int i = 0; i < 10; i++)
+    {
         salt += saltchars[uid(gen)];
+    }
 
     return sha256_crypt(password.constData(), salt.constData());
 }
 
-QString ImageWriter::pbkdf2(const QByteArray &psk, const QByteArray &ssid)
+auto ImageWriter::pbkdf2(const QByteArray &psk, const QByteArray &ssid) -> QString
 {
     /* Qt has support for calculating Pbkdf2 starting from Qt 5.12 but
      * older Linux distributions may not have that.
@@ -966,7 +996,7 @@ QString ImageWriter::pbkdf2(const QByteArray &psk, const QByteArray &ssid)
     return QPasswordDigestor::deriveKeyPbkdf2(QCryptographicHash::Sha1, psk, ssid, 4096, 32).toHex();
 #else
     QByteArray digest(32, 0);
-    PKCS5_PBKDF2_HMAC_SHA1(psk.constData(), psk.length(), (const unsigned char*) ssid.constData(), ssid.length(), 4096, digest.length(), (unsigned char *) digest.data());
+    PKCS5_PBKDF2_HMAC_SHA1(psk.constData(), psk.length(), (const unsigned char *)ssid.constData(), ssid.length(), 4096, digest.length(), (unsigned char *)digest.data());
     return digest.toHex();
 #endif
 }
@@ -975,18 +1005,20 @@ void ImageWriter::setSavedCustomizationSettings(const QVariantMap &map)
 {
     _settings.beginGroup("imagecustomization");
     _settings.remove("");
-    for (QVariantMap::const_iterator it = map.cbegin(), end = map.cend(); it != end; ++it) {
+    for (QVariantMap::const_iterator it = map.cbegin(), end = map.cend(); it != end; ++it)
+    {
         _settings.setValue(it.key(), it.value());
     }
     _settings.endGroup();
 }
 
-QVariantMap ImageWriter::getSavedCustomizationSettings()
+auto ImageWriter::getSavedCustomizationSettings() -> QVariantMap
 {
     QVariantMap result;
 
     _settings.beginGroup("imagecustomization");
-    for (QVariantMap::const_iterator it = result.cbegin(), end = result.cend(); it != end; ++it) {
+    for (QVariantMap::const_iterator it = result.cbegin(), end = result.cend(); it != end; ++it)
+    {
         result.insert(it.key(), _settings.value(it.key()));
     }
     _settings.endGroup();
@@ -1001,7 +1033,7 @@ void ImageWriter::clearSavedCustomizationSettings()
     _settings.endGroup();
 }
 
-bool ImageWriter::hasSavedCustomizationSettings()
+auto ImageWriter::hasSavedCustomizationSettings() -> bool
 {
     _settings.beginGroup("imagecustomization");
     bool result = !_settings.childKeys().isEmpty();
@@ -1010,7 +1042,8 @@ bool ImageWriter::hasSavedCustomizationSettings()
     return result;
 }
 
-void MountUtilsLog(const std::string& msg) {
+void MountUtilsLog(const std::string &msg)
+{
     Q_UNUSED(msg)
     //qDebug() << "mountutils:" << msg.c_str();
 }

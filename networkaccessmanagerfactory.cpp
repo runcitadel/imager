@@ -24,9 +24,9 @@ NetworkAccessManagerFactory::NetworkAccessManagerFactory()
     _c->clear();
 }
 
-QNetworkAccessManager *NetworkAccessManagerFactory::create(QObject *parent)
+auto NetworkAccessManagerFactory::create(QObject *parent) -> QNetworkAccessManager *
 {
-    QNetworkAccessManager *nam = new QNetworkAccessManager(parent);
+    auto *nam = new QNetworkAccessManager(parent);
     nam->setCache(_c);
     return nam;
 }

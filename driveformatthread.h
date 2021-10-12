@@ -12,13 +12,13 @@ class DriveFormatThread : public QThread
 {
     Q_OBJECT
 public:
-    DriveFormatThread(const QByteArray &device, QObject *parent = nullptr);
-    virtual ~DriveFormatThread();
-    virtual void run();
+    DriveFormatThread(QByteArray device, QObject *parent = nullptr);
+    ~DriveFormatThread() override;
+    void run() override;
 
 signals:
     void success();
-    void error(QString msg);
+    void error(QString _t1);
 
 protected:
     QByteArray _device;

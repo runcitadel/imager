@@ -14,14 +14,14 @@ class UDisks2Api : public QObject
     Q_OBJECT
 public:
     explicit UDisks2Api(QObject *parent = nullptr);
-    int authOpen(const QString &device, const QString &mode = "rw");
-    bool formatDrive(const QString &device, bool mountAfterwards = true);
-    QString mountDevice(const QString &device);
-    void unmountDrive(const QString &device);
+    static auto authOpen(const QString &device, const QString &mode = "rw") -> int;
+    static auto formatDrive(const QString &device, bool mountAfterwards = true) -> bool;
+    static auto mountDevice(const QString &device) -> QString;
+    static void unmountDrive(const QString &device);
 
 protected:
-    QString _resolveDevice(const QString &device);
-    void _unmountDrive(const QString &driveDbusPath);
+    static auto _resolveDevice(const QString &device) -> QString;
+    static void _unmountDrive(const QString &driveDbusPath);
 
 signals:
 

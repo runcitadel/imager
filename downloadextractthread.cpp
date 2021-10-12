@@ -7,18 +7,18 @@
 #include "config.h"
 #include "dependencies/drivelist/src/drivelist.hpp"
 #include "dependencies/mountutils/src/mountutils.hpp"
-#include <iostream>
-#include <archive.h>
-#include <archive_entry.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <string.h>
-#include <stdlib.h>
-#include <fcntl.h>
+#include <QDebug>
 #include <QDir>
 #include <QProcess>
 #include <QTemporaryDir>
-#include <QDebug>
+#include <archive.h>
+#include <archive_entry.h>
+#include <cstdlib>
+#include <cstring>
+#include <fcntl.h>
+#include <iostream>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 using namespace std;
 
@@ -31,12 +31,13 @@ public:
     {
     }
 
-    virtual void run()
+    void run() override
     {
-        if (_de->isImage())
+        if (_de->isImage()) {
             _de->extractImageRun();
-        else
+        } else {
             _de->extractMultiFileRun();
+}
     }
 
 protected:
@@ -64,10 +65,11 @@ DownloadExtractThread::~DownloadExtractThread()
     qFreeAligned(_abuf[1]);
 }
 
-size_t DownloadExtractThread::_writeData(const char *buf, size_t len)
+auto DownloadExtractThread::_writeData(const char *buf, size_t len) -> size_t
 {
-    if (_cancelled)
+    if (_cancelled) {
         return 0;
+}
 
     _writeCache(buf, len);
 
@@ -122,12 +124,14 @@ void DownloadExtractThread::cancelDownload()
 // Raise exception on libarchive errors
 static inline void _checkResult(int r, struct archive *a)
 {
-    if (r < ARCHIVE_OK)
+    if (r < ARCHIVE_OK) {
         // Warning
         cerr << archive_error_string(a) << Qt::endl;
-    if (r < ARCHIVE_WARN)
+}
+    if (r < ARCHIVE_WARN) {
         // Fatal
         throw runtime_error(archive_error_string(a));
+}
 }
 
 // libarchive thread
@@ -141,7 +145,7 @@ void DownloadExtractThread::extractImageRun()
     archive_read_support_format_zip(a);
     archive_read_support_format_7zip(a);
     archive_read_support_format_raw(a); // for .gz and such
-    archive_read_open(a, this, NULL, &DownloadExtractThread::_archive_read, &DownloadExtractThread::_archive_close);
+    archive_read_open(a, this, nullptr, &DownloadExtractThread::_archive_read, &DownloadExtractThread::_archive_close);
 
     try
     {
@@ -151,15 +155,17 @@ void DownloadExtractThread::extractImageRun()
         while (true)
         {
             ssize_t size = archive_read_data(a, _abuf[_activeBuf], _abufsize);
-            if (size < 0)
+            if (size < 0) {
                 throw runtime_error(archive_error_string(a));
-            if (size == 0)
+}
+            if (size == 0) {
                 break;
+}
 
             if (_writeThreadStarted)
             {
                 //if (_writeFile(_abuf, size) != (size_t) size)
-                if (!_writeFuture.result())
+                if (_writeFuture.result() == 0u)
                 {
                     if (!_cancelled)
                     {
@@ -172,12 +178,13 @@ void DownloadExtractThread::extractImageRun()
             }
 
             _writeFuture = QtConcurrent::run(static_cast<DownloadThread *>(this), &DownloadThread::_writeFile, _abuf[_activeBuf], size);
-            _activeBuf = _activeBuf ? 0 : 1;
+            _activeBuf = _activeBuf != 0 ? 0 : 1;
             _writeThreadStarted = true;
         }
 
-        if (_writeThreadStarted)
+        if (_writeThreadStarted) {
             _writeFuture.waitForFinished();
+}
         _writeComplete();
     }
     catch (exception &e)
@@ -195,9 +202,10 @@ void DownloadExtractThread::extractImageRun()
 
 #ifdef Q_OS_LINUX
 /* Returns true if folder lives on a different device than parent directory */
-inline bool isMountPoint(const QString &folder)
+inline auto isMountPoint(const QString &folder) -> bool
 {
-    struct stat statFolder, statParent;
+    struct stat statFolder;
+    struct stat statParent;
     QFileInfo fi(folder);
     QByteArray folderAscii = folder.toLatin1();
     QByteArray parentDir   = fi.dir().path().toLatin1();
@@ -215,7 +223,8 @@ inline bool isMountPoint(const QString &folder)
 void DownloadExtractThread::extractMultiFileRun()
 {
     QString folder;
-    QStringList filesExtracted, dirExtracted;
+    QStringList filesExtracted;
+    QStringList dirExtracted;
     QByteArray devlower = _filename.toLower();
 
     /* See if OS auto-mounted the device */
@@ -243,10 +252,11 @@ void DownloadExtractThread::extractMultiFileRun()
         QStringList args;
         folder = td.path();
         QByteArray fatpartition = _filename;
-        if (isdigit(fatpartition.at(fatpartition.length()-1)))
+        if (isdigit(fatpartition.at(fatpartition.length()-1)) != 0) {
             fatpartition += "p1";
-        else
+        } else {
             fatpartition += "1";
+}
         args << "-t" << "vfat" << fatpartition << folder;
 
         if (QProcess::execute("mount", args) != 0)
@@ -263,8 +273,9 @@ void DownloadExtractThread::extractMultiFileRun()
        until mountpoint is available in sandbox which lags behind */
     for (int tries=0; tries<3; tries++)
     {
-        if (isMountPoint(folder))
+        if (isMountPoint(folder)) {
             break;
+}
         QThread::sleep(1);
     }
 #endif
@@ -281,12 +292,14 @@ void DownloadExtractThread::extractMultiFileRun()
     struct archive_entry *entry;
     /* Extra safety checks: do not allow existing files to be overwritten (SD card should be formatted by previous step),
      * do not allow absolute paths, do not allow insecure symlinks, no special permissions */
-    int r, flags = ARCHIVE_EXTRACT_TIME | ARCHIVE_EXTRACT_SECURE_NOABSOLUTEPATHS
+    int r;
+    int flags = ARCHIVE_EXTRACT_TIME | ARCHIVE_EXTRACT_SECURE_NOABSOLUTEPATHS
             | ARCHIVE_EXTRACT_SECURE_NODOTDOT | ARCHIVE_EXTRACT_SECURE_SYMLINKS | ARCHIVE_EXTRACT_NO_OVERWRITE
             /*ARCHIVE_EXTRACT_PERM | ARCHIVE_EXTRACT_ACL | ARCHIVE_EXTRACT_FFLAGS | ARCHIVE_EXTRACT_XATTR*/;
 #ifndef Q_OS_WIN
-    if (::getuid() == 0)
+    if (::getuid() == 0) {
         flags |= ARCHIVE_EXTRACT_OWNER;
+}
 #endif
 
     currentDir = QDir::currentPath();
@@ -301,7 +314,7 @@ void DownloadExtractThread::extractMultiFileRun()
     archive_read_support_filter_all(a);
     archive_read_support_format_all(a);
     archive_write_disk_set_options(ext, flags);
-    archive_read_open(a, this, NULL, &DownloadExtractThread::_archive_read, &DownloadExtractThread::_archive_close);
+    archive_read_open(a, this, nullptr, &DownloadExtractThread::_archive_read, &DownloadExtractThread::_archive_close);
 
     try
     {
@@ -309,9 +322,9 @@ void DownloadExtractThread::extractMultiFileRun()
         {
           _checkResult(r, a);
           r = archive_write_header(ext, entry);
-          if (r < ARCHIVE_OK)
+          if (r < ARCHIVE_OK) {
               qDebug() << archive_error_string(ext);
-          else if (archive_entry_size(entry) > 0)
+          } else if (archive_entry_size(entry) > 0)
           {
               //checkResult(copyData(a, ext), a);
               const void *buff;
@@ -319,10 +332,11 @@ void DownloadExtractThread::extractMultiFileRun()
               int64_t offset;
               QString filename = QString::fromWCharArray(archive_entry_pathname_w(entry));
 
-              if (archive_entry_filetype(entry) == AE_IFDIR) // Empty directory
+              if (archive_entry_filetype(entry) == AE_IFDIR) { // Empty directory
                   dirExtracted.append(filename);
-              else
+              } else {
                   filesExtracted.append(filename);
+}
 
               while ( (r = archive_read_data_block(a, &buff, &size, &offset)) != ARCHIVE_EOF)
               {
@@ -351,16 +365,18 @@ void DownloadExtractThread::extractMultiFileRun()
     }
     catch (exception &e)
     {
-        if (_cachefile.isOpen())
+        if (_cachefile.isOpen()) {
             _cachefile.remove();
+}
 
         qDebug() << "Deleting extracted files";
         for (const auto & filename : filesExtracted)
         {
             QFileInfo fi(filename);
             QString path = fi.path();
-            if (!path.isEmpty() && path != "." && !dirExtracted.contains(path))
+            if (!path.isEmpty() && path != "." && !dirExtracted.contains(path)) {
                 dirExtracted.append(path);
+}
 
             QFile::remove(filename);
         }
@@ -397,30 +413,30 @@ void DownloadExtractThread::extractMultiFileRun()
     eject_disk(_filename.constData());
 }
 
-ssize_t DownloadExtractThread::_on_read(struct archive *, const void **buff)
+auto DownloadExtractThread::_on_read(struct archive * /*unused*/, const void **buff) -> ssize_t
 {
     _buf = _popQueue();
     *buff = _buf.data();
     return _buf.size();
 }
 
-int DownloadExtractThread::_on_close(struct archive *)
+auto DownloadExtractThread::_on_close(struct archive * /*unused*/) -> int
 {
     return 0;
 }
 
 // static callback functions that call object oriented equivalents
-ssize_t DownloadExtractThread::_archive_read(struct archive *a, void *client_data, const void **buff)
+auto DownloadExtractThread::_archive_read(struct archive *a, void *client_data, const void **buff) -> ssize_t
 {
    return qobject_cast<DownloadExtractThread *>((QObject *) client_data)->_on_read(a, buff);
 }
 
-int DownloadExtractThread::_archive_close(struct archive *a, void *client_data)
+auto DownloadExtractThread::_archive_close(struct archive *a, void *client_data) -> int
 {
    return qobject_cast<DownloadExtractThread *>((QObject *) client_data)->_on_close(a);
 }
 
-bool DownloadExtractThread::isImage()
+auto DownloadExtractThread::isImage() -> bool
 {
     return _isImage;
 }
@@ -431,12 +447,12 @@ void DownloadExtractThread::enableMultipleFileExtraction()
 }
 
 // Synchronized queue using monitor consumer/producer pattern
-QByteArray DownloadExtractThread::_popQueue()
+auto DownloadExtractThread::_popQueue() -> QByteArray
 {
     std::unique_lock<std::mutex> lock(_queueMutex);
 
     _cv.wait(lock, [this]{
-            return _queue.size() != 0;
+            return !_queue.empty();
     });
 
     QByteArray result = _queue.front();

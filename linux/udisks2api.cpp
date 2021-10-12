@@ -17,11 +17,13 @@ UDisks2Api::UDisks2Api(QObject *parent)
 {
 }
 
-int UDisks2Api::authOpen(const QString &device, const QString &mode)
+auto UDisks2Api::authOpen(const QString &device, const QString &mode) -> int
 {
     QString devpath = _resolveDevice(device);
     if (devpath.isEmpty())
+    {
         return -1;
+    }
 
     QDBusInterface blockdevice("org.freedesktop.UDisks2", devpath,
                                "org.freedesktop.UDisks2.Block", QDBusConnection::systemBus());
@@ -37,14 +39,16 @@ int UDisks2Api::authOpen(const QString &device, const QString &mode)
     QDBusReply<QDBusUnixFileDescriptor> dbusfd = blockdevice.call("OpenDevice", mode, options);
 
     if (!blockdevice.isValid() || !dbusfd.isValid() || !dbusfd.value().isValid())
+    {
         return -1;
+    }
 
     int fd = ::dup(dbusfd.value().fileDescriptor());
 
     return fd;
 }
 
-QString UDisks2Api::_resolveDevice(const QString &device)
+auto UDisks2Api::_resolveDevice(const QString &device) -> QString
 {
     QDBusInterface manager("org.freedesktop.UDisks2", "/org/freedesktop/UDisks2/Manager",
                            "org.freedesktop.UDisks2.Manager", QDBusConnection::systemBus());
@@ -54,9 +58,11 @@ QString UDisks2Api::_resolveDevice(const QString &device)
     QDBusReply<QList<QDBusObjectPath>> list = manager.call("ResolveDevice", devspec, options);
 
     if (!manager.isValid() || !list.isValid() || list.value().isEmpty())
+    {
         return QString();
+    }
 
-    return list.value().first().path();
+    return list.value().constFirst().path();
 }
 
 void UDisks2Api::_unmountDrive(const QString &driveDbusPath)
@@ -69,9 +75,11 @@ void UDisks2Api::_unmountDrive(const QString &driveDbusPath)
     QDBusReply<QList<QDBusObjectPath>> list = manager.call("GetBlockDevices", options);
 
     if (!manager.isValid() || !list.isValid())
+    {
         return;
+    }
 
-    for (const auto & devpath : list.value())
+    for (const auto &devpath : list.value())
     {
         QString devpathStr = devpath.path();
 
@@ -79,7 +87,9 @@ void UDisks2Api::_unmountDrive(const QString &driveDbusPath)
                                    "org.freedesktop.UDisks2.Block", QDBusConnection::systemBus());
         QString driveOfDev = blockdevice.property("Drive").value<QDBusObjectPath>().path();
         if (driveOfDev != driveDbusPath)
+        {
             continue;
+        }
 
         //qDebug() << "Device:" << devpathStr << "belongs to same drive";
         QDBusInterface filesystem("org.freedesktop.UDisks2", devpathStr,
@@ -87,15 +97,19 @@ void UDisks2Api::_unmountDrive(const QString &driveDbusPath)
 
         QDBusReply<void> reply = filesystem.call("Unmount", options);
         if (reply.isValid())
+        {
             qDebug() << "Unmounted" << devpathStr << "successfully";
+        }
     }
 }
 
-bool UDisks2Api::formatDrive(const QString &device, bool mountAfterwards)
+auto UDisks2Api::formatDrive(const QString &device, bool mountAfterwards) -> bool
 {
     QString devpath = _resolveDevice(device);
     if (devpath.isEmpty())
+    {
         return false;
+    }
 
     QDBusInterface blockdevice("org.freedesktop.UDisks2", devpath,
                                "org.freedesktop.UDisks2.Block", QDBusConnection::systemBus());
@@ -115,14 +129,15 @@ bool UDisks2Api::formatDrive(const QString &device, bool mountAfterwards)
         return false;
     }
 
-    QVariantMap partOptions, formatOptions;
+    QVariantMap partOptions;
+    QVariantMap formatOptions;
     QDBusInterface partitiontable("org.freedesktop.UDisks2", devpath,
-                               "org.freedesktop.UDisks2.PartitionTable", QDBusConnection::systemBus());
+                                  "org.freedesktop.UDisks2.PartitionTable", QDBusConnection::systemBus());
 
     /* The all-in-one CreatePartitionAndFormat udisks2 method seems to not always
        work properly. Do seperate actions with sleep in between instead */
     qDebug() << "Adding partition";
-    QDBusReply<QDBusObjectPath> newpartition = partitiontable.call("CreatePartition", QVariant((qulonglong) 4*1024*1024), QVariant((qulonglong) 0), "0x0e", "", partOptions);
+    QDBusReply<QDBusObjectPath> newpartition = partitiontable.call("CreatePartition", QVariant((qulonglong)4 * 1024 * 1024), QVariant((qulonglong)0), "0x0e", "", partOptions);
     if (!newpartition.isValid())
     {
         qDebug() << "Error adding partition:" << newpartition.error().message();
@@ -171,11 +186,13 @@ bool UDisks2Api::formatDrive(const QString &device, bool mountAfterwards)
     return true;
 }
 
-QString UDisks2Api::mountDevice(const QString &device)
+auto UDisks2Api::mountDevice(const QString &device) -> QString
 {
     QString devpath = _resolveDevice(device);
     if (devpath.isEmpty())
+    {
         return QString();
+    }
 
     QDBusInterface filesystem("org.freedesktop.UDisks2", devpath,
                               "org.freedesktop.UDisks2.Filesystem", QDBusConnection::systemBus());
@@ -203,7 +220,9 @@ void UDisks2Api::unmountDrive(const QString &device)
 {
     QString devpath = _resolveDevice(device);
     if (devpath.isEmpty())
+    {
         return;
+    }
 
     _unmountDrive(devpath);
 }

@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-#include <sys/stat.h>
-#include <sys/mount.h>
-#include <mntent.h>
-#include <errno.h>
 #include "../mountutils.hpp"
+#include <cerrno>
+#include <mntent.h>
+#include <sys/mount.h>
+#include <sys/stat.h>
 
-MOUNTUTILS_RESULT unmount_disk(const char *device_path) {
-  const char *mount_path = NULL;
+auto unmount_disk(const char *device_path) -> MOUNTUTILS_RESULT {
+  const char *mount_path = nullptr;
   std::vector<std::string> mount_dirs = {};
 
   // Stat the device to make sure it exists
@@ -49,7 +49,8 @@ MOUNTUTILS_RESULT unmount_disk(const char *device_path) {
 
   // Get mountpaths from the device path, as `umount(device)`
   // has been removed in Linux 2.3+
-  struct mntent *mnt_p, data;
+  struct mntent *mnt_p;
+  struct mntent data;
   // See https://github.com/RasPlex/aufs-utils/commit/2d1a37468cdc1f9c779cbf22267c5ae491a44f8e
   char mnt_buf[4096 + 1024];
   FILE *proc_mounts;
@@ -57,7 +58,7 @@ MOUNTUTILS_RESULT unmount_disk(const char *device_path) {
   MountUtilsLog("Reading /proc/mounts");
   proc_mounts = setmntent("/proc/mounts", "r");
 
-  if (proc_mounts == NULL) {
+  if (proc_mounts == nullptr) {
     MountUtilsLog("Couldn't read /proc/mounts");
     // TODO(jhermsmeier): Refactor MOUNTUTILS_RESULT into a struct
     // with error_msg, errno, error_code etc. and set the respective
@@ -72,12 +73,12 @@ MOUNTUTILS_RESULT unmount_disk(const char *device_path) {
     return MOUNTUTILS_ERROR_GENERAL;
   }
 
-  while ((mnt_p = getmntent_r(proc_mounts, &data, mnt_buf, sizeof(mnt_buf)))) {
+  while ((mnt_p = getmntent_r(proc_mounts, &data, mnt_buf, sizeof(mnt_buf))) != nullptr) {
     mount_path = mnt_p->mnt_fsname;
     if (strncmp(mount_path, device_path, strlen(device_path)) == 0) {
       MountUtilsLog("Mount point " + std::string(mount_path) +
         " belongs to drive " + std::string(device_path));
-      mount_dirs.push_back(std::string(mnt_p->mnt_dir));
+      mount_dirs.emplace_back(mnt_p->mnt_dir);
     }
   }
 
@@ -143,6 +144,6 @@ MOUNTUTILS_RESULT unmount_disk(const char *device_path) {
 
 // FIXME: This is just a stub copy of `UnmountDisk()`,
 // and needs implementation!
-MOUNTUTILS_RESULT eject_disk(const char *device) {
+auto eject_disk(const char *device) -> MOUNTUTILS_RESULT {
   return unmount_disk(device);
 }

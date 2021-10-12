@@ -25,11 +25,11 @@ public:
      */
     explicit DownloadExtractThread(const QByteArray &url, const QByteArray &localfilename = "", const QByteArray &expectedHash = "", QObject *parent = nullptr);
 
-    virtual ~DownloadExtractThread();
-    virtual void cancelDownload();
+    ~DownloadExtractThread() override;
+    void cancelDownload() override;
     virtual void extractImageRun();
     virtual void extractMultiFileRun();
-    virtual bool isImage();
+    auto isImage() -> bool override;
     virtual void enableMultipleFileExtraction();
 
 protected:
@@ -46,18 +46,18 @@ protected:
     bool _writeThreadStarted;
     QFuture<size_t> _writeFuture;
 
-    QByteArray _popQueue();
+    auto _popQueue() -> QByteArray;
     void _pushQueue(const char *data, size_t len);
     virtual void _cancelExtract();
-    virtual size_t _writeData(const char *buf, size_t len);
-    virtual void _onDownloadSuccess();
-    virtual void _onDownloadError(const QString &msg);
+    auto _writeData(const char *buf, size_t len) -> size_t override;
+    void _onDownloadSuccess() override;
+    void _onDownloadError(const QString &msg) override;
 
-    virtual ssize_t _on_read(struct archive *a, const void **buff);
-    virtual int _on_close(struct archive *a);
+    virtual auto _on_read(struct archive *a, const void **buff) -> ssize_t;
+    virtual auto _on_close(struct archive *a) -> int;
 
-    static ssize_t _archive_read(struct archive *a, void *client_data, const void **buff);
-    static int _archive_close(struct archive *a, void *client_data);
+    static auto _archive_read(struct archive *a, void *client_data, const void **buff) -> ssize_t;
+    static auto _archive_close(struct archive *a, void *client_data) -> int;
 };
 
 #endif // DOWNLOADEXTRACTTHREAD_H

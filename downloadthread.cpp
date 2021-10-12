@@ -5,21 +5,22 @@
 
 #include "downloadthread.h"
 #include "config.h"
-#include "dependencies/mountutils/src/mountutils.hpp"
 #include "dependencies/drivelist/src/drivelist.hpp"
-#include <fstream>
-#include <sstream>
-#include <iostream>
-#include <utime.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <regex>
+#include "dependencies/mountutils/src/mountutils.hpp"
 #include <QDebug>
 #include <QProcess>
 #include <QSettings>
 #include <QtConcurrent/QtConcurrent>
+#include <fcntl.h>
+#include <fstream>
+#include <iostream>
+#include <regex>
+#include <sstream>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <utility>
+#include <utime.h>
 
 #ifdef Q_OS_LINUX
 #include <sys/ioctl.h>
@@ -32,13 +33,14 @@ using namespace std;
 QByteArray DownloadThread::_proxy;
 int DownloadThread::_curlCount = 0;
 
-DownloadThread::DownloadThread(const QByteArray &url, const QByteArray &localfilename, const QByteArray &expectedHash, QObject *parent) :
-    QThread(parent), _startOffset(0), _lastDlTotal(0), _lastDlNow(0), _verifyTotal(0), _lastVerifyNow(0), _bytesWritten(0), _sectorsStart(-1), _url(url), _filename(localfilename), _expectedHash(expectedHash),
-    _firstBlock(nullptr), _cancelled(false), _successful(false), _verifyEnabled(false), _cacheEnabled(false), _lastModified(0), _serverTime(0),  _lastFailureTime(0),
-    _inputBufferSize(0), _file(NULL), _writehash(OSLIST_HASH_ALGORITHM), _verifyhash(OSLIST_HASH_ALGORITHM)
+DownloadThread::DownloadThread(QByteArray url, QByteArray localfilename, QByteArray expectedHash, QObject *parent) : QThread(parent), _startOffset(0), _lastDlTotal(0), _lastDlNow(0), _verifyTotal(0), _lastVerifyNow(0), _bytesWritten(0), _sectorsStart(-1), _url(std::move(url)), _filename(std::move(localfilename)), _expectedHash(std::move(expectedHash)),
+                                                                                                                                          _firstBlock(nullptr), _cancelled(false), _successful(false), _verifyEnabled(false), _cacheEnabled(false), _lastModified(0), _serverTime(0), _lastFailureTime(0),
+                                                                                                                                          _inputBufferSize(0), _file(nullptr), _writehash(OSLIST_HASH_ALGORITHM), _verifyhash(OSLIST_HASH_ALGORITHM)
 {
-    if (!_curlCount)
+    if (_curlCount == 0)
+    {
         curl_global_init(CURL_GLOBAL_DEFAULT);
+    }
     _curlCount++;
 
     QSettings settings;
@@ -50,13 +52,19 @@ DownloadThread::~DownloadThread()
     _cancelled = true;
     wait();
     if (_file.isOpen())
+    {
         _file.close();
+    }
 
-    if (_firstBlock)
+    if (_firstBlock != nullptr)
+    {
         qFreeAligned(_firstBlock);
+    }
 
-    if (!--_curlCount)
+    if (--_curlCount == 0)
+    {
         curl_global_cleanup();
+    }
 }
 
 void DownloadThread::setProxy(const QByteArray &proxy)
@@ -64,7 +72,7 @@ void DownloadThread::setProxy(const QByteArray &proxy)
     _proxy = proxy;
 }
 
-QByteArray DownloadThread::proxy()
+auto DownloadThread::proxy() -> QByteArray
 {
     return _proxy;
 }
@@ -75,26 +83,26 @@ void DownloadThread::setUserAgent(const QByteArray &ua)
 }
 
 /* Curl write callback function, let it call the object oriented version */
-size_t DownloadThread::_curl_write_callback(char *ptr, size_t size, size_t nmemb, void *userdata)
+auto DownloadThread::_curl_write_callback(char *ptr, size_t size, size_t nmemb, void *userdata) -> size_t
 {
     return static_cast<DownloadThread *>(userdata)->_writeData(ptr, size * nmemb);
 }
 
-int DownloadThread::_curl_xferinfo_callback(void *userdata, curl_off_t dltotal, curl_off_t dlnow, curl_off_t ultotal, curl_off_t ulnow)
+auto DownloadThread::_curl_xferinfo_callback(void *userdata, curl_off_t dltotal, curl_off_t dlnow, curl_off_t ultotal, curl_off_t ulnow) -> int
 {
-    return (static_cast<DownloadThread *>(userdata)->_progress(dltotal, dlnow, ultotal, ulnow) == false);
+    return static_cast<int>(!static_cast<DownloadThread *>(userdata)->_progress(dltotal, dlnow, ultotal, ulnow));
 }
 
-size_t DownloadThread::_curl_header_callback( void *ptr, size_t size, size_t nmemb, void *userdata)
+auto DownloadThread::_curl_header_callback(void *ptr, size_t size, size_t nmemb, void *userdata) -> size_t
 {
-    int len = size*nmemb;
-    string headerstr((char *) ptr, len);
+    int len = size * nmemb;
+    string headerstr((char *)ptr, len);
     static_cast<DownloadThread *>(userdata)->_header(headerstr);
 
     return len;
 }
 
-QByteArray DownloadThread::_fileGetContentsTrimmed(const QString &filename)
+auto DownloadThread::_fileGetContentsTrimmed(const QString &filename) -> QByteArray
 {
     QByteArray result;
     QFile f(filename);
@@ -108,7 +116,7 @@ QByteArray DownloadThread::_fileGetContentsTrimmed(const QString &filename)
     return result;
 }
 
-bool DownloadThread::_openAndPrepareDevice()
+auto DownloadThread::_openAndPrepareDevice() -> bool
 {
     emit preparationStatusUpdate(tr("opening drive"));
 
@@ -129,15 +137,16 @@ bool DownloadThread::_openAndPrepareDevice()
     {
         _nr = QByteArray::fromStdString(m[1]);
 
-        if (!_nr.isEmpty()) {
+        if (!_nr.isEmpty())
+        {
             qDebug() << "Removing partition table from Windows drive #" << _nr << "(" << _filename << ")";
 
             QProcess proc;
             proc.start("diskpart");
             proc.waitForStarted();
-            proc.write("select disk "+_nr+"\r\n"
-                            "clean\r\n"
-                            "rescan\r\n");
+            proc.write("select disk " + _nr + "\r\n"
+                                              "clean\r\n"
+                                              "rescan\r\n");
             proc.closeWriteChannel();
             proc.waitForFinished();
 
@@ -176,7 +185,7 @@ bool DownloadThread::_openAndPrepareDevice()
 
     if (!driveLetter.isEmpty())
     {
-        _volumeFile.setFileName("\\\\.\\"+driveLetter);
+        _volumeFile.setFileName("\\\\.\\" + driveLetter);
         if (_volumeFile.open(QIODevice::ReadWrite))
             _volumeFile.lockVolume();
     }
@@ -188,13 +197,16 @@ bool DownloadThread::_openAndPrepareDevice()
 
     auto authopenresult = _file.authOpen(_filename);
 
-    if (authopenresult == _file.authOpenCancelled) {
+    if (authopenresult == _file.authOpenCancelled)
+    {
         /* User cancelled authentication */
         emit error(tr("Authentication cancelled"));
         return false;
-    } else if (authopenresult == _file.authOpenError) {
+    }
+    else if (authopenresult == _file.authOpenError)
+    {
         QString msg = tr("Error running authopen to gain access to disk device '%1'").arg(QString(_filename));
-        msg += "<br>"+tr("Please verify if 'Raspberry Pi Imager' is allowed access to 'removable volumes' in privacy settings (under 'files and folders' or alternatively give it 'full disk access').");
+        msg += "<br>" + tr("Please verify if 'Raspberry Pi Imager' is allowed access to 'removable volumes' in privacy settings (under 'files and folders' or alternatively give it 'full disk access').");
         QProcess::execute("open x-apple.systempreferences:com.apple.preference.security?Privacy_RemovableVolume");
         emit error(msg);
         return false;
@@ -230,14 +242,18 @@ bool DownloadThread::_openAndPrepareDevice()
         QString devname = _filename.mid(5);
 
         /* On some internal SD card readers CID/CSD is available, print it for debugging purposes */
-        QByteArray cid = _fileGetContentsTrimmed("/sys/block/"+devname+"/device/cid");
-        QByteArray csd = _fileGetContentsTrimmed("/sys/block/"+devname+"/device/csd");
+        QByteArray cid = _fileGetContentsTrimmed("/sys/block/" + devname + "/device/cid");
+        QByteArray csd = _fileGetContentsTrimmed("/sys/block/" + devname + "/device/csd");
         if (!cid.isEmpty())
+        {
             qDebug() << "SD card CID:" << cid;
+        }
         if (!csd.isEmpty())
+        {
             qDebug() << "SD card CSD:" << csd;
+        }
 
-        QByteArray discardmax = _fileGetContentsTrimmed("/sys/block/"+devname+"/queue/discard_max_bytes");
+        QByteArray discardmax = _fileGetContentsTrimmed("/sys/block/" + devname + "/queue/discard_max_bytes");
 
         if (discardmax.isEmpty() || discardmax == "0")
         {
@@ -246,10 +262,12 @@ bool DownloadThread::_openAndPrepareDevice()
         else
         {
             /* DISCARD/TRIM the SD card */
-            uint64_t devsize, range[2];
+            uint64_t devsize;
+            uint64_t range[2];
             int fd = _file.handle();
 
-            if (::ioctl(fd, BLKGETSIZE64, &devsize) == -1) {
+            if (::ioctl(fd, BLKGETSIZE64, &devsize) == -1)
+            {
                 qDebug() << "Error getting device/sector size with BLKGETSIZE64 ioctl():" << strerror(errno);
             }
             else
@@ -275,13 +293,13 @@ bool DownloadThread::_openAndPrepareDevice()
 #ifndef Q_OS_WIN
     // Zero out MBR
     qint64 knownsize = _file.size();
-    QByteArray emptyMB(1024*1024, 0);
+    QByteArray emptyMB(1024 * 1024, 0);
 
     emit preparationStatusUpdate(tr("zeroing out first and last MB of drive"));
     qDebug() << "Zeroing out first and last MB of drive";
     _timer.start();
 
-    if (!_file.write(emptyMB.data(), emptyMB.size()) || !_file.flush())
+    if ((_file.write(emptyMB.data(), emptyMB.size()) == 0) || !_file.flush())
     {
         emit error(tr("Write error while zero'ing out MBR"));
         return false;
@@ -290,10 +308,7 @@ bool DownloadThread::_openAndPrepareDevice()
     // Zero out last part of card (may have GPT backup table)
     if (knownsize > emptyMB.size())
     {
-        if (!_file.seek(knownsize-emptyMB.size())
-                || !_file.write(emptyMB.data(), emptyMB.size())
-                || !_file.flush()
-                || !::fsync(_file.handle()))
+        if (!_file.seek(knownsize - emptyMB.size()) || (_file.write(emptyMB.data(), emptyMB.size()) == 0) || !_file.flush() || (::fsync(_file.handle()) == 0))
         {
             emit error(tr("Write error while trying to zero out last part of card.<br>"
                           "Card could be advertising wrong capacity (possible counterfeit)."));
@@ -345,13 +360,19 @@ void DownloadThread::run()
     curl_easy_setopt(_c, CURLOPT_CONNECTTIMEOUT, 30);
     curl_easy_setopt(_c, CURLOPT_LOW_SPEED_TIME, 60);
     curl_easy_setopt(_c, CURLOPT_LOW_SPEED_LIMIT, 100);
-    if (_inputBufferSize)
+    if (_inputBufferSize != 0)
+    {
         curl_easy_setopt(_c, CURLOPT_BUFFERSIZE, _inputBufferSize);
+    }
 
     if (!_useragent.isEmpty())
+    {
         curl_easy_setopt(_c, CURLOPT_USERAGENT, _useragent.constData());
+    }
     if (!_proxy.isEmpty())
+    {
         curl_easy_setopt(_c, CURLOPT_PROXY, _proxy.constData());
+    }
 
     emit preparationStatusUpdate(tr("starting download"));
     _timer.start();
@@ -362,7 +383,7 @@ void DownloadThread::run()
        And also reconnect if we detect from our end that transfer stalled for more than one minute */
     while (ret == CURLE_PARTIAL_FILE || ret == CURLE_OPERATION_TIMEDOUT)
     {
-        time_t t = time(NULL);
+        time_t t = time(nullptr);
         qDebug() << "HTTP connection lost. Time:" << t;
 
         /* If last failure happened less than 5 seconds ago, something else may
@@ -384,52 +405,58 @@ void DownloadThread::run()
 
     switch (ret)
     {
-        case CURLE_OK:
-            _successful = true;
-            qDebug() << "Download done in" << _timer.elapsed() / 1000 << "seconds";
-            _onDownloadSuccess();
-            break;
-        case CURLE_WRITE_ERROR:
-            deleteDownloadedFile();
+    case CURLE_OK:
+        _successful = true;
+        qDebug() << "Download done in" << _timer.elapsed() / 1000 << "seconds";
+        _onDownloadSuccess();
+        break;
+    case CURLE_WRITE_ERROR:
+        deleteDownloadedFile();
 
 #ifdef Q_OS_WIN
-            if (_file.errorCode() == ERROR_ACCESS_DENIED)
+        if (_file.errorCode() == ERROR_ACCESS_DENIED)
+        {
+            QString msg = tr("Access denied error while writing file to disk.");
+            QSettings registry("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\Controlled Folder Access",
+                               QSettings::Registry64Format);
+            if (registry.value("EnableControlledFolderAccess").toInt() == 1)
             {
-                QString msg = tr("Access denied error while writing file to disk.");
-                QSettings registry("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\Controlled Folder Access",
-                                   QSettings::Registry64Format);
-                if (registry.value("EnableControlledFolderAccess").toInt() == 1)
-                {
-                    msg += "<br>"+tr("Controlled Folder Access seems to be enabled. Please add both citadel-imager.exe and fat32format.exe to the list of allowed apps and try again.");
-                }
-                _onDownloadError(msg);
+                msg += "<br>" + tr("Controlled Folder Access seems to be enabled. Please add both citadel-imager.exe and fat32format.exe to the list of allowed apps and try again.");
             }
-            else
+            _onDownloadError(msg);
+        }
+        else
 #endif
-                _onDownloadError(tr("Error writing file to disk"));
-            break;
-        case CURLE_ABORTED_BY_CALLBACK:
-            deleteDownloadedFile();
-            break;
-        default:
-            deleteDownloadedFile();
-            QString errorMsg;
+            _onDownloadError(tr("Error writing file to disk"));
+        break;
+    case CURLE_ABORTED_BY_CALLBACK:
+        deleteDownloadedFile();
+        break;
+    default:
+        deleteDownloadedFile();
+        QString errorMsg;
 
-            if (!errorBuf[0])
-                /* No detailed error message text provided, use standard text for libcurl result code */
-                errorMsg += curl_easy_strerror(ret);
-            else
-                errorMsg += errorBuf;
+        if (errorBuf[0] == 0u)
+        {
+            /* No detailed error message text provided, use standard text for libcurl result code */
+            errorMsg += curl_easy_strerror(ret);
+        }
+        else
+        {
+            errorMsg += errorBuf;
+        }
 
-            char *ipstr;
-            if (curl_easy_getinfo(_c, CURLINFO_PRIMARY_IP, &ipstr) == CURLE_OK && ipstr && ipstr[0])
-                errorMsg += QString(" - Server IP: ")+ipstr;
+        char *ipstr;
+        if (curl_easy_getinfo(_c, CURLINFO_PRIMARY_IP, &ipstr) == CURLE_OK && (ipstr != nullptr) && (ipstr[0] != 0u))
+        {
+            errorMsg += QString(" - Server IP: ") + ipstr;
+        }
 
-            _onDownloadError(tr("Error downloading: %1").arg(errorMsg));
+        _onDownloadError(tr("Error downloading: %1").arg(errorMsg));
     }
 }
 
-size_t DownloadThread::_writeData(const char *buf, size_t len)
+auto DownloadThread::_writeData(const char *buf, size_t len) -> size_t
 {
     _writeCache(buf, len);
 
@@ -437,17 +464,17 @@ size_t DownloadThread::_writeData(const char *buf, size_t len)
     {
         return _writeFile(buf, len);
     }
-    else
-    {
-        _buf.append(buf, len);
-        return len;
-    }
+
+    _buf.append(buf, len);
+    return len;
 }
 
 void DownloadThread::_writeCache(const char *buf, size_t len)
 {
     if (!_cacheEnabled || _cancelled)
+    {
         return;
+    }
 
     if (_cachefile.write(buf, len) != len)
     {
@@ -463,7 +490,7 @@ void DownloadThread::setCacheFile(const QString &filename, qint64 filesize)
     if (_cachefile.open(QIODevice::WriteOnly))
     {
         _cacheEnabled = true;
-        if (filesize)
+        if (filesize != 0)
         {
             /* Pre-allocate space */
             _cachefile.resize(filesize);
@@ -480,15 +507,17 @@ void DownloadThread::_hashData(const char *buf, size_t len)
     _writehash.addData(buf, len);
 }
 
-size_t DownloadThread::_writeFile(const char *buf, size_t len)
+auto DownloadThread::_writeFile(const char *buf, size_t len) -> size_t
 {
     if (_cancelled)
+    {
         return len;
+    }
 
-    if (!_firstBlock)
+    if (_firstBlock == nullptr)
     {
         _writehash.addData(buf, len);
-        _firstBlock = (char *) qMallocAligned(len, 4096);
+        _firstBlock = (char *)qMallocAligned(len, 4096);
         _firstBlockSize = len;
         ::memcpy(_firstBlock, buf, len);
 
@@ -499,7 +528,7 @@ size_t DownloadThread::_writeFile(const char *buf, size_t len)
     qint64 written = _file.write(buf, len);
     _bytesWritten += written;
 
-    if ((size_t) written != len)
+    if ((size_t)written != len)
     {
         qDebug() << "Write error:" << _file.errorString() << "while writing len:" << len;
     }
@@ -508,11 +537,13 @@ size_t DownloadThread::_writeFile(const char *buf, size_t len)
     return (written < 0) ? 0 : written;
 }
 
-bool DownloadThread::_progress(curl_off_t dltotal, curl_off_t dlnow, curl_off_t /*ultotal*/, curl_off_t /*ulnow*/)
+auto DownloadThread::_progress(curl_off_t dltotal, curl_off_t dlnow, curl_off_t /*ultotal*/, curl_off_t /*ulnow*/) -> bool
 {
-    if (dltotal)
+    if (dltotal != 0)
+    {
         _lastDlTotal = _startOffset + dltotal;
-    _lastDlNow   = _startOffset + dlnow;
+    }
+    _lastDlNow = _startOffset + dlnow;
 
     return !_cancelled;
 }
@@ -521,11 +552,11 @@ void DownloadThread::_header(const string &header)
 {
     if (header.compare(0, 6, "Date: ") == 0)
     {
-        _serverTime = curl_getdate(header.data()+6, NULL);
+        _serverTime = curl_getdate(header.data() + 6, nullptr);
     }
     else if (header.compare(0, 15, "Last-Modified: ") == 0)
     {
-        _lastModified = curl_getdate(header.data()+15, NULL);
+        _lastModified = curl_getdate(header.data() + 15, nullptr);
     }
     qDebug() << "Received header:" << header.c_str();
 }
@@ -536,22 +567,22 @@ void DownloadThread::cancelDownload()
     //deleteDownloadedFile();
 }
 
-QByteArray DownloadThread::data()
+auto DownloadThread::data() -> QByteArray
 {
     return _buf;
 }
 
-bool DownloadThread::successfull()
+auto DownloadThread::successfull() const -> bool
 {
     return _successful;
 }
 
-time_t DownloadThread::lastModified()
+auto DownloadThread::lastModified() const -> time_t
 {
     return _lastModified;
 }
 
-time_t DownloadThread::serverTime()
+auto DownloadThread::serverTime() const -> time_t
 {
     return _serverTime;
 }
@@ -562,44 +593,47 @@ void DownloadThread::deleteDownloadedFile()
     {
         _file.close();
         if (_cachefile.isOpen())
+        {
             _cachefile.remove();
+        }
 #ifdef Q_OS_WIN
         _volumeFile.close();
 #endif
 
-        if (!_filename.startsWith("/dev/") && !_filename.startsWith("\\\\.\\"))
+        if (!_filename.startsWith("/dev/") && !_filename.startsWith(R"(\\.\)"))
         {
             //_file.remove();
         }
     }
 }
 
-uint64_t DownloadThread::dlNow()
+auto DownloadThread::dlNow() -> uint64_t
 {
     return _lastDlNow;
 }
 
-uint64_t DownloadThread::dlTotal()
+auto DownloadThread::dlTotal() -> uint64_t
 {
     return _lastDlTotal;
 }
 
-uint64_t DownloadThread::verifyNow()
+auto DownloadThread::verifyNow() -> uint64_t
 {
     return _lastVerifyNow;
 }
 
-uint64_t DownloadThread::verifyTotal()
+auto DownloadThread::verifyTotal() -> uint64_t
 {
     return _verifyTotal;
 }
 
-uint64_t DownloadThread::bytesWritten()
+auto DownloadThread::bytesWritten() -> uint64_t
 {
     if (_sectorsStart != -1)
-        return qMin((uint64_t) (_sectorsWritten()-_sectorsStart)*512, (uint64_t) _bytesWritten);
-    else
-        return _bytesWritten;
+    {
+        return qMin((uint64_t)(_sectorsWritten() - _sectorsStart) * 512, (uint64_t)_bytesWritten);
+    }
+    return _bytesWritten;
 }
 
 void DownloadThread::_onDownloadSuccess()
@@ -620,7 +654,9 @@ void DownloadThread::_closeFiles()
     _volumeFile.close();
 #endif
     if (_cachefile.isOpen())
+    {
         _cachefile.close();
+    }
 }
 
 void DownloadThread::_writeComplete()
@@ -631,7 +667,9 @@ void DownloadThread::_writeComplete()
     {
         qDebug() << "Mismatch with expected hash:" << _expectedHash;
         if (_cachefile.isOpen())
+        {
             _cachefile.remove();
+        }
         DownloadThread::_onDownloadError(tr("Download corrupt. Hash does not match"));
         _closeFiles();
         return;
@@ -650,7 +688,8 @@ void DownloadThread::_writeComplete()
     }
 
 #ifndef Q_OS_WIN
-    if (::fsync(_file.handle()) != 0) {
+    if (::fsync(_file.handle()) != 0)
+    {
         DownloadThread::_onDownloadError(tr("Error writing to storage (while fsync)"));
         _closeFiles();
         return;
@@ -668,11 +707,11 @@ void DownloadThread::_writeComplete()
 
     emit finalizing();
 
-    if (_firstBlock)
+    if (_firstBlock != nullptr)
     {
         qDebug() << "Writing first block (which we skipped at first)";
         _file.seek(0);
-        if (!_file.write(_firstBlock, _firstBlockSize) || !_file.flush())
+        if ((_file.write(_firstBlock, _firstBlockSize) == 0) || !_file.flush())
         {
             qFreeAligned(_firstBlock);
             _firstBlock = nullptr;
@@ -693,23 +732,29 @@ void DownloadThread::_writeComplete()
 #endif
 
     if (_ejectEnabled && _config.isEmpty() && _cmdline.isEmpty())
+    {
         eject_disk(_filename.constData());
+    }
 
     if (!_config.isEmpty() || !_cmdline.isEmpty())
     {
         if (!_customizeImage())
+        {
             return;
+        }
 
         if (_ejectEnabled)
+        {
             eject_disk(_filename.constData());
+        }
     }
 
     emit success();
 }
 
-bool DownloadThread::_verify()
+auto DownloadThread::_verify() -> bool
 {
-    char *verifyBuf = (char *) qMallocAligned(IMAGEWRITER_VERIFY_BLOCKSIZE, 4096);
+    char *verifyBuf = (char *)qMallocAligned(IMAGEWRITER_VERIFY_BLOCKSIZE, 4096);
     _lastVerifyNow = 0;
     _verifyTotal = _file.pos();
     QElapsedTimer t1;
@@ -721,7 +766,7 @@ bool DownloadThread::_verify()
     posix_fadvise(_file.handle(), 0, 0, POSIX_FADV_DONTNEED);
 #endif
 
-    if (!_firstBlock)
+    if (_firstBlock == nullptr)
     {
         _file.seek(0);
     }
@@ -734,7 +779,7 @@ bool DownloadThread::_verify()
 
     while (_verifyEnabled && _lastVerifyNow < _verifyTotal && !_cancelled)
     {
-        qint64 lenRead = _file.read(verifyBuf, qMin((qint64) IMAGEWRITER_VERIFY_BLOCKSIZE, (qint64) (_verifyTotal-_lastVerifyNow) ));
+        qint64 lenRead = _file.read(verifyBuf, qMin((qint64)IMAGEWRITER_VERIFY_BLOCKSIZE, (qint64)(_verifyTotal - _lastVerifyNow)));
         if (lenRead == -1)
         {
             DownloadThread::_onDownloadError(tr("Error reading from storage.<br>"
@@ -754,10 +799,8 @@ bool DownloadThread::_verify()
     {
         return true;
     }
-    else
-    {
-        DownloadThread::_onDownloadError(tr("Verifying write failed. Contents of SD card is different from what was written to it."));
-    }
+
+    DownloadThread::_onDownloadError(tr("Verifying write failed. Contents of SD card is different from what was written to it."));
 
     return false;
 }
@@ -767,7 +810,7 @@ void DownloadThread::setVerifyEnabled(bool verify)
     _verifyEnabled = verify;
 }
 
-bool DownloadThread::isImage()
+auto DownloadThread::isImage() -> bool
 {
     return true;
 }
@@ -777,22 +820,28 @@ void DownloadThread::setInputBufferSize(int len)
     _inputBufferSize = len;
 }
 
-qint64 DownloadThread::_sectorsWritten()
+auto DownloadThread::_sectorsWritten() -> qint64
 {
 #ifdef Q_OS_LINUX
     if (!_filename.startsWith("/dev/"))
+    {
         return -1;
+    }
 
-    QFile f("/sys/class/block/"+_filename.mid(5)+"/stat");
+    QFile f("/sys/class/block/" + _filename.mid(5) + "/stat");
     if (!f.open(f.ReadOnly))
+    {
         return -1;
+    }
     QByteArray ioline = f.readAll().simplified();
     f.close();
 
     QList<QByteArray> stats = ioline.split(' ');
 
     if (stats.count() >= 6)
+    {
         return stats.at(6).toLongLong(); /* write sectors */
+    }
 #endif
     return -1;
 }
@@ -804,7 +853,7 @@ void DownloadThread::setImageCustomization(const QByteArray &config, const QByte
     _firstrun = firstrun;
 }
 
-bool DownloadThread::_customizeImage()
+auto DownloadThread::_customizeImage() -> bool
 {
     QString folder;
     std::vector<std::string> mountpoints;
@@ -829,9 +878,9 @@ bool DownloadThread::_customizeImage()
     {
         QThread::sleep(1);
         auto l = Drivelist::ListStorageDevices();
-        for (const auto& i : l)
+        for (const auto &i : l)
         {
-            if (QByteArray::fromStdString(i.device).toLower() == devlower && i.mountpoints.size())
+            if (QByteArray::fromStdString(i.device).toLower() == devlower && (!i.mountpoints.empty() != 0u))
             {
                 mountpoints = i.mountpoints;
                 break;
@@ -840,13 +889,14 @@ bool DownloadThread::_customizeImage()
     }
 
 #ifdef Q_OS_WIN
-    if (mountpoints.empty() && !_nr.isEmpty()) {
+    if (mountpoints.empty() && !_nr.isEmpty())
+    {
         qDebug() << "Windows did not assign drive letter automatically. Ask diskpart to do so manually.";
         proc.start("diskpart");
         proc.waitForStarted();
-        proc.write("select disk "+_nr+"\r\n"
-                        "select partition 1\r\n"
-                        "assign\r\n");
+        proc.write("select disk " + _nr + "\r\n"
+                                          "select partition 1\r\n"
+                                          "assign\r\n");
         proc.closeWriteChannel();
         proc.waitForFinished();
         qDebug() << proc.readAll();
@@ -871,18 +921,22 @@ bool DownloadThread::_customizeImage()
         /* Manually mount folder */
         manualmount = true;
         QByteArray fatpartition = _filename;
-        if (isdigit(fatpartition.at(fatpartition.length()-1)))
+        if (isdigit(fatpartition.at(fatpartition.length() - 1)) != 0)
+        {
             fatpartition += "p1";
+        }
         else
+        {
             fatpartition += "1";
+        }
 
         if (::access(devlower.constData(), W_OK) != 0)
         {
             /* Not running as root, try to outsource mounting to udisks2 */
-    #ifndef QT_NO_DBUS
+#ifndef QT_NO_DBUS
             UDisks2Api udisks2;
             mountpoints.push_back(udisks2.mountDevice(fatpartition).toStdString());
-    #endif
+#endif
         }
         else
         {
@@ -890,7 +944,8 @@ bool DownloadThread::_customizeImage()
             QTemporaryDir td;
             QStringList args;
             mountpoints.push_back(td.path().toStdString());
-            args << "-t" << "vfat" << fatpartition << td.path();
+            args << "-t"
+                 << "vfat" << fatpartition << td.path();
 
             if (QProcess::execute("mount", args) != 0)
             {
@@ -907,10 +962,11 @@ bool DownloadThread::_customizeImage()
         //
         qDebug() << "drive info. searching for:" << devlower;
         auto l = Drivelist::ListStorageDevices();
-        for (const auto& i : l)
+        for (const auto &i : l)
         {
             qDebug() << "drive" << QByteArray::fromStdString(i.device).toLower();
-            for (const auto& mp : i.mountpoints) {
+            for (const auto &mp : i.mountpoints)
+            {
                 qDebug() << "mountpoint:" << QByteArray::fromStdString(mp);
             }
         }
@@ -929,12 +985,14 @@ bool DownloadThread::_customizeImage()
     {
         /* Search all mountpoints, as on some systems FAT partition
            may not be first volume */
-        for (const auto& mp : mountpoints)
+        for (const auto &mp : mountpoints)
         {
             folder = QString::fromStdString(mp);
             if (folder.right(1) == '\\')
+            {
                 folder.chop(1);
-            configFilename = folder+"/config.txt";
+            }
+            configFilename = folder + "/config.txt";
 
             if (QFile::exists(configFilename))
             {
@@ -943,7 +1001,9 @@ bool DownloadThread::_customizeImage()
             }
         }
         if (foundFile)
+        {
             break;
+        }
         QThread::sleep(1);
     }
 
@@ -957,7 +1017,7 @@ bool DownloadThread::_customizeImage()
 
     if (!_firstrun.isEmpty())
     {
-        QFile f(folder+"/firstrun.sh");
+        QFile f(folder + "/firstrun.sh");
         if (f.open(f.WriteOnly) && f.write(_firstrun) == _firstrun.length())
         {
             f.close();
@@ -982,19 +1042,28 @@ bool DownloadThread::_customizeImage()
             f.close();
         }
 
-        for (const QByteArray& item : configItems)
+        for (const QByteArray &item : qAsConst(configItems))
         {
-            if (config.contains("#"+item)) {
+            if (config.contains("#" + item))
+            {
                 /* Uncomment existing line */
-                config.replace("#"+item, item);
-            } else if (config.contains("\n"+item)) {
+                config.replace("#" + item, item);
+            }
+            else if (config.contains("\n" + item))
+            {
                 /* config.txt already contains the line */
-            } else {
+            }
+            else
+            {
                 /* Append new line to config.txt */
                 if (config.right(1) != "\n")
-                    config += "\n"+item+"\n";
+                {
+                    config += "\n" + item + "\n";
+                }
                 else
-                    config += item+"\n";
+                {
+                    config += item + "\n";
+                }
             }
         }
 
@@ -1013,7 +1082,7 @@ bool DownloadThread::_customizeImage()
     {
         QByteArray cmdline;
 
-        QFile f(folder+"/cmdline.txt");
+        QFile f(folder + "/cmdline.txt");
         if (f.exists() && f.open(f.ReadOnly))
         {
             cmdline = f.readAll().trimmed();
@@ -1039,10 +1108,10 @@ bool DownloadThread::_customizeImage()
     {
         if (::access(devlower.constData(), W_OK) != 0)
         {
-    #ifndef QT_NO_DBUS
+#ifndef QT_NO_DBUS
             UDisks2Api udisks2;
             udisks2.unmountDrive(devlower);
-    #endif
+#endif
         }
         else
         {

@@ -14,13 +14,13 @@ class LocalFileExtractThread : public DownloadExtractThread
     Q_OBJECT
 public:
     explicit LocalFileExtractThread(const QByteArray &url, const QByteArray &dst = "", const QByteArray &expectedHash = "", QObject *parent = nullptr);
-    virtual ~LocalFileExtractThread();
+    ~LocalFileExtractThread() override;
 
 protected:
-    virtual void _cancelExtract();
-    virtual void run();
-    virtual ssize_t _on_read(struct archive *a, const void **buff);
-    virtual int _on_close(struct archive *a);
+    void _cancelExtract() override;
+    void run() override;
+    auto _on_read(struct archive *a, const void **buff) -> ssize_t override;
+    auto _on_close(struct archive *a) -> int override;
     QFile _inputfile;
     char *_inputBuf;
 };

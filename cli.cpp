@@ -14,7 +14,7 @@
 #include <utility>
 
 /* Message handler to discard qDebug() output if using cli (unless --debug is set) */
-static void devnullMsgHandler(QtMsgType, const QMessageLogContext &, const QString &)
+static void devnullMsgHandler(QtMsgType /*unused*/, const QMessageLogContext & /*unused*/, const QString & /*unused*/)
 {
 }
 
@@ -30,9 +30,9 @@ Cli::Cli(int &argc, char *argv[]) : QObject(nullptr)
     }
 #endif
     _app = new QCoreApplication(argc, argv);
-    _app->setOrganizationName("Raspberry Pi");
-    _app->setOrganizationDomain("raspberrypi.org");
-    _app->setApplicationName("Imager");
+    QCoreApplication::setOrganizationName("Raspberry Pi");
+    QCoreApplication::setOrganizationDomain("raspberrypi.org");
+    QCoreApplication::setApplicationName("Imager");
     _imageWriter = new ImageWriter;
     connect(_imageWriter, &ImageWriter::success, this, &Cli::onSuccess);
     connect(_imageWriter, &ImageWriter::error, this, &Cli::onError);
@@ -47,7 +47,7 @@ Cli::~Cli()
     delete _app;
 }
 
-int Cli::main()
+auto Cli::main() -> int
 {
     QCommandLineParser parser;
     QCommandLineOption cli("cli");
@@ -82,7 +82,7 @@ int Cli::main()
 
     if (args[0].startsWith("http:", Qt::CaseInsensitive) || args[0].startsWith("https:", Qt::CaseInsensitive))
     {
-        _imageWriter->setSrc(args[0], 0, 0, parser.value(sha256Option).toLatin1() );
+        _imageWriter->setSrc(args[0], 0, 0, parser.value(sha256Option).toLatin1());
     }
     else
     {
@@ -90,7 +90,7 @@ int Cli::main()
 
         if (fi.isFile())
         {
-            _imageWriter->setSrc(QUrl::fromLocalFile(args[0]), fi.size(), 0, parser.value(sha256Option).toLatin1() );
+            _imageWriter->setSrc(QUrl::fromLocalFile(args[0]), fi.size(), 0, parser.value(sha256Option).toLatin1());
         }
         else if (!fi.exists())
         {
@@ -111,9 +111,9 @@ int Cli::main()
     else
     {
         DriveListModel dlm;
-        dlm.processDriveList(Drivelist::ListStorageDevices() );
+        dlm.processDriveList(Drivelist::ListStorageDevices());
         bool foundDrive = false;
-        int numDrives = dlm.rowCount( QModelIndex() );
+        int numDrives = dlm.rowCount(QModelIndex());
 
         for (int i = 0; i < numDrives; i++)
         {
@@ -126,17 +126,19 @@ int Cli::main()
 
         if (!foundDrive)
         {
-            std::cerr << "Destination drive is not in list of removable volumes. Choose one of the following:" << std::endl << std::endl;
+            std::cerr << "Destination drive is not in list of removable volumes. Choose one of the following:" << std::endl
+                      << std::endl;
 
             for (int i = 0; i < numDrives; i++)
             {
                 QModelIndex idx = dlm.index(i, 0);
-                QByteArray line = idx.data(dlm.deviceRole).toByteArray()+" ("+idx.data(dlm.descriptionRole).toByteArray()+")";
+                QByteArray line = idx.data(dlm.deviceRole).toByteArray() + " (" + idx.data(dlm.descriptionRole).toByteArray() + ")";
 
                 std::cerr << line.constData() << std::endl;
             }
 
-            std::cerr << std::endl << "Or use --enable-writing-system-drives to overrule." << std::endl;
+            std::cerr << std::endl
+                      << "Or use --enable-writing-system-drives to overrule." << std::endl;
             return 1;
         }
     }
@@ -146,7 +148,7 @@ int Cli::main()
 
     /* Run startWrite() in event loop (otherwise calling _app->exit() on error does not work) */
     QTimer::singleShot(1, _imageWriter, &ImageWriter::startWrite);
-    return _app->exec();
+    return QCoreApplication::exec();
 }
 
 void Cli::onSuccess()
@@ -156,7 +158,7 @@ void Cli::onSuccess()
         _clearLine();
         std::cerr << "Write successful." << std::endl;
     }
-    _app->exit(0);
+    QCoreApplication::exit(0);
 }
 
 void Cli::_clearLine()
@@ -166,7 +168,7 @@ void Cli::_clearLine()
     std::cerr << "                                          \r";
 }
 
-void Cli::onError(const QVariant& msg)
+void Cli::onError(const QVariant &msg)
 {
     QByteArray m = msg.toByteArray();
 
@@ -175,12 +177,12 @@ void Cli::onError(const QVariant& msg)
         _clearLine();
     }
     std::cerr << "Error: " << m.constData() << std::endl;
-    _app->exit(1);
+    QCoreApplication::exit(1);
 }
 
 void Cli::onDownloadProgress(QVariant dlnow, QVariant dltotal)
 {
-    _printProgress("Writing",  std::move(dlnow), std::move(dltotal));
+    _printProgress("Writing", std::move(dlnow), std::move(dltotal));
 }
 
 void Cli::onVerifyProgress(QVariant now, QVariant total)
@@ -188,30 +190,32 @@ void Cli::onVerifyProgress(QVariant now, QVariant total)
     _printProgress("Verifying", std::move(now), std::move(total));
 }
 
-void Cli::onPreparationStatusUpdate(const QVariant& msg)
+void Cli::onPreparationStatusUpdate(const QVariant &msg) const
 {
     if (!_quiet)
     {
-        QByteArray ascii = QByteArray("  ")+msg.toByteArray()+"\r";
+        QByteArray ascii = QByteArray("  ") + msg.toByteArray() + "\r";
         _clearLine();
         std::cerr << ascii.constData();
     }
 }
 
-void Cli::_printProgress(const QByteArray &msg, const QVariant& now, const QVariant& total)
+void Cli::_printProgress(const QByteArray &msg, const QVariant &now, const QVariant &total)
 {
     if (_quiet)
+    {
         return;
+    }
 
     float n = now.toFloat();
     float t = total.toFloat();
 
-    if (t)
+    if (t != 0.0f)
     {
-        int percent = n/t*100;
+        int percent = n / t * 100;
         if (percent != _lastPercent || msg != _lastMsg)
         {
-            QByteArray txt = QByteArray("  ")+msg+": ["+QByteArray(percent/5, '-')+'>'+QByteArray(20-percent/5, ' ')+"] "+QByteArray::number(percent)+" %\r";
+            QByteArray txt = QByteArray("  ") + msg + ": [" + QByteArray(percent / 5, '-') + '>' + QByteArray(20 - percent / 5, ' ') + "] " + QByteArray::number(percent) + " %\r";
             std::cerr << txt.constData();
             _lastPercent = percent;
             _lastMsg = msg;

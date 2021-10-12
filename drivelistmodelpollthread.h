@@ -14,16 +14,16 @@ class DriveListModelPollThread : public QThread
     Q_OBJECT
 public:
     DriveListModelPollThread(QObject *parent = nullptr);
-    ~DriveListModelPollThread();
+    ~DriveListModelPollThread() override;
     void start();
     void stop();
 
 protected:
-    bool _terminate;
-    virtual void run() override;
+    bool _terminate{false};
+    void run() override;
 
 signals:
-    void newDriveList(std::vector<Drivelist::DeviceDescriptor> list);
+    void newDriveList(std::vector<Drivelist::DeviceDescriptor> _t1);
 };
 
 #endif // DRIVELISTMODELPOLLTHREAD_H

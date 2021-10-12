@@ -15,7 +15,7 @@ namespace v8 {
 }
 
 // mountutils also expects some #include files to be there
+#include <cstring>
 #include <vector>
-#include <string.h>
 
 #endif // NAN_H

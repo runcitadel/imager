@@ -22,7 +22,7 @@ public:
     Q_PROPERTY(bool isUsb MEMBER _isUsb CONSTANT)
     Q_PROPERTY(bool isScsi MEMBER _isScsi CONSTANT)
     Q_PROPERTY(bool isReadOnly MEMBER _isReadOnly CONSTANT)
-    Q_INVOKABLE int sizeInGb();
+    Q_INVOKABLE auto sizeInGb() const -> int;
 
 signals:
 

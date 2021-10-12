@@ -3,8 +3,8 @@
 
 extern "C" {
 
-char *
-sha256_crypt (const char *key, const char *salt);
+auto
+sha256_crypt (const char *key, const char *salt) -> char *;
 
 }
 

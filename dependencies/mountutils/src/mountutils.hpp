@@ -17,8 +17,10 @@
  * limitations under the License.
  */
 
-#include <nan.h>
 #include <string>
+#include <cstring>
+#include <iostream>
+#include <vector>
 
 enum MOUNTUTILS_RESULT {
   MOUNTUTILS_SUCCESS,
@@ -28,12 +30,14 @@ enum MOUNTUTILS_RESULT {
   MOUNTUTILS_ERROR_GENERAL
 };
 
-void MountUtilsLog(std::string string);
+inline void MountUtilsLog(std::string string) {
+  const char* debug = std::getenv("MOUNTUTILS_DEBUG");
+  if (debug != nullptr) {
+    std::cout << "[mountutils] " << string << std::endl;
+  }
+}
 
-MOUNTUTILS_RESULT unmount_disk(const char *device);
-MOUNTUTILS_RESULT eject_disk(const char *device);
-
-NAN_METHOD(unmountDisk);
-NAN_METHOD(eject);
+auto unmount_disk(const char *device) -> MOUNTUTILS_RESULT;
+auto eject_disk(const char *device) -> MOUNTUTILS_RESULT;
 
 #endif  // SRC_MOUNTUTILS_HPP_

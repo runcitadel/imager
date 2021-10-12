@@ -16,14 +16,14 @@ class PowerSaveBlocker : public QObject
     Q_OBJECT
 public:
     explicit PowerSaveBlocker(QObject *parent = nullptr);
-    virtual ~PowerSaveBlocker();
-    void applyBlock(const QString &reason);
-    void removeBlock();
+    ~PowerSaveBlocker() override;
+    void applyBlock(const QString &reason) const;
+    void removeBlock() const;
 
 signals:
 
 protected:
-    bool _stayingAwake;
+    bool _stayingAwake{false};
 
 #ifdef Q_OS_WIN
     HANDLE _powerRequest;

@@ -19,47 +19,49 @@ DriveListModel::DriveListModel(QObject *parent)
         {isUsbRole, "isUsb"},
         {isScsiRole, "isScsi"},
         {isReadOnlyRole, "isReadOnly"},
-        {mountpointsRole, "mountpoints"}
-    };
+        {mountpointsRole, "mountpoints"}};
 
     // Enumerate drives in seperate thread, but process results in UI thread
     connect(&_thread, SIGNAL(newDriveList(std::vector<Drivelist::DeviceDescriptor>)), SLOT(processDriveList(std::vector<Drivelist::DeviceDescriptor>)));
 }
 
-int DriveListModel::rowCount(const QModelIndex &) const
+auto DriveListModel::rowCount(const QModelIndex & /*parent*/) const -> int
 {
     return _drivelist.count();
 }
 
-QHash<int, QByteArray> DriveListModel::roleNames() const
+auto DriveListModel::roleNames() const -> QHash<int, QByteArray>
 {
     return _rolenames;
 }
 
-QVariant DriveListModel::data(const QModelIndex &index, int role) const
+auto DriveListModel::data(const QModelIndex &index, int role) const -> QVariant
 {
     int row = index.row();
     if (row < 0 || row >= _drivelist.count())
+    {
         return QVariant();
+    }
 
     QByteArray propertyName = _rolenames.value(role);
     if (propertyName.isEmpty())
+    {
         return QVariant();
-    else
-        return _drivelist.values().at(row)->property(propertyName);
+    }
+    return _drivelist.values().at(row)->property(propertyName);
 }
 
-void DriveListModel::processDriveList(const std::vector<Drivelist::DeviceDescriptor>& l)
+void DriveListModel::processDriveList(const std::vector<Drivelist::DeviceDescriptor> &l)
 {
     bool changes = false;
     bool filterSystemDrives = DRIVELIST_FILTER_SYSTEM_DRIVES;
     QSet<QString> drivesInNewList;
 
-    for (auto &i: l)
+    for (const auto &i : l)
     {
         // Convert STL vector<string> to Qt QStringList
         QStringList mountpoints;
-        for (auto &s: i.mountpoints)
+        for (const auto &s : i.mountpoints)
         {
             mountpoints.append(QString::fromStdString(s));
         }
@@ -67,24 +69,32 @@ void DriveListModel::processDriveList(const std::vector<Drivelist::DeviceDescrip
         if (filterSystemDrives)
         {
             if (i.isSystem)
+            {
                 continue;
+            }
         }
         // Should already be caught by isSystem variable, but just in case...
         if (mountpoints.contains("/") || mountpoints.contains("C://"))
+        {
             continue;
+        }
 
         // Skip zero-sized devices
         if (i.size == 0)
+        {
             continue;
+        }
 
 #ifdef Q_OS_DARWIN
         if (i.isVirtual)
             continue;
 #endif
 
-        QString deviceNamePlusSize = QString::fromStdString(i.device)+":"+QString::number(i.size);
+        QString deviceNamePlusSize = QString::fromStdString(i.device) + ":" + QString::number(i.size);
         if (i.isReadOnly)
+        {
             deviceNamePlusSize += "ro";
+        }
         drivesInNewList.insert(deviceNamePlusSize);
 
         if (!_drivelist.contains(deviceNamePlusSize))
@@ -102,7 +112,7 @@ void DriveListModel::processDriveList(const std::vector<Drivelist::DeviceDescrip
 
     // Look for drives removed
     QStringList drivesInOldList = _drivelist.keys();
-    for (auto &device: drivesInOldList)
+    for (auto &device : drivesInOldList)
     {
         if (!drivesInNewList.contains(device))
         {
@@ -118,7 +128,9 @@ void DriveListModel::processDriveList(const std::vector<Drivelist::DeviceDescrip
     }
 
     if (changes)
+    {
         endResetModel();
+    }
 }
 
 void DriveListModel::startPolling()

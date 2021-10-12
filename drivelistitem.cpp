@@ -13,7 +13,7 @@ DriveListItem::DriveListItem(QString device, QString description, quint64 size, 
 
 }
 
-int DriveListItem::sizeInGb()
+auto DriveListItem::sizeInGb() const -> int
 {
     return _size / 1000000000;
 }

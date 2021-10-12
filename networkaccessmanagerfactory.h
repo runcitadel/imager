@@ -14,7 +14,7 @@ class NetworkAccessManagerFactory : public QObject, public QQmlNetworkAccessMana
 {
 public:
     NetworkAccessManagerFactory();
-    virtual QNetworkAccessManager *create(QObject *parent);
+    auto create(QObject *parent) -> QNetworkAccessManager * override;
 
 protected:
     QNetworkDiskCache *_c;

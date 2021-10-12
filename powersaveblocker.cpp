@@ -7,28 +7,31 @@
 #include <QDebug>
 #include <string>
 
-PowerSaveBlocker::PowerSaveBlocker(QObject *parent) :
-    QObject(parent), _stayingAwake(false)
+PowerSaveBlocker::PowerSaveBlocker(QObject *parent) : QObject(parent) 
 {
 }
 
 PowerSaveBlocker::~PowerSaveBlocker()
 {
     if (_stayingAwake)
+    {
         removeBlock();
+    }
 }
 
-void PowerSaveBlocker::applyBlock(const QString &reason)
+void PowerSaveBlocker::applyBlock(const QString &reason) const
 {
     if (_stayingAwake)
+    {
         return;
+    }
 
 #ifdef Q_OS_WIN
     REASON_CONTEXT rc;
     std::wstring wreason = reason.toStdWString();
     rc.Version = POWER_REQUEST_CONTEXT_VERSION;
     rc.Flags = POWER_REQUEST_CONTEXT_SIMPLE_STRING;
-    rc.Reason.SimpleReasonString = (wchar_t *) wreason.c_str();
+    rc.Reason.SimpleReasonString = (wchar_t *)wreason.c_str();
     _powerRequest = PowerCreateRequest(&rc);
 
     if (_powerRequest == INVALID_HANDLE_VALUE)
@@ -45,10 +48,12 @@ void PowerSaveBlocker::applyBlock(const QString &reason)
 #endif
 }
 
-void PowerSaveBlocker::removeBlock()
+void PowerSaveBlocker::removeBlock() const
 {
     if (!_stayingAwake)
+    {
         return;
+    }
 
 #ifdef Q_OS_WIN
     PowerClearRequest(_powerRequest, PowerRequestDisplayRequired);

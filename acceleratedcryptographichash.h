@@ -26,7 +26,7 @@ public:
     virtual ~AcceleratedCryptographicHash();
     void addData(const char *data, int length);
     void addData(const QByteArray &data);
-    QByteArray result();
+    auto result() -> QByteArray;
 
 protected:
     SHA256_CTX _sha256;

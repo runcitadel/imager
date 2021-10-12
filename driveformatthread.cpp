@@ -6,21 +6,21 @@
 #include "driveformatthread.h"
 #include "dependencies/drivelist/src/drivelist.hpp"
 #include "dependencies/mountutils/src/mountutils.hpp"
-#include <regex>
+#include <QCoreApplication>
 #include <QDebug>
 #include <QProcess>
 #include <QTemporaryFile>
-#include <QCoreApplication>
+#include <regex>
+#include <utility>
 
 #ifdef Q_OS_LINUX
 #include "linux/udisks2api.h"
 #include <unistd.h>
 #endif
 
-DriveFormatThread::DriveFormatThread(const QByteArray &device, QObject *parent)
-    : QThread(parent), _device(device)
+DriveFormatThread::DriveFormatThread(QByteArray device, QObject *parent)
+    : QThread(parent), _device(std::move(device))
 {
-
 }
 
 DriveFormatThread::~DriveFormatThread()
@@ -42,12 +42,12 @@ void DriveFormatThread::run()
 
         QProcess proc;
         QByteArray diskpartCmds =
-                "select disk "+nr+"\r\n"
-                "clean\r\n"
-                "create partition primary\r\n"
-                "select partition 1\r\n"
-                "set id=0e\r\n"
-                "assign\r\n";
+            "select disk " + nr + "\r\n"
+                                  "clean\r\n"
+                                  "create partition primary\r\n"
+                                  "select partition 1\r\n"
+                                  "set id=0e\r\n"
+                                  "assign\r\n";
         proc.start("diskpart");
         proc.waitForStarted();
         proc.write(diskpartCmds);
@@ -78,7 +78,7 @@ void DriveFormatThread::run()
                     QProcess f32format;
                     QStringList args;
                     args << "-y" << driveLetter;
-                    f32format.start(QCoreApplication::applicationDirPath()+"/fat32format.exe", args);
+                    f32format.start(QCoreApplication::applicationDirPath() + "/fat32format.exe", args);
                     if (!f32format.waitForStarted())
                     {
                         emit error(tr("Error starting fat32format"));
@@ -111,7 +111,10 @@ void DriveFormatThread::run()
 #elif defined(Q_OS_DARWIN)
     QProcess proc;
     QStringList args;
-    args << "eraseDisk" << "FAT32" << "SDCARD" << "MBRFormat" << _device;
+    args << "eraseDisk"
+         << "FAT32"
+         << "SDCARD"
+         << "MBRFormat" << _device;
     proc.start("diskutil", args);
     proc.waitForFinished();
 
@@ -151,20 +154,23 @@ void DriveFormatThread::run()
         return;
     }
 
-
     QProcess proc;
     QByteArray partitionTable;
     QStringList args;
     QByteArray fatpartition = _device;
     partitionTable = "8192,,0E\n"
-            "0,0\n"
-            "0,0\n"
-            "0,0\n";
+                     "0,0\n"
+                     "0,0\n"
+                     "0,0\n";
     args << "-uS" << _device;
-    if (isdigit(fatpartition.at(fatpartition.length()-1)))
+    if (isdigit(fatpartition.at(fatpartition.length() - 1)) != 0)
+    {
         fatpartition += "p1";
+    }
     else
+    {
         fatpartition += "1";
+    }
 
     unmount_disk(_device);
     proc.setProcessChannelMode(proc.MergedChannels);
@@ -180,13 +186,13 @@ void DriveFormatThread::run()
     QByteArray output = proc.readAll();
     qDebug() << "sfdisk:" << output;
 
-    if (proc.exitCode())
+    if (proc.exitCode() != 0)
     {
         emit error(tr("Error partitioning: %1").arg(QString(output)));
         return;
     }
 
-    proc.execute("partprobe", QStringList() );
+    QProcess::execute("partprobe", QStringList());
 
     args.clear();
     args << fatpartition;
@@ -201,7 +207,7 @@ void DriveFormatThread::run()
     output = proc.readAll();
     qDebug() << "mkfs.fat:" << output;
 
-    if (proc.exitCode())
+    if (proc.exitCode() != 0)
     {
         emit error(tr("Error running mkfs.fat: %1").arg(QString(output)));
         return;

@@ -6,15 +6,15 @@
  * Copyright (C) 2020 Raspberry Pi (Trading) Limited
  */
 
+#include "acceleratedcryptographichash.h"
+#include <QElapsedTimer>
+#include <QFile>
 #include <QString>
 #include <QThread>
-#include <QFile>
-#include <QElapsedTimer>
-#include <fstream>
 #include <atomic>
-#include <time.h>
+#include <ctime>
 #include <curl/curl.h>
-#include "acceleratedcryptographichash.h"
+#include <fstream>
 
 #ifdef Q_OS_WIN
 #include "windows/winfile.h"
@@ -34,7 +34,7 @@ public:
      * - url: URL to download
      * - localfilename: File name to save downloaded file as. If empty, store data in memory buffer
      */
-    explicit DownloadThread(const QByteArray &url, const QByteArray &localfilename = "", const QByteArray &expectedHash = "", QObject *parent = nullptr);
+    explicit DownloadThread(QByteArray url, QByteArray localfilename = "", QByteArray expectedHash = "", QObject *parent = nullptr);
 
     /*
      * Destructor
@@ -42,7 +42,7 @@ public:
      * Waits until download is complete
      * If this is not desired, call cancelDownload() first
      */
-    virtual ~DownloadThread();
+    ~DownloadThread() override;
 
     /*
      * Cancel download
@@ -61,7 +61,7 @@ public:
     /*
      * Returns proxy server used
      */
-    static QByteArray proxy();
+    static auto proxy() -> QByteArray;
 
     /*
      * Set user-agent header string
@@ -71,12 +71,12 @@ public:
     /*
      * Returns true if download has been successful
      */
-    bool successfull();
+    auto successfull() const -> bool;
 
     /*
      * Returns the downloaded data if saved to memory buffer instead of file
      */
-    QByteArray data();
+    auto data() -> QByteArray;
 
     /*
      * Delete downloaded file
@@ -87,12 +87,12 @@ public:
      * Return last-modified date (if available) as unix timestamp
      * (seconds since 1970)
      */
-    time_t lastModified();
+    auto lastModified() const -> time_t;
 
     /*
      * Return current server time as unix timestamp
      */
-    time_t serverTime();
+    auto serverTime() const -> time_t;
 
     /*
      * Enable/disable verification
@@ -117,48 +117,48 @@ public:
     /*
      * Thread safe download progress query functions
      */
-    uint64_t dlNow();
-    uint64_t dlTotal();
-    uint64_t verifyNow();
-    uint64_t verifyTotal();
-    uint64_t bytesWritten();
+    auto dlNow() -> uint64_t;
+    auto dlTotal() -> uint64_t;
+    auto verifyNow() -> uint64_t;
+    auto verifyTotal() -> uint64_t;
+    auto bytesWritten() -> uint64_t;
 
-    virtual bool isImage();
-    size_t _writeFile(const char *buf, size_t len);
+    virtual auto isImage() -> bool;
+    auto _writeFile(const char *buf, size_t len) -> size_t;
 
 signals:
     void success();
-    void error(QString msg);
-    void cacheFileUpdated(QByteArray sha256);
+    void error(QString _t1);
+    void cacheFileUpdated(QByteArray _t1);
     void finalizing();
-    void preparationStatusUpdate(QString msg);
+    void preparationStatusUpdate(QString _t1);
 
 protected:
-    virtual void run();
+    void run() override;
     virtual void _onDownloadSuccess();
     virtual void _onDownloadError(const QString &msg);
 
     void _hashData(const char *buf, size_t len);
     void _writeComplete();
-    bool _verify();
-    int _authopen(const QByteArray &filename);
-    bool _openAndPrepareDevice();
+    auto _verify() -> bool;
+    auto _authopen(const QByteArray &filename) -> int;
+    auto _openAndPrepareDevice() -> bool;
     void _writeCache(const char *buf, size_t len);
-    qint64 _sectorsWritten();
+    auto _sectorsWritten() -> qint64;
     void _closeFiles();
-    QByteArray _fileGetContentsTrimmed(const QString &filename);
-    bool _customizeImage();
+    static auto _fileGetContentsTrimmed(const QString &filename) -> QByteArray;
+    auto _customizeImage() -> bool;
 
     /*
      * libcurl callbacks
      */
-    virtual size_t _writeData(const char *buf, size_t len);
-    bool _progress(curl_off_t dltotal, curl_off_t dlnow, curl_off_t ultotal, curl_off_t ulnow);
+    virtual auto _writeData(const char *buf, size_t len) -> size_t;
+    auto _progress(curl_off_t dltotal, curl_off_t dlnow, curl_off_t ultotal, curl_off_t ulnow) -> bool;
     void _header(const std::string &header);
 
-    static size_t _curl_write_callback(char *ptr, size_t size, size_t nmemb, void *userdata);
-    static int _curl_xferinfo_callback(void *userdata, curl_off_t dltotal, curl_off_t dlnow, curl_off_t ultotal, curl_off_t ulnow);
-    static size_t _curl_header_callback( void *ptr, size_t size, size_t nmemb, void *userdata);
+    static auto _curl_write_callback(char *ptr, size_t size, size_t nmemb, void *userdata) -> size_t;
+    static auto _curl_xferinfo_callback(void *userdata, curl_off_t dltotal, curl_off_t dlnow, curl_off_t ultotal, curl_off_t ulnow) -> int;
+    static auto _curl_header_callback( void *ptr, size_t size, size_t nmemb, void *userdata) -> size_t;
 
     CURL *_c;
     curl_off_t _startOffset;
