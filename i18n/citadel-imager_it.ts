@@ -364,12 +364,12 @@ Aggiungi sia &apos;rpi-imager.exe&apos; che &apos;fat32format.exe&apos; all&apos
     <message>
         <location filename="../OptionsPopup.qml" line="158"/>
         <source>Set password for &apos;citadel&apos; user (will be changed during setup):</source>
-        <translation>Imposta la password per l&apos;utente &apos;citadel&apos; (verrà cambiata durante l&apos;installazione)</translation>
+        <translation>Imposta la password per l&apos;utente &apos;citadel&apos; (verrà cambiata durante l&apos;installazione):</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="199"/>
         <source>Set authorized_keys for &apos;citadel&apos;:</source>
-        <translation>Imposta le chiavi di autorizzazione (authrozied_keys) per l&apos;utente &apos;citadel&apos;</translation>
+        <translation>Imposta le chiavi di autorizzazione (authrozied_keys) per l&apos;utente &apos;citadel&apos;:</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="211"/>
