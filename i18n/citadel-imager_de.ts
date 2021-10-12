@@ -328,10 +328,6 @@ Bitte stellen Sie sicher, dass &apos;Raspberry Pi Imager&apos; Zugriff auf &apos
         <translation>Immer verwenden</translation>
     </message>
     <message>
-        <source>Disable overscan</source>
-        <translation type="vanished">Overscan deaktivieren</translation>
-    </message>
-    <message>
         <location filename="../OptionsPopup.qml" line="112"/>
         <source>Set hostname:</source>
         <translation>Hostname:</translation>
@@ -347,17 +343,9 @@ Bitte stellen Sie sicher, dass &apos;Raspberry Pi Imager&apos; Zugriff auf &apos
         <translation>Password zur Authentifizierung verwenden</translation>
     </message>
     <message>
-        <source>Set password for &apos;pi&apos; user:</source>
-        <translation type="vanished">Passwort für &apos;pi&apos;:</translation>
-    </message>
-    <message>
         <location filename="../OptionsPopup.qml" line="184"/>
         <source>Allow public-key authentication only</source>
         <translation>Authethifizierung via Public-Key</translation>
-    </message>
-    <message>
-        <source>Set authorized_keys for &apos;pi&apos;:</source>
-        <translation type="vanished">authorized_keys für &apos;pi&apos;:</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="158"/>
@@ -410,10 +398,6 @@ Bitte stellen Sie sicher, dass &apos;Raspberry Pi Imager&apos; Zugriff auf &apos
         <translation>Tastaturlayout:</translation>
     </message>
     <message>
-        <source>Skip first-run wizard</source>
-        <translation type="vanished">Einrichtungsassistent überspringen</translation>
-    </message>
-    <message>
         <location filename="../OptionsPopup.qml" line="308"/>
         <source>Persistent settings</source>
         <translation>Dauerhafte Einstellugen</translation>
@@ -427,10 +411,6 @@ Bitte stellen Sie sicher, dass &apos;Raspberry Pi Imager&apos; Zugriff auf &apos
         <location filename="../OptionsPopup.qml" line="320"/>
         <source>Eject media when finished</source>
         <translation>Medien nach Beenden auswerfen</translation>
-    </message>
-    <message>
-        <source>Enable telemetry</source>
-        <translation type="vanished">Telemetry aktivieren</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="333"/>
@@ -477,10 +457,6 @@ Bitte stellen Sie sicher, dass &apos;Raspberry Pi Imager&apos; Zugriff auf &apos
 <context>
     <name>main</name>
     <message>
-        <source>Raspberry Pi Imager v%1</source>
-        <translation type="vanished">Raspberry Pi Imager v%1</translation>
-    </message>
-    <message>
         <location filename="../main.qml" line="105"/>
         <location filename="../main.qml" line="360"/>
         <source>Operating System</source>
@@ -507,10 +483,6 @@ Bitte stellen Sie sicher, dass &apos;Raspberry Pi Imager&apos; Zugriff auf &apos
         <location filename="../main.qml" line="969"/>
         <source>CHOOSE STORAGE</source>
         <translation>SD-KARTE WÄHLEN</translation>
-    </message>
-    <message>
-        <source>Select this button to change the destination SD card</source>
-        <translation type="vanished">Klicke auf diesen Knopf, um die Zeil-SD-Karte zu ändern</translation>
     </message>
     <message>
         <location filename="../main.qml" line="226"/>

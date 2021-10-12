@@ -454,10 +454,6 @@
 <context>
     <name>main</name>
     <message>
-        <source>Raspberry Pi Imager v%1</source>
-        <translation type="vanished">Raspberry Pi Imager v%1</translation>
-    </message>
-    <message>
         <location filename="../main.qml" line="105"/>
         <location filename="../main.qml" line="360"/>
         <source>Operating System</source>
@@ -484,10 +480,6 @@
         <location filename="../main.qml" line="969"/>
         <source>CHOOSE STORAGE</source>
         <translation>CHOISISSEZ LE STOCKAGE</translation>
-    </message>
-    <message>
-        <source>Select this button to change the destination SD card</source>
-        <translation type="vanished">Sélectionnez ce bouton pour changer la carte SD de destination</translation>
     </message>
     <message>
         <location filename="../main.qml" line="226"/>

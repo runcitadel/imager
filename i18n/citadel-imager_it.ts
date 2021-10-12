@@ -133,11 +133,6 @@
         <translation>Errore accesso negato durante la scrittura del file su disco.</translation>
     </message>
     <message>
-        <source>Controlled Folder Access seems to be enabled. Please add both rpi-imager.exe and fat32format.exe to the list of allowed apps and try again.</source>
-        <translation type="vanished">Sembra sia abilitato l&apos;accesso controllato alle cartelle. 
-Aggiungi sia &apos;rpi-imager.exe&apos; che &apos;fat32format.exe&apos; all&apos;elenco delle app consentite e riprova.</translation>
-    </message>
-    <message>
         <location filename="../downloadthread.cpp" line="430"/>
         <source>Error writing file to disk</source>
         <translation>Errore scrittura file su disco</translation>
@@ -330,10 +325,6 @@ Aggiungi sia &apos;rpi-imager.exe&apos; che &apos;fat32format.exe&apos; all&apos
         <translation>da usare sempre</translation>
     </message>
     <message>
-        <source>Disable overscan</source>
-        <translation type="vanished">Disabilita overscan</translation>
-    </message>
-    <message>
         <location filename="../OptionsPopup.qml" line="112"/>
         <source>Set hostname:</source>
         <translation>Imposta nome host:</translation>
@@ -349,17 +340,9 @@ Aggiungi sia &apos;rpi-imager.exe&apos; che &apos;fat32format.exe&apos; all&apos
         <translation>Usa password autenticazione</translation>
     </message>
     <message>
-        <source>Set password for &apos;pi&apos; user:</source>
-        <translation type="vanished">Imposta password utente &apos;pi&apos;:</translation>
-    </message>
-    <message>
         <location filename="../OptionsPopup.qml" line="184"/>
         <source>Allow public-key authentication only</source>
         <translation>Permetti solo autenticazione con chiave pubblica</translation>
-    </message>
-    <message>
-        <source>Set authorized_keys for &apos;pi&apos;:</source>
-        <translation type="vanished">Imposta authorized_key per &apos;pi&apos;:</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="158"/>
@@ -412,10 +395,6 @@ Aggiungi sia &apos;rpi-imager.exe&apos; che &apos;fat32format.exe&apos; all&apos
         <translation>Layout tastiera:</translation>
     </message>
     <message>
-        <source>Skip first-run wizard</source>
-        <translation type="vanished">Salta procedura prima impostazione</translation>
-    </message>
-    <message>
         <location filename="../OptionsPopup.qml" line="308"/>
         <source>Persistent settings</source>
         <translation>Impostazioni persistenti</translation>
@@ -429,10 +408,6 @@ Aggiungi sia &apos;rpi-imager.exe&apos; che &apos;fat32format.exe&apos; all&apos
         <location filename="../OptionsPopup.qml" line="320"/>
         <source>Eject media when finished</source>
         <translation>Espelli media quando completato</translation>
-    </message>
-    <message>
-        <source>Enable telemetry</source>
-        <translation type="vanished">Abilita telemetria</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="333"/>
@@ -479,10 +454,6 @@ Aggiungi sia &apos;rpi-imager.exe&apos; che &apos;fat32format.exe&apos; all&apos
 <context>
     <name>main</name>
     <message>
-        <source>Raspberry Pi Imager v%1</source>
-        <translation type="vanished">Raspberry Pi Imager v. %1</translation>
-    </message>
-    <message>
         <location filename="../main.qml" line="105"/>
         <location filename="../main.qml" line="360"/>
         <source>Operating System</source>
@@ -509,10 +480,6 @@ Aggiungi sia &apos;rpi-imager.exe&apos; che &apos;fat32format.exe&apos; all&apos
         <location filename="../main.qml" line="969"/>
         <source>CHOOSE STORAGE</source>
         <translation>SCEGLI SCHEDA SD</translation>
-    </message>
-    <message>
-        <source>Select this button to change the destination SD card</source>
-        <translation type="vanished">Seleziona questo pulsante per modificare la scheda SD destinazione</translation>
     </message>
     <message>
         <location filename="../main.qml" line="226"/>

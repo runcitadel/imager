@@ -133,10 +133,6 @@
         <translation>Odopretý prístup pri zápise súboru na disk.</translation>
     </message>
     <message>
-        <source>Controlled Folder Access seems to be enabled. Please add both rpi-imager.exe and fat32format.exe to the list of allowed apps and try again.</source>
-        <translation type="vanished">Vyzerá, že máte zapnutý Controlled Folder Access. Pridajte, prosím, rpi-imager.exe a fat32format.exe do zoznamu povolených aplikácií a skúste to znovu.</translation>
-    </message>
-    <message>
         <location filename="../downloadthread.cpp" line="430"/>
         <source>Error writing file to disk</source>
         <translation>Chyba pri zápise na disk</translation>
@@ -329,10 +325,6 @@
         <translation>použiť vždy</translation>
     </message>
     <message>
-        <source>Disable overscan</source>
-        <translation type="vanished">Vypnúť presnímanie (overscan)</translation>
-    </message>
-    <message>
         <location filename="../OptionsPopup.qml" line="112"/>
         <source>Set hostname:</source>
         <translation>Nastaviť meno počítača (hostname):</translation>
@@ -348,17 +340,9 @@
         <translation>Použiť heslo na prihlásenie</translation>
     </message>
     <message>
-        <source>Set password for &apos;pi&apos; user:</source>
-        <translation type="vanished">Nastaviť heslo pre používateľa &apos;pi&apos;:</translation>
-    </message>
-    <message>
         <location filename="../OptionsPopup.qml" line="184"/>
         <source>Allow public-key authentication only</source>
         <translation>Povoliť iba prihlásenie pomocou verejného kľúča</translation>
-    </message>
-    <message>
-        <source>Set authorized_keys for &apos;pi&apos;:</source>
-        <translation type="vanished">Nastaviť authorized_keys pre &apos;pi&apos;:</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="158"/>
@@ -411,10 +395,6 @@
         <translation>Rozloženie klávesnice:</translation>
     </message>
     <message>
-        <source>Skip first-run wizard</source>
-        <translation type="vanished">Vypnúť sprievodcu prvým spustením</translation>
-    </message>
-    <message>
         <location filename="../OptionsPopup.qml" line="308"/>
         <source>Persistent settings</source>
         <translation>Trvalé nastavenia</translation>
@@ -428,10 +408,6 @@
         <location filename="../OptionsPopup.qml" line="320"/>
         <source>Eject media when finished</source>
         <translation>Po skončení vysunúť médium</translation>
-    </message>
-    <message>
-        <source>Enable telemetry</source>
-        <translation type="vanished">Povoliť telemetriu</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="333"/>
@@ -477,10 +453,6 @@
 </context>
 <context>
     <name>main</name>
-    <message>
-        <source>Raspberry Pi Imager v%1</source>
-        <translation type="vanished">Raspberry Pi Imager v%1</translation>
-    </message>
     <message>
         <location filename="../main.qml" line="801"/>
         <source>Are you sure you want to quit?</source>
@@ -533,10 +505,6 @@
         <location filename="../main.qml" line="132"/>
         <source>Select this button to change the operating system</source>
         <translation>Pre zmenu operačného systému kliknite na toto tlačidlo</translation>
-    </message>
-    <message>
-        <source>Select this button to change the destination SD card</source>
-        <translation type="vanished">Pre zmenu cieľovej SD karty kliknite na toto tlačidlo</translation>
     </message>
     <message>
         <location filename="../main.qml" line="231"/>

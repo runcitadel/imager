@@ -133,10 +133,6 @@
         <translation>Toegang geweigerd bij het schrijven naar opslag.</translation>
     </message>
     <message>
-        <source>Controlled Folder Access seems to be enabled. Please add both rpi-imager.exe and fat32format.exe to the list of allowed apps and try again.</source>
-        <translation type="vanished">Controller Folder Access lijkt aan te staan. Gelieve zowel rpi-imager.exe als fat32format.exe toe te voegen aan de lijst met uitsluitingen en het nogmaals te proberen.</translation>
-    </message>
-    <message>
         <location filename="../downloadthread.cpp" line="430"/>
         <source>Error writing file to disk</source>
         <translation>Fout bij schrijven naar opslag</translation>
@@ -458,10 +454,6 @@
 <context>
     <name>main</name>
     <message>
-        <source>Raspberry Pi Imager v%1</source>
-        <translation type="vanished">Raspberry Pi Imager v%1</translation>
-    </message>
-    <message>
         <location filename="../main.qml" line="801"/>
         <source>Are you sure you want to quit?</source>
         <translation>Weet u zeker dat u wilt afsluiten?</translation>
@@ -513,10 +505,6 @@
         <location filename="../main.qml" line="132"/>
         <source>Select this button to change the operating system</source>
         <translation>Kies deze knop om een besturingssysteem te kiezen</translation>
-    </message>
-    <message>
-        <source>Select this button to change the destination SD card</source>
-        <translation type="vanished">Kies deze knop om de SD kaart te kiezen</translation>
     </message>
     <message>
         <location filename="../main.qml" line="231"/>

@@ -133,10 +133,6 @@
         <translation>将文件写入磁盘时访问被拒绝错误。</translation>
     </message>
     <message>
-        <source>Controlled Folder Access seems to be enabled. Please add both rpi-imager.exe and fat32format.exe to the list of allowed apps and try again.</source>
-        <translation type="vanished">受控文件夹访问似乎已启用。 请将rpi-imager.exe和fat32format.exe都添加到允许的应用程序列表中，然后重试。</translation>
-    </message>
-    <message>
         <location filename="../downloadthread.cpp" line="430"/>
         <source>Error writing file to disk</source>
         <translation>将文件写入磁盘时出错</translation>
@@ -329,10 +325,6 @@
         <translation>永久保存</translation>
     </message>
     <message>
-        <source>Disable overscan</source>
-        <translation type="vanished">禁用扫描</translation>
-    </message>
-    <message>
         <location filename="../OptionsPopup.qml" line="112"/>
         <source>Set hostname:</source>
         <translation>设置主机名：</translation>
@@ -348,17 +340,9 @@
         <translation>使用密码登录</translation>
     </message>
     <message>
-        <source>Set password for &apos;pi&apos; user:</source>
-        <translation type="vanished">设置&apos;pi&apos;用户的密码：</translation>
-    </message>
-    <message>
         <location filename="../OptionsPopup.qml" line="184"/>
         <source>Allow public-key authentication only</source>
         <translation>只允许使用公匙登录</translation>
-    </message>
-    <message>
-        <source>Set authorized_keys for &apos;pi&apos;:</source>
-        <translation type="vanished">设置pi用户的登录密匙：</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="158"/>
@@ -411,10 +395,6 @@
         <translation>键盘布局：</translation>
     </message>
     <message>
-        <source>Skip first-run wizard</source>
-        <translation type="vanished">跳过首次启动向导</translation>
-    </message>
-    <message>
         <location filename="../OptionsPopup.qml" line="308"/>
         <source>Persistent settings</source>
         <translation>永久设置</translation>
@@ -428,10 +408,6 @@
         <location filename="../OptionsPopup.qml" line="320"/>
         <source>Eject media when finished</source>
         <translation>完成后弹出磁盘</translation>
-    </message>
-    <message>
-        <source>Enable telemetry</source>
-        <translation type="vanished">启用遥测</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="333"/>
@@ -477,10 +453,6 @@
 </context>
 <context>
     <name>main</name>
-    <message>
-        <source>Raspberry Pi Imager v%1</source>
-        <translation type="vanished">树莓派镜像烧录 v%1</translation>
-    </message>
     <message>
         <location filename="../main.qml" line="801"/>
         <source>Are you sure you want to quit?</source>
@@ -558,10 +530,6 @@
         <location filename="../main.qml" line="132"/>
         <source>Select this button to change the operating system</source>
         <translation>更改操作系统</translation>
-    </message>
-    <message>
-        <source>Select this button to change the destination SD card</source>
-        <translation type="vanished">更改目标SD卡</translation>
     </message>
     <message>
         <location filename="../main.qml" line="231"/>
@@ -698,14 +666,6 @@
         <location filename="../main.qml" line="763"/>
         <source>Mounted as %1</source>
         <translation>挂载在：%1 上</translation>
-    </message>
-    <message>
-        <source>QUIT APP</source>
-        <translation type="vanished">退出</translation>
-    </message>
-    <message>
-        <source>CONTINUE</source>
-        <translation type="vanished">继续</translation>
     </message>
     <message>
         <location filename="../main.qml" line="884"/>

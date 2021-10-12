@@ -133,10 +133,6 @@
         <translation>Dosyayı diske yazarken erişim reddedildi hatası</translation>
     </message>
     <message>
-        <source>Controlled Folder Access seems to be enabled. Please add both rpi-imager.exe and fat32format.exe to the list of allowed apps and try again.</source>
-        <translation type="vanished">Kontrollü Klasör Erişimi etkin görünüyor. Lütfen izin verilen uygulamalar listesine hem rpi-imager.exe&apos;yi hem de fat32format.exe&apos;yi ekleyin ve tekrar deneyin.</translation>
-    </message>
-    <message>
         <location filename="../downloadthread.cpp" line="430"/>
         <source>Error writing file to disk</source>
         <translation>Dosyayı diske yazma hatası</translation>
@@ -458,10 +454,6 @@
 <context>
     <name>main</name>
     <message>
-        <source>Raspberry Pi Imager v%1</source>
-        <translation type="vanished">Raspberry Pi Imaj Yöneticisi v%1</translation>
-    </message>
-    <message>
         <location filename="../main.qml" line="105"/>
         <location filename="../main.qml" line="360"/>
         <source>Operating System</source>
@@ -488,10 +480,6 @@
         <location filename="../main.qml" line="969"/>
         <source>CHOOSE STORAGE</source>
         <translation>SD KART SEÇİN</translation>
-    </message>
-    <message>
-        <source>Select this button to change the destination SD card</source>
-        <translation type="vanished">Hedef SD kartı değiştirmek için bu düğmeyi seçin</translation>
     </message>
     <message>
         <location filename="../main.qml" line="226"/>
