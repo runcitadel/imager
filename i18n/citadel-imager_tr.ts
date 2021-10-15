@@ -609,11 +609,6 @@
         <translation>Çıkmak istediğine emin misin?</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="802"/>
-        <source>Raspberry Pi Imager is still busy.&lt;br&gt;Are you sure you want to quit?</source>
-        <translation>Raspberry Pi Imager hala meşgul.&lt;br&gt;Çıkmak istediğinizden emin misiniz?</translation>
-    </message>
-    <message>
         <location filename="../main.qml" line="813"/>
         <source>Warning</source>
         <translation>Uyarı</translation>
@@ -642,6 +637,11 @@
         <location filename="../main.qml" line="832"/>
         <source>All existing data on &apos;%1&apos; will be erased.&lt;br&gt;Are you sure you want to continue?</source>
         <translation>&apos;%1&apos; üzerindeki mevcut tüm veriler silinecek.&lt;br&gt;Devam etmek istediğinizden emin misiniz?</translation>
+    </message>
+    <message>
+        <location filename="../main.qml" line="802"/>
+        <source>Citadel Imager is still busy.&lt;br&gt;Are you sure you want to quit?</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../main.qml" line="884"/>

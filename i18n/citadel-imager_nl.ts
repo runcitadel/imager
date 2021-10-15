@@ -459,11 +459,6 @@
         <translation>Weet u zeker dat u wilt afsluiten?</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="802"/>
-        <source>Raspberry Pi Imager is still busy.&lt;br&gt;Are you sure you want to quit?</source>
-        <translation>Raspberry Pi Imager is nog niet klaar.&lt;br&gt;Weet u zeker dat u wilt afsluiten?</translation>
-    </message>
-    <message>
         <location filename="../main.qml" line="105"/>
         <location filename="../main.qml" line="360"/>
         <source>Operating System</source>
@@ -559,6 +554,11 @@
         <location filename="../main.qml" line="759"/>
         <source>[WRITE PROTECTED]</source>
         <translation>[ALLEEN LEZEN]</translation>
+    </message>
+    <message>
+        <location filename="../main.qml" line="802"/>
+        <source>Citadel Imager is still busy.&lt;br&gt;Are you sure you want to quit?</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../main.qml" line="813"/>

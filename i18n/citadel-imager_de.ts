@@ -611,11 +611,6 @@ Bitte stellen Sie sicher, dass &apos;Raspberry Pi Imager&apos; Zugriff auf &apos
         <translation>Sind Sie sicher, dass Sie beenden möchten?</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="802"/>
-        <source>Raspberry Pi Imager is still busy.&lt;br&gt;Are you sure you want to quit?</source>
-        <translation>Der Raspberry Pi Imager ist noch beschäftigt. &lt;br&gt;Möchten Sie wirklich beenden?</translation>
-    </message>
-    <message>
         <location filename="../main.qml" line="813"/>
         <source>Warning</source>
         <translation>Warnung</translation>
@@ -644,6 +639,11 @@ Bitte stellen Sie sicher, dass &apos;Raspberry Pi Imager&apos; Zugriff auf &apos
         <location filename="../main.qml" line="832"/>
         <source>All existing data on &apos;%1&apos; will be erased.&lt;br&gt;Are you sure you want to continue?</source>
         <translation>Alle vorhandenen Daten auf &apos;%1&apos; werden gelöscht.&lt;br&gt;Möchten sie wirklich fortfahren?</translation>
+    </message>
+    <message>
+        <location filename="../main.qml" line="802"/>
+        <source>Citadel Imager is still busy.&lt;br&gt;Are you sure you want to quit?</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../main.qml" line="884"/>

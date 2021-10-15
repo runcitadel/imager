@@ -608,11 +608,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../main.qml" line="802"/>
-        <source>Raspberry Pi Imager is still busy.&lt;br&gt;Are you sure you want to quit?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../main.qml" line="813"/>
         <source>Warning</source>
         <translation type="unfinished"></translation>
@@ -640,6 +635,11 @@
     <message>
         <location filename="../main.qml" line="832"/>
         <source>All existing data on &apos;%1&apos; will be erased.&lt;br&gt;Are you sure you want to continue?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../main.qml" line="802"/>
+        <source>Citadel Imager is still busy.&lt;br&gt;Are you sure you want to quit?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

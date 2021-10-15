@@ -459,11 +459,6 @@
         <translation>Skutočne chcete skončiť?</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="802"/>
-        <source>Raspberry Pi Imager is still busy.&lt;br&gt;Are you sure you want to quit?</source>
-        <translation>Raspberry Pi Imager ešte neskončil.&lt;br&gt;Ste si istý, že chcete skončiť?</translation>
-    </message>
-    <message>
         <location filename="../main.qml" line="105"/>
         <location filename="../main.qml" line="360"/>
         <source>Operating System</source>
@@ -559,6 +554,11 @@
         <location filename="../main.qml" line="759"/>
         <source>[WRITE PROTECTED]</source>
         <translation>[OCHRANA PROTI ZÁPISU]</translation>
+    </message>
+    <message>
+        <location filename="../main.qml" line="802"/>
+        <source>Citadel Imager is still busy.&lt;br&gt;Are you sure you want to quit?</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../main.qml" line="813"/>
