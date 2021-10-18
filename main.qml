@@ -13,11 +13,11 @@ ApplicationWindow {
     id: window
     visible: true
 
-    width: imageWriter.isEmbeddedMode() ? -1 : 780
-    height: imageWriter.isEmbeddedMode() ? -1 : 520
+    width: imageWriter.isEmbeddedMode() ? -1 : 830
+    height: imageWriter.isEmbeddedMode() ? -1 : 620
     minimumWidth: imageWriter.isEmbeddedMode() ? -1 : 780
     //maximumWidth: imageWriter.isEmbeddedMode() ? -1 : 680
-    minimumHeight: imageWriter.isEmbeddedMode() ? -1 : 520
+    minimumHeight: imageWriter.isEmbeddedMode() ? -1 : 620
     //maximumHeight: imageWriter.isEmbeddedMode() ? -1 : 420
 
     title: qsTr("Citadel Pi Imager v%1").arg(imageWriter.constantVersion())
@@ -59,8 +59,8 @@ ApplicationWindow {
             visible: true
             Layout.fillWidth: true
             width: window.width
-            height: window.height * 75 / 100
-            implicitHeight: window.height * 75 / 100
+            height: window.height * 65 / 100
+            implicitHeight: window.height * 65 / 100
             color: "#3E3E3E"
 
             Image {
@@ -78,7 +78,7 @@ ApplicationWindow {
         Rectangle {
             color: "#3E3E3E"
             implicitWidth: window.width
-            implicitHeight: window.height * 25 / 100
+            implicitHeight: window.height * 35 / 100
 
             GridLayout {
                 anchors.centerIn: parent
@@ -250,7 +250,7 @@ ApplicationWindow {
 
                 ColumnLayout {
                     id: columnLayout3
-                    Layout.columnSpan: 3
+                    Layout.columnSpan: 4
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
 
                     Text {
