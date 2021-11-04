@@ -5,5 +5,5 @@ Name=Citadel Imager
 Comment=Citadel Imager
 Icon=citadel-imager
 Exec=citadel-imager
-Categories=Utility
+Categories=Utility;
 StartupNotify=false
