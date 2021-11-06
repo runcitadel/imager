@@ -205,9 +205,10 @@ auto DownloadThread::_openAndPrepareDevice() -> bool
     }
     else if (authopenresult == _file.authOpenError)
     {
+         QStringList openPrefArgs = { "x-apple.systempreferences:com.apple.preference.security?Privacy_RemovableVolume" };
         QString msg = tr("Error running authopen to gain access to disk device '%1'").arg(QString(_filename));
-        msg += "<br>" + tr("Please verify if 'Raspberry Pi Imager' is allowed access to 'removable volumes' in privacy settings (under 'files and folders' or alternatively give it 'full disk access').");
-        QProcess::execute("open x-apple.systempreferences:com.apple.preference.security?Privacy_RemovableVolume");
+        msg += "<br>" + tr("Please verify if 'Citadel Imager' is allowed access to 'removable volumes' in privacy settings (under 'files and folders' or alternatively give it 'full disk access').");
+        QProcess::execute("open", openPrefArgs);
         emit error(msg);
         return false;
     }
