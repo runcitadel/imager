@@ -70,7 +70,10 @@ endif()
 
 set(SOURCES "main.cpp" "imagewriter.cpp" "networkaccessmanagerfactory.cpp"
     "drivelistitem.cpp" "drivelistmodel.cpp" "drivelistmodelpollthread.cpp" "downloadthread.cpp" "downloadextractthread.cpp"
-     "driveformatthread.cpp" "localfileextractthread.cpp" "powersaveblocker.cpp" "qml.qrc" "dependencies/sha256crypt/sha256crypt.c" "cli.cpp")
+     "driveformatthread.cpp" "localfileextractthread.cpp" "powersaveblocker.cpp" "dependencies/sha256crypt/sha256crypt.c" "cli.cpp")
+
+find_package(Qt5QuickCompiler)
+qtquick_compiler_add_resources(QML_PRECOMPILED "qml.qrc")
 
 find_package(Qt5 COMPONENTS Core Quick LinguistTools Svg OPTIONAL_COMPONENTS Widgets)
 if (Qt5Widgets_FOUND)
@@ -80,7 +83,7 @@ endif()
 #qt5_create_translation(QM_FILES ${CMAKE_SOURCE_DIR} i18n/citadel-imager_en.ts i18n/citadel-imager_es.ts i18n/citadel-imager_nl.ts i18n/citadel-imager_zh_cn.ts i18n/citadel-imager_tr.ts i18n/citadel-imager_fr.ts i18n/citadel-imager_de.ts i18n/citadel-imager_sk.ts i18n/citadel-imager_it.ts)
 qt5_add_translation(QM_FILES i18n/citadel-imager_en.ts i18n/citadel-imager_nl.ts i18n/citadel-imager_es.ts i18n/citadel-imager_zh_cn.ts i18n/citadel-imager_tr.ts i18n/citadel-imager_fr.ts i18n/citadel-imager_de.ts i18n/citadel-imager_sk.ts i18n/citadel-imager_it.ts)
 configure_file(i18n/translations.qrc "${CMAKE_CURRENT_BINARY_DIR}" COPYONLY)
-set(SOURCES ${SOURCES} ${CMAKE_CURRENT_BINARY_DIR}/translations.qrc ${QM_FILES})
+set(SOURCES ${SOURCES} ${CMAKE_CURRENT_BINARY_DIR}/translations.qrc ${QM_FILES} ${QML_PRECOMPILED})
 
 if (WIN32)
     # Adding WIN32 prevents a console window being opened on Windows
