@@ -65,7 +65,7 @@ DownloadExtractThread::~DownloadExtractThread()
     qFreeAligned(_abuf[1]);
 }
 
-auto DownloadExtractThread::_writeData(const char *buf, size_t len) -> size_t
+size_t DownloadExtractThread::_writeData(const char *buf, size_t len)
 {
     if (_cancelled) {
         return 0;
@@ -202,7 +202,7 @@ void DownloadExtractThread::extractImageRun()
 
 #ifdef Q_OS_LINUX
 /* Returns true if folder lives on a different device than parent directory */
-inline auto isMountPoint(const QString &folder) -> bool
+inline bool isMountPoint(const QString &folder)
 {
     struct stat statFolder;
     struct stat statParent;
@@ -413,30 +413,30 @@ void DownloadExtractThread::extractMultiFileRun()
     eject_disk(_filename.constData());
 }
 
-auto DownloadExtractThread::_on_read(struct archive * /*unused*/, const void **buff) -> ssize_t
+ssize_t DownloadExtractThread::_on_read(struct archive * /*unused*/, const void **buff)
 {
     _buf = _popQueue();
     *buff = _buf.data();
     return _buf.size();
 }
 
-auto DownloadExtractThread::_on_close(struct archive * /*unused*/) -> int
+int DownloadExtractThread::_on_close(struct archive * /*unused*/)
 {
     return 0;
 }
 
 // static callback functions that call object oriented equivalents
-auto DownloadExtractThread::_archive_read(struct archive *a, void *client_data, const void **buff) -> ssize_t
+ssize_t DownloadExtractThread::_archive_read(struct archive *a, void *client_data, const void **buff)
 {
    return qobject_cast<DownloadExtractThread *>((QObject *) client_data)->_on_read(a, buff);
 }
 
-auto DownloadExtractThread::_archive_close(struct archive *a, void *client_data) -> int
+int DownloadExtractThread::_archive_close(struct archive *a, void *client_data)
 {
    return qobject_cast<DownloadExtractThread *>((QObject *) client_data)->_on_close(a);
 }
 
-auto DownloadExtractThread::isImage() -> bool
+bool DownloadExtractThread::isImage()
 {
     return _isImage;
 }
@@ -447,7 +447,7 @@ void DownloadExtractThread::enableMultipleFileExtraction()
 }
 
 // Synchronized queue using monitor consumer/producer pattern
-auto DownloadExtractThread::_popQueue() -> QByteArray
+QByteArray DownloadExtractThread::_popQueue()
 {
     std::unique_lock<std::mutex> lock(_queueMutex);
 

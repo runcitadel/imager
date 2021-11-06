@@ -29,7 +29,7 @@ public:
     void cancelDownload() override;
     virtual void extractImageRun();
     virtual void extractMultiFileRun();
-    auto isImage() -> bool override;
+    bool isImage() override;
     virtual void enableMultipleFileExtraction();
 
 protected:
@@ -46,18 +46,18 @@ protected:
     bool _writeThreadStarted;
     QFuture<size_t> _writeFuture;
 
-    auto _popQueue() -> QByteArray;
+    QByteArray _popQueue();
     void _pushQueue(const char *data, size_t len);
     virtual void _cancelExtract();
-    auto _writeData(const char *buf, size_t len) -> size_t override;
+    size_t _writeData(const char *buf, size_t len) override;
     void _onDownloadSuccess() override;
     void _onDownloadError(const QString &msg) override;
 
-    virtual auto _on_read(struct archive *a, const void **buff) -> ssize_t;
-    virtual auto _on_close(struct archive *a) -> int;
+    virtual ssize_t _on_read(struct archive *a, const void **buff);
+    virtual int _on_close(struct archive *a);
 
-    static auto _archive_read(struct archive *a, void *client_data, const void **buff) -> ssize_t;
-    static auto _archive_close(struct archive *a, void *client_data) -> int;
+    static ssize_t _archive_read(struct archive *a, void *client_data, const void **buff);
+    static int _archive_close(struct archive *a, void *client_data);
 };
 
 #endif // DOWNLOADEXTRACTTHREAD_H
