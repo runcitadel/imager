@@ -109,7 +109,7 @@ Popup {
                     RowLayout {
                         CheckBox {
                             id: chkHostname
-                            text: qsTr("Set hostname:")
+                            text: qsTr("Customize URL:")
                             onCheckedChanged: {
                                 if (checked) {
                                     fieldHostname.forceActiveFocus()
@@ -124,85 +124,6 @@ Popup {
                         Text {
                             text : ".local"
                             color: chkHostname.checked ? "black" : "grey"
-                        }
-                    }
-                    CheckBox {
-                        id: chkSSH
-                        text: qsTr("Enable SSH")
-                        checked: true
-                        enabled: false
-                    }
-                    ColumnLayout {
-                        enabled: chkSSH.checked
-                        Layout.leftMargin: 40
-                        spacing: -5
-
-                        RadioButton {
-                            id: radioPasswordAuthentication
-                            text: qsTr("Use password authentication")
-                            onCheckedChanged: {
-                                if (checked) {
-                                    fieldUserPassword.forceActiveFocus()
-                                }
-                            }
-                        }
-
-                        GridLayout {
-                            Layout.leftMargin: 40
-                            columns: 2
-                            columnSpacing: 10
-                            rowSpacing: -5
-                            enabled: radioPasswordAuthentication.checked
-
-                            Text {
-                                text: qsTr("Set password for 'citadel' user (will be changed during setup):")
-                                color: parent.enabled ? (fieldUserPassword.indicateError ? "red" : "black") : "grey"
-                            }
-                            TextField {
-                                id: fieldUserPassword
-                                echoMode: TextInput.Password
-                                Layout.minimumWidth: 200
-                                property bool alreadyCrypted: false
-                                property bool indicateError: false
-
-                                onTextEdited: {
-                                    if (alreadyCrypted) {
-                                        /* User is trying to edit saved
-                                           (crypted) password, clear field */
-                                        alreadyCrypted = false
-                                        clear()
-                                    }
-                                    if (indicateError) {
-                                        indicateError = false
-                                    }
-                                }
-                            }
-                        }
-
-                        RadioButton {
-                            id: radioPubKeyAuthentication
-                            text: qsTr("Allow public-key authentication only")
-                            onCheckedChanged: {
-                                if (checked) {
-                                    fieldPublicKey.forceActiveFocus()
-                                }
-                            }
-                        }
-                        GridLayout {
-                            Layout.leftMargin: 40
-                            columns: 2
-                            columnSpacing: 10
-                            rowSpacing: -5
-                            enabled: radioPubKeyAuthentication.checked
-
-                            Text {
-                                text: qsTr("Set authorized_keys for 'citadel':")
-                                color: parent.enabled ? "black" : "grey"
-                            }
-                            TextField {
-                                id: fieldPublicKey
-                                Layout.minimumWidth: 200
-                            }
                         }
                     }
 
@@ -332,12 +253,6 @@ Popup {
             Button {
                 text: qsTr("SAVE")
                 onClicked: {
-                    if (chkSSH.checked && radioPasswordAuthentication.checked && fieldUserPassword.text.length == 0)
-                    {
-                        fieldUserPassword.indicateError = true
-                        fieldUserPassword.forceActiveFocus()
-                        return
-                    }
                     if (chkWifi.checked)
                     {
                         if (fieldWifiPassword.text.length < 8 || fieldWifiPassword.text.length > 64)
@@ -371,12 +286,10 @@ Popup {
     }
 
     function initialize() {
-        radioPasswordAuthentication.checked = true
         chkBeep.checked = imageWriter.getBoolSetting("beep")
         chkEject.checked = imageWriter.getBoolSetting("eject")
         var settings = imageWriter.getSavedCustomizationSettings()
         fieldTimezone.model = imageWriter.getTimezoneList()
-        fieldPublicKey.text = imageWriter.getDefaultPubKey()
         fieldWifiCountry.model = imageWriter.getCountryList()
 
         if (Object.keys(settings).length) {
@@ -386,22 +299,6 @@ Popup {
         if ('hostname' in settings) {
             fieldHostname.text = settings.hostname
             chkHostname.checked = true
-        }
-        if ('sshUserPassword' in settings) {
-            fieldUserPassword.text = settings.sshUserPassword
-            fieldUserPassword.alreadyCrypted = true
-            chkSSH.checked = true
-            radioPasswordAuthentication.checked = true
-        } else if ('sshAuthorizedKeys' in settings) {
-            fieldPublicKey.text = settings.sshAuthorizedKeys
-            chkSSH.checked = true
-            radioPasswordAuthentication.checked = false
-            radioPubKeyAuthentication.checked = true
-        } else {
-            fieldUserPassword.text = "moneyprintergobrrr"
-            fieldUserPassword.alreadyCrypted = false
-            chkSSH.checked = true
-            radioPasswordAuthentication.checked = true
         }
         if ('wifiSSID' in settings) {
             fieldWifiSSID.text = settings.wifiSSID
@@ -486,25 +383,6 @@ Popup {
             addFirstRun("echo "+fieldHostname.text+" >/etc/hostname")
             addFirstRun("sed -i \"s/127.0.1.1.*$CURRENT_HOSTNAME/127.0.1.1\\t"+fieldHostname.text+"/g\" /etc/hosts")
         }
-        if (chkSSH.checked) {
-            // First user may not be called 'pi' on all distributions, so look username up
-            addFirstRun("FIRSTUSER=`getent passwd 1000 | cut -d: -f1`");
-            addFirstRun("FIRSTUSERHOME=`getent passwd 1000 | cut -d: -f6`")
-
-            if (radioPasswordAuthentication.checked) {
-                var cryptedPassword = fieldUserPassword.alreadyCrypted ? fieldUserPassword.text : imageWriter.crypt(fieldUserPassword.text)
-                addFirstRun("echo \"$FIRSTUSER:\""+escapeshellarg(cryptedPassword)+" | chpasswd -e")
-            }
-            if (radioPubKeyAuthentication.checked) {
-                var pubkey = fieldPublicKey.text.replace(/\n/g, "")
-                if (pubkey.length) {
-                    addFirstRun("install -o \"$FIRSTUSER\" -m 700 -d \"$FIRSTUSERHOME/.ssh\"")
-                    addFirstRun("install -o \"$FIRSTUSER\" -m 600 <(echo \""+pubkey+"\") \"$FIRSTUSERHOME/.ssh/authorized_keys\"")
-                }
-                addFirstRun("echo 'PasswordAuthentication no' >>/etc/ssh/sshd_config")
-            }
-            addFirstRun("systemctl enable ssh")
-        }
         if (chkWifi.checked) {
             var wpaconfig = "country="+fieldWifiCountry.editText+"\n"
             wpaconfig += "ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev\n"
@@ -558,14 +436,6 @@ Popup {
             var settings = { };
             if (chkHostname.checked && fieldHostname.length) {
                 settings.hostname = fieldHostname.text
-            }
-            if (chkSSH.checked) {
-                if (radioPasswordAuthentication.checked) {
-                    settings.sshUserPassword = fieldUserPassword.alreadyCrypted ? fieldUserPassword.text : imageWriter.crypt(fieldUserPassword.text)
-                }
-                if (radioPubKeyAuthentication.checked) {
-                    settings.sshAuthorizedKeys = fieldPublicKey.text
-                }
             }
             if (chkWifi.checked) {
                 settings.wifiSSID = fieldWifiSSID.text
