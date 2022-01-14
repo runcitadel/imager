@@ -33,6 +33,19 @@ jobs:
       run: |
              choco install openssl
 
+    - name: Setup msys2
+      uses: msys2/setup-msys2@v2
+      if: matrix.os == 'windows-latest'
+      with:
+        msystem: MINGW64
+        install: >-
+          git
+          base-devel
+          mingw-w64-${{ matrix.arch }}-gcc
+          mingw-w64-${{ matrix.arch }}-cmake
+        update: true
+
+
     - name: Cache Qt
       id: cache-qt
       uses: actions/cache@v1  # not v2!
@@ -51,8 +64,14 @@ jobs:
       run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
     - name: Build
+      if: matrix.os != 'windows-latest'
       # Build your program with the given configuration
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+
+    - name: Build
+      if: matrix.os == 'windows-latest'
+      # Build your program with the given configuration
+      run: mingw-w64-cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
     - name: Test
       run: find build
