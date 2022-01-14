@@ -3,9 +3,11 @@
         {
             "name": "Linux",
             "includePath": [
-                "${default}"
+                "${default}",
+                "/usr/include/qt/QtCore",
+                "/usr/include/qt/*"
             ],
-            "compilerPath": "/usr/local/bin/clazy",
+            "compilerPath": "/bin/gcc",
             "cStandard": "gnu17",
             "cppStandard": "gnu++20",
             "intelliSenseMode": "linux-gcc-arm64",
