@@ -40,7 +40,7 @@
     <message>
         <location filename="../downloadthread.cpp" line="176"/>
         <source>Error removing existing partitions</source>
-        <translation>Mevcut bölümler kaldırılırken hata oluştu </translation>
+        <translation>Mevcut bölümler kaldırılırken hata oluştu</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="203"/>
@@ -130,7 +130,7 @@
     <message>
         <location filename="../downloadthread.cpp" line="419"/>
         <source>Access denied error while writing file to disk.</source>
-        <translation>Dosyayı diske yazarken erişim reddedildi hatası</translation>
+        <translation>Dosyayı diske yazarken erişim reddedildi hatası.</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="430"/>
@@ -165,7 +165,7 @@
     <message>
         <location filename="../downloadthread.cpp" line="313"/>
         <source>Write error while trying to zero out last part of card.&lt;br&gt;Card could be advertising wrong capacity (possible counterfeit).</source>
-        <translation>Kartın son kısmını sıfırlamaya çalışırken yazma hatası. Kart yanlış kapasitenin tanımını yapıyor olabilir (olası sahte bölüm boyutu tanımı)</translation>
+        <translation>Kartın son kısmını sıfırlamaya çalışırken yazma hatası. Kart yanlış kapasitenin tanımını yapıyor olabilir (olası sahte bölüm boyutu tanımı).</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="377"/>
@@ -243,7 +243,7 @@
     <message>
         <location filename="../imagewriter.cpp" line="201"/>
         <source>Storage capacity is not large enough.&lt;br&gt;Needs to be at least %1 GB.</source>
-        <translation>Depolama kapasitesi yeterince büyük değil.&lt;br&gt;En az %1 GB olması gerekiyor</translation>
+        <translation>Depolama kapasitesi yeterince büyük değil.&lt;br&gt;En az %1 GB olması gerekiyor.</translation>
     </message>
     <message>
         <location filename="../imagewriter.cpp" line="207"/>
@@ -500,7 +500,7 @@
         <location filename="../main.qml" line="279"/>
         <location filename="../main.qml" line="902"/>
         <source>Cancelling...</source>
-        <translation>İptal ediliyor...</translation>
+        <translation>İptal ediliyor…</translation>
     </message>
     <message>
         <location filename="../main.qml" line="291"/>
@@ -512,7 +512,7 @@
         <location filename="../main.qml" line="925"/>
         <location filename="../main.qml" line="987"/>
         <source>Finalizing...</source>
-        <translation>Bitiriliyor...</translation>
+        <translation>Bitiriliyor…</translation>
     </message>
     <message>
         <location filename="../main.qml" line="461"/>
@@ -578,8 +578,7 @@
     <message>
         <location filename="../main.qml" line="539"/>
         <source>Cached on your computer</source>
-        <translation>Bilgisayarınızda önbelleğe alındı
-</translation>
+        <translation>Bilgisayarınızda önbelleğe alındı</translation>
     </message>
     <message>
         <location filename="../main.qml" line="541"/>
@@ -616,7 +615,7 @@
     <message>
         <location filename="../main.qml" line="819"/>
         <source>Preparing to write...</source>
-        <translation>Yazdırmaya hazırlanıyor...</translation>
+        <translation>Yazdırmaya hazırlanıyor…</translation>
     </message>
     <message>
         <location filename="../main.qml" line="843"/>
