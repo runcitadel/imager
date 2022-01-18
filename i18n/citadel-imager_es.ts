@@ -527,7 +527,7 @@
         <location filename="../main.qml" line="279"/>
         <location filename="../main.qml" line="902"/>
         <source>Cancelling...</source>
-        <translation>Cancelando...</translation>
+        <translation>Cancelando…</translation>
     </message>
     <message>
         <location filename="../main.qml" line="291"/>
@@ -539,7 +539,7 @@
         <location filename="../main.qml" line="925"/>
         <location filename="../main.qml" line="987"/>
         <source>Finalizing...</source>
-        <translation>Finalizando...</translation>
+        <translation>Finalizando…</translation>
     </message>
     <message>
         <location filename="../main.qml" line="420"/>
@@ -622,7 +622,7 @@
     <message>
         <location filename="../main.qml" line="819"/>
         <source>Preparing to write...</source>
-        <translation>Preparándose para escribir...</translation>
+        <translation>Preparándose para escribir…</translation>
     </message>
     <message>
         <location filename="../main.qml" line="832"/>
