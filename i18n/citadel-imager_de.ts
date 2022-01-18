@@ -238,7 +238,7 @@ Bitte stellen Sie sicher, dass &apos;Raspberry Pi Imager&apos; Zugriff auf &apos
     <message>
         <location filename="../driveformatthread.cpp" line="219"/>
         <source>Formatting not implemented for this platform</source>
-        <translation>Formatieren ist auf dieser Platform nicht implementiert</translation>
+        <translation>Formatieren ist auf dieser Plattform nicht implementiert</translation>
     </message>
 </context>
 <context>
@@ -345,7 +345,7 @@ Bitte stellen Sie sicher, dass &apos;Raspberry Pi Imager&apos; Zugriff auf &apos
     <message>
         <location filename="../OptionsPopup.qml" line="184"/>
         <source>Allow public-key authentication only</source>
-        <translation>Authethifizierung via Public-Key</translation>
+        <translation>Authentifizierung via Public-Key</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="158"/>
@@ -470,7 +470,7 @@ Bitte stellen Sie sicher, dass &apos;Raspberry Pi Imager&apos; Zugriff auf &apos
     <message>
         <location filename="../main.qml" line="132"/>
         <source>Select this button to change the operating system</source>
-        <translation>Klicke auf diesen Knopf, um das Betriebssystem zu ändern</translation>
+        <translation>Klicken Sie auf diesen Knopf, um das Betriebssystem zu ändern</translation>
     </message>
     <message>
         <location filename="../main.qml" line="184"/>
@@ -492,7 +492,7 @@ Bitte stellen Sie sicher, dass &apos;Raspberry Pi Imager&apos; Zugriff auf &apos
     <message>
         <location filename="../main.qml" line="231"/>
         <source>Select this button to start writing the image</source>
-        <translation>Klicke auf diesen Knopf, um mit dem Schreiben zu beginnen</translation>
+        <translation>Klicken Sie auf diesen Knopf, um mit dem Schreiben zu beginnen</translation>
     </message>
     <message>
         <location filename="../main.qml" line="276"/>
@@ -503,7 +503,7 @@ Bitte stellen Sie sicher, dass &apos;Raspberry Pi Imager&apos; Zugriff auf &apos
         <location filename="../main.qml" line="279"/>
         <location filename="../main.qml" line="902"/>
         <source>Cancelling...</source>
-        <translation>Abbrechen...</translation>
+        <translation>Abbrechen…</translation>
     </message>
     <message>
         <location filename="../main.qml" line="291"/>
@@ -515,7 +515,7 @@ Bitte stellen Sie sicher, dass &apos;Raspberry Pi Imager&apos; Zugriff auf &apos
         <location filename="../main.qml" line="925"/>
         <location filename="../main.qml" line="987"/>
         <source>Finalizing...</source>
-        <translation>Finalisieren...</translation>
+        <translation>Finalisieren…</translation>
     </message>
     <message>
         <location filename="../main.qml" line="461"/>
@@ -561,12 +561,12 @@ Bitte stellen Sie sicher, dass &apos;Raspberry Pi Imager&apos; Zugriff auf &apos
     <message>
         <location filename="../main.qml" line="171"/>
         <source>Select this button to change operating system settings</source>
-        <translation>Klicke auf diesen Knopf, um die Betriebssystemseinstellungen zu ädern</translation>
+        <translation>Klicke auf diesen Knopf, um die Betriebssystemseinstellungen zu ändern</translation>
     </message>
     <message>
         <location filename="../main.qml" line="209"/>
         <source>Select this button to change the destination storage device</source>
-        <translation>Klicke auf diesen Knopf, um das Zeil-Speichermedium zu ändern</translation>
+        <translation>Klicke auf diesen Knopf, um das Ziel-Speichermedium zu ändern</translation>
     </message>
     <message>
         <location filename="../main.qml" line="421"/>
@@ -618,7 +618,7 @@ Bitte stellen Sie sicher, dass &apos;Raspberry Pi Imager&apos; Zugriff auf &apos
     <message>
         <location filename="../main.qml" line="819"/>
         <source>Preparing to write...</source>
-        <translation>Schreiben wird vorbereitet...</translation>
+        <translation>Schreiben wird vorbereitet…</translation>
     </message>
     <message>
         <location filename="../main.qml" line="843"/>
@@ -643,7 +643,7 @@ Bitte stellen Sie sicher, dass &apos;Raspberry Pi Imager&apos; Zugriff auf &apos
     <message>
         <location filename="../main.qml" line="802"/>
         <source>Citadel Imager is still busy.&lt;br&gt;Are you sure you want to quit?</source>
-        <translation type="unfinished"></translation>
+        <translation>Citadel Imager ist noch beschäftigt.&lt;br&gt;Sind Sie sicher, dass sie das Programm schließen möchten?</translation>
     </message>
     <message>
         <location filename="../main.qml" line="884"/>
@@ -653,12 +653,12 @@ Bitte stellen Sie sicher, dass &apos;Raspberry Pi Imager&apos; Zugriff auf &apos
     <message>
         <location filename="../main.qml" line="928"/>
         <source>Verifying... %1%</source>
-        <translation>Verifizierung... %1%</translation>
+        <translation>Verifizierung… %1%</translation>
     </message>
     <message>
         <location filename="../main.qml" line="935"/>
         <source>Preparing to write... (%1)</source>
-        <translation>Schreiben wird vorbereitet... (%1)</translation>
+        <translation>Schreiben wird vorbereitet… (%1)</translation>
     </message>
     <message>
         <location filename="../main.qml" line="950"/>
