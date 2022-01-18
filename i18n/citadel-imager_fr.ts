@@ -45,7 +45,7 @@
     <message>
         <location filename="../downloadthread.cpp" line="203"/>
         <source>Authentication cancelled</source>
-        <translation type="unfinished"></translation>
+        <translation>Authentification annulée</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="208"/>
