@@ -500,7 +500,7 @@
         <location filename="../main.qml" line="279"/>
         <location filename="../main.qml" line="902"/>
         <source>Cancelling...</source>
-        <translation>Annulation...</translation>
+        <translation>Annulation…</translation>
     </message>
     <message>
         <location filename="../main.qml" line="291"/>
@@ -512,7 +512,7 @@
         <location filename="../main.qml" line="925"/>
         <location filename="../main.qml" line="987"/>
         <source>Finalizing...</source>
-        <translation>Finalisation...</translation>
+        <translation>Finalisation…</translation>
     </message>
     <message>
         <location filename="../main.qml" line="461"/>
