@@ -510,7 +510,7 @@
         <location filename="../main.qml" line="279"/>
         <location filename="../main.qml" line="902"/>
         <source>Cancelling...</source>
-        <translation>Ruším operáciu...</translation>
+        <translation>Ruším operáciu…</translation>
     </message>
     <message>
         <location filename="../main.qml" line="291"/>
@@ -522,7 +522,7 @@
         <location filename="../main.qml" line="925"/>
         <location filename="../main.qml" line="987"/>
         <source>Finalizing...</source>
-        <translation>Ukončujem...</translation>
+        <translation>Ukončujem…</translation>
     </message>
     <message>
         <location filename="../main.qml" line="461"/>
@@ -568,7 +568,7 @@
     <message>
         <location filename="../main.qml" line="819"/>
         <source>Preparing to write...</source>
-        <translation>Príprava zápisu...</translation>
+        <translation>Príprava zápisu…</translation>
     </message>
     <message>
         <location filename="../main.qml" line="832"/>
