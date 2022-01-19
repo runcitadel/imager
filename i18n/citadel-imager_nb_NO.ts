@@ -6,28 +6,28 @@
     <message>
         <location filename="../downloadextractthread.cpp" line="173"/>
         <source>Error writing to storage</source>
-        <translation type="unfinished"></translation>
+        <translation>Klarte ikke å skrive til lager</translation>
     </message>
     <message>
         <location filename="../downloadextractthread.cpp" line="196"/>
         <location filename="../downloadextractthread.cpp" line="394"/>
         <source>Error extracting archive: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Kunne ikke pakke ut arkiv: %1</translation>
     </message>
     <message>
         <location filename="../downloadextractthread.cpp" line="264"/>
         <source>Error mounting FAT32 partition</source>
-        <translation type="unfinished"></translation>
+        <translation>Kunne ikke montere FAT32-partisjon</translation>
     </message>
     <message>
         <location filename="../downloadextractthread.cpp" line="285"/>
         <source>Operating system did not mount FAT32 partition</source>
-        <translation type="unfinished"></translation>
+        <translation>Operativsystemet monterte ikke FAT32-partisjon</translation>
     </message>
     <message>
         <location filename="../downloadextractthread.cpp" line="310"/>
         <source>Error changing to directory &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Klarte ikke å gå til katalogen «%1»</translation>
     </message>
 </context>
 <context>
@@ -35,17 +35,17 @@
     <message>
         <location filename="../downloadthread.cpp" line="155"/>
         <source>Error running diskpart: %1</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Klarte ikke å kjøre diskpart: %1</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="176"/>
         <source>Error removing existing partitions</source>
-        <translation type="unfinished"></translation>
+        <translation>Klarte ikke å fjerne eksisterende partisjoner</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="203"/>
         <source>Authentication cancelled</source>
-        <translation type="unfinished"></translation>
+        <translation>Identitetsbekreftelse avbrutt</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="208"/>
@@ -210,7 +210,7 @@
     <message>
         <location filename="../driveformatthread.cpp" line="109"/>
         <source>Invalid device: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Ugyldig enhet: %1</translation>
     </message>
     <message>
         <location filename="../driveformatthread.cpp" line="149"/>
