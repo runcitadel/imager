@@ -35,7 +35,7 @@
     <message>
         <location filename="../downloadthread.cpp" line="155"/>
         <source>Error running diskpart: %1</source>
-        <translation type="unfinished">Klarte ikke å kjøre diskpart: %1</translation>
+        <translation>Klarte ikke å kjøre diskpart: %1</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="176"/>
@@ -100,7 +100,7 @@
     <message>
         <location filename="../downloadthread.cpp" line="975"/>
         <source>Operating system did not mount FAT32 partition</source>
-        <translation type="unfinished">Operativsystemet monterte ikke FAT32-partisjonen</translation>
+        <translation>Operativsystemet monterte ikke FAT32-partisjonen</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="1012"/>
@@ -140,7 +140,7 @@
     <message>
         <location filename="../downloadthread.cpp" line="455"/>
         <source>Error downloading: %1</source>
-        <translation type="unfinished">Klarte ikke å laste ned: %1</translation>
+        <translation>Klarte ikke å laste ned: %1</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="685"/>
@@ -190,7 +190,7 @@
         <location filename="../driveformatthread.cpp" line="127"/>
         <location filename="../driveformatthread.cpp" line="191"/>
         <source>Error partitioning: %1</source>
-        <translation type="unfinished">Klarte ikke å partisjonere: %1</translation>
+        <translation>Klarte ikke å partisjonere: %1</translation>
     </message>
     <message>
         <location filename="../driveformatthread.cpp" line="84"/>
@@ -322,7 +322,7 @@
     <message>
         <location filename="../OptionsPopup.qml" line="100"/>
         <source>to always use</source>
-        <translation type="unfinished">for å alltid bruke</translation>
+        <translation>for å alltid bruke</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="112"/>
@@ -382,7 +382,7 @@
     <message>
         <location filename="../OptionsPopup.qml" line="275"/>
         <source>Set locale settings</source>
-        <translation type="unfinished">Sett språkinnstillinger</translation>
+        <translation>Sett språkinnstillinger</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="285"/>
@@ -528,7 +528,7 @@
     <message>
         <location filename="../main.qml" line="470"/>
         <source>Use custom</source>
-        <translation type="unfinished">Bruk eget</translation>
+        <translation>Bruk eget</translation>
     </message>
     <message>
         <location filename="../main.qml" line="471"/>
@@ -588,7 +588,7 @@
     <message>
         <location filename="../main.qml" line="543"/>
         <source>Online - %1 GB download</source>
-        <translation type="unfinished">Tilkoblet — %1 GB nedlastet</translation>
+        <translation>Tilkoblet — %1 GB nedlastet</translation>
     </message>
     <message>
         <location filename="../main.qml" line="705"/>
@@ -690,7 +690,7 @@
     <message>
         <location filename="../main.qml" line="1119"/>
         <source>SD card is write protected.&lt;br&gt;Push the lock switch on the left side of the card upwards, and try again.</source>
-        <translation type="unfinished">SD-kortet er skrivebeskyttet.&lt;br&gt;Trykk på låsebryteren på venstre side av kortet forover og prøv igjen.</translation>
+        <translation>SD-kortet er skrivebeskyttet.&lt;br&gt;Trykk på låsebryteren på venstre side av kortet forover og prøv igjen.</translation>
     </message>
 </context>
 </TS>
