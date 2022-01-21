@@ -588,7 +588,7 @@
     <message>
         <location filename="../main.qml" line="543"/>
         <source>Online - %1 GB download</source>
-        <translation>En ligne - %1 GO téléchargé</translation>
+        <translation type="unfinished">En ligne — %1 GO téléchargé</translation>
     </message>
     <message>
         <location filename="../main.qml" line="705"/>
