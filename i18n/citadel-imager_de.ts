@@ -591,7 +591,7 @@ Bitte stellen Sie sicher, dass &apos;Raspberry Pi Imager&apos; Zugriff auf &apos
     <message>
         <location filename="../main.qml" line="543"/>
         <source>Online - %1 GB download</source>
-        <translation>Online - %1 GB Download</translation>
+        <translation type="unfinished">Online — %1 GB Download</translation>
     </message>
     <message>
         <location filename="../main.qml" line="705"/>

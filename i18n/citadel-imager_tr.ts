@@ -588,7 +588,7 @@
     <message>
         <location filename="../main.qml" line="543"/>
         <source>Online - %1 GB download</source>
-        <translation>Çevrimiçi -%1 GB indir</translation>
+        <translation type="unfinished">Çevrimiçi — %1 GB indir</translation>
     </message>
     <message>
         <location filename="../main.qml" line="705"/>

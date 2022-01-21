@@ -6,28 +6,28 @@
     <message>
         <location filename="../downloadextractthread.cpp" line="173"/>
         <source>Error writing to storage</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd zapisu do pamięci masowej</translation>
     </message>
     <message>
         <location filename="../downloadextractthread.cpp" line="196"/>
         <location filename="../downloadextractthread.cpp" line="394"/>
         <source>Error extracting archive: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd rozpakowywania archiwum: %1</translation>
     </message>
     <message>
         <location filename="../downloadextractthread.cpp" line="264"/>
         <source>Error mounting FAT32 partition</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd montowania partycji FAT32</translation>
     </message>
     <message>
         <location filename="../downloadextractthread.cpp" line="285"/>
         <source>Operating system did not mount FAT32 partition</source>
-        <translation type="unfinished"></translation>
+        <translation>System operacyjny nie zamontował partycji FAT32</translation>
     </message>
     <message>
         <location filename="../downloadextractthread.cpp" line="310"/>
         <source>Error changing to directory &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd podczas przechodzenia do katalogu &apos;%1&apos;</translation>
     </message>
 </context>
 <context>
@@ -35,152 +35,152 @@
     <message>
         <location filename="../downloadthread.cpp" line="155"/>
         <source>Error running diskpart: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd podczas uruchamiania diskpart: %1</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="176"/>
         <source>Error removing existing partitions</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd usuwania istniejących partycji</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="203"/>
         <source>Authentication cancelled</source>
-        <translation type="unfinished"></translation>
+        <translation>Uwierzytelnianie anulowane</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="208"/>
         <source>Error running authopen to gain access to disk device &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd podczas uruchamiania authopen w celu uzyskania dostępu do dysku &apos;%1&apos;</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="209"/>
         <source>Please verify if &apos;Raspberry Pi Imager&apos; is allowed access to &apos;removable volumes&apos; in privacy settings (under &apos;files and folders&apos; or alternatively give it &apos;full disk access&apos;).</source>
-        <translation type="unfinished"></translation>
+        <translation>Proszę sprawdzić, czy &apos;Raspberry Pi Imager&apos; ma dostęp do &apos;woluminów wymiennych&apos; w ustawieniach prywatności (w sekcji &apos;pliki i foldery&apos; lub alternatywnie należy przyznać mu &apos;pełny dostęp do dysku&apos;).</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="230"/>
         <source>Cannot open storage device &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można otworzyć urządzenia pamięci masowej &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="278"/>
         <source>discarding existing data on drive</source>
-        <translation type="unfinished"></translation>
+        <translation>odrzucanie istniejących danych na dysku</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="298"/>
         <source>zeroing out first and last MB of drive</source>
-        <translation type="unfinished"></translation>
+        <translation>wyzerowanie pierwszego i ostatniego MB dysku</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="304"/>
         <source>Write error while zero&apos;ing out MBR</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd zapisu podczas zerowania MBR</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="424"/>
         <source>Controlled Folder Access seems to be enabled. Please add both citadel-imager.exe and fat32format.exe to the list of allowed apps and try again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontrolowany dostęp do folderów wydaje się być włączony. Proszę dodać pliki citadel-imager.exe i fat32format.exe do listy dozwolonych aplikacji i spróbować ponownie.</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="785"/>
         <source>Error reading from storage.&lt;br&gt;SD card may be broken.</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd odczytu z pamięci masowej.&lt;br&gt;Karta SD może być uszkodzona.</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="862"/>
         <source>Waiting for FAT partition to be mounted</source>
-        <translation type="unfinished"></translation>
+        <translation>Oczekiwanie na montowanie partycji FAT</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="952"/>
         <source>Error mounting FAT32 partition</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd podczas montowania partycji FAT32</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="975"/>
         <source>Operating system did not mount FAT32 partition</source>
-        <translation type="unfinished"></translation>
+        <translation>System operacyjny nie zamontował partycji FAT32</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="1012"/>
         <source>Unable to customize. File &apos;%1&apos; does not exist.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można dostosować. Plik &apos;%1&apos; nie istnieje.</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="1016"/>
         <source>Customizing image</source>
-        <translation type="unfinished"></translation>
+        <translation>Dostosowywanie obrazu</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="1027"/>
         <source>Error creating firstrun.sh on FAT partition</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd podczas tworzenia firstrun.sh na partycji FAT</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="1076"/>
         <source>Error writing to config.txt on FAT partition</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd zapisu do pliku config.txt na partycji FAT</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="1099"/>
         <source>Error writing to cmdline.txt on FAT partition</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd zapisu do cmdline.txt na partycji FAT</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="419"/>
         <source>Access denied error while writing file to disk.</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd odmowy dostępu podczas zapisywania pliku na dysku.</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="430"/>
         <source>Error writing file to disk</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd zapisu pliku na dysk</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="455"/>
         <source>Error downloading: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd pobierania: %1</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="685"/>
         <source>Error writing to storage (while flushing)</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd zapisu do pamięci masowej (podczas zapisywania)</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="693"/>
         <source>Error writing to storage (while fsync)</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd zapisu do pamięci masowej (podczas fsync)</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="673"/>
         <source>Download corrupt. Hash does not match</source>
-        <translation type="unfinished"></translation>
+        <translation>Pobieranie uszkodzone. Hash danych niezgodny</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="121"/>
         <source>opening drive</source>
-        <translation type="unfinished"></translation>
+        <translation>otwieranie dysku</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="313"/>
         <source>Write error while trying to zero out last part of card.&lt;br&gt;Card could be advertising wrong capacity (possible counterfeit).</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd zapisu podczas próby wyzerowania ostatniej części karty.&lt;br&gt;Karta może przedstawiać nieprawidłową pojemność (możliwa podróbka karty).</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="377"/>
         <source>starting download</source>
-        <translation type="unfinished"></translation>
+        <translation>rozpoczynanie pobierania</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="719"/>
         <source>Error writing first block (partition table)</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd zapisu pierwszego bloku (tablicy partycji)</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="803"/>
         <source>Verifying write failed. Contents of SD card is different from what was written to it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Weryfikacja zapisu nie powiodła się. Zawartość karty SD różni się od tego, co na niej zapisano.</translation>
     </message>
 </context>
 <context>
@@ -190,52 +190,52 @@
         <location filename="../driveformatthread.cpp" line="127"/>
         <location filename="../driveformatthread.cpp" line="191"/>
         <source>Error partitioning: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd partycjonowania: %1</translation>
     </message>
     <message>
         <location filename="../driveformatthread.cpp" line="84"/>
         <source>Error starting fat32format</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd rozpoczęcia fat32format</translation>
     </message>
     <message>
         <location filename="../driveformatthread.cpp" line="94"/>
         <source>Error running fat32format: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd działania fat32format: %1</translation>
     </message>
     <message>
         <location filename="../driveformatthread.cpp" line="104"/>
         <source>Error determining new drive letter</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd podczas określania nowej litery dysku</translation>
     </message>
     <message>
         <location filename="../driveformatthread.cpp" line="109"/>
         <source>Invalid device: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nieprawidłowe urządzenie: %1</translation>
     </message>
     <message>
         <location filename="../driveformatthread.cpp" line="149"/>
         <source>Error formatting (through udisks2)</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd formatowania (poprzez udisks2)</translation>
     </message>
     <message>
         <location filename="../driveformatthread.cpp" line="180"/>
         <source>Error starting sfdisk</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd podczas uruchamiania sfdisk</translation>
     </message>
     <message>
         <location filename="../driveformatthread.cpp" line="202"/>
         <source>Error starting mkfs.fat</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd podczas uruchamiania mkfs.fat</translation>
     </message>
     <message>
         <location filename="../driveformatthread.cpp" line="212"/>
         <source>Error running mkfs.fat: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd działania mkfs.fat: %1</translation>
     </message>
     <message>
         <location filename="../driveformatthread.cpp" line="219"/>
         <source>Formatting not implemented for this platform</source>
-        <translation type="unfinished"></translation>
+        <translation>Formatowanie nie zaimplementowane dla tej platformy</translation>
     </message>
 </context>
 <context>
@@ -243,27 +243,27 @@
     <message>
         <location filename="../imagewriter.cpp" line="201"/>
         <source>Storage capacity is not large enough.&lt;br&gt;Needs to be at least %1 GB.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pojemność pamięci masowej nie jest wystarczająca.&lt;br&gt;Wymagane co najmniej %1 GB.</translation>
     </message>
     <message>
         <location filename="../imagewriter.cpp" line="207"/>
         <source>Input file is not a valid disk image.&lt;br&gt;File size %1 bytes is not a multiple of 512 bytes.</source>
-        <translation type="unfinished"></translation>
+        <translation>Plik wejściowy nie jest prawidłowym obrazem dysku.&lt;br&gt;Rozmiar pliku %1 bajtów nie jest wielokrotnością 512 bajtów.</translation>
     </message>
     <message>
         <location filename="../imagewriter.cpp" line="379"/>
         <source>Downloading and writing image</source>
-        <translation type="unfinished"></translation>
+        <translation>Pobieranie i zapisywanie obrazu</translation>
     </message>
     <message>
         <location filename="../imagewriter.cpp" line="522"/>
         <source>Select image</source>
-        <translation type="unfinished"></translation>
+        <translation>Wybierz obraz</translation>
     </message>
     <message>
         <location filename="../imagewriter.cpp" line="921"/>
         <source>Would you like to prefill the wifi password from the system keychain?</source>
-        <translation type="unfinished"></translation>
+        <translation>Czy chcesz wstępnie wypełnić hasło wifi ze zbioru kluczy systemowych?</translation>
     </message>
 </context>
 <context>
@@ -271,12 +271,12 @@
     <message>
         <location filename="../localfileextractthread.cpp" line="36"/>
         <source>opening image file</source>
-        <translation type="unfinished"></translation>
+        <translation>otwieranie pliku obrazu</translation>
     </message>
     <message>
         <location filename="../localfileextractthread.cpp" line="41"/>
         <source>Error opening image file</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd otwierania pliku obrazu</translation>
     </message>
 </context>
 <context>
@@ -284,22 +284,22 @@
     <message>
         <location filename="../MsgPopup.qml" line="97"/>
         <source>NO</source>
-        <translation type="unfinished"></translation>
+        <translation>NIE</translation>
     </message>
     <message>
         <location filename="../MsgPopup.qml" line="110"/>
         <source>YES</source>
-        <translation type="unfinished"></translation>
+        <translation>TAK</translation>
     </message>
     <message>
         <location filename="../MsgPopup.qml" line="123"/>
         <source>CONTINUE</source>
-        <translation type="unfinished"></translation>
+        <translation>KONTYNUUJ</translation>
     </message>
     <message>
         <location filename="../MsgPopup.qml" line="135"/>
         <source>QUIT</source>
-        <translation type="unfinished"></translation>
+        <translation>POWRÓT</translation>
     </message>
 </context>
 <context>
@@ -307,7 +307,7 @@
     <message>
         <location filename="../OptionsPopup.qml" line="74"/>
         <source>Advanced options</source>
-        <translation type="unfinished"></translation>
+        <translation>Opcje zaawansowane</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="91"/>
@@ -317,27 +317,27 @@
     <message>
         <location filename="../OptionsPopup.qml" line="99"/>
         <source>for this session only</source>
-        <translation type="unfinished"></translation>
+        <translation>tylko dla tej sesji</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="100"/>
         <source>to always use</source>
-        <translation type="unfinished"></translation>
+        <translation>zawsze używać</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="112"/>
         <source>Set hostname:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ustaw hostname:</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="131"/>
         <source>Enable SSH</source>
-        <translation type="unfinished"></translation>
+        <translation>Włącz SSH</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="142"/>
         <source>Use password authentication</source>
-        <translation type="unfinished"></translation>
+        <translation>Użyj uwierzytelniania hasłem</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="184"/>
@@ -357,22 +357,22 @@
     <message>
         <location filename="../OptionsPopup.qml" line="211"/>
         <source>Configure wifi</source>
-        <translation type="unfinished"></translation>
+        <translation>Skonfiguruj Wi-Fi</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="230"/>
         <source>SSID:</source>
-        <translation type="unfinished"></translation>
+        <translation>SSID:</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="243"/>
         <source>Password:</source>
-        <translation type="unfinished"></translation>
+        <translation>Hasło:</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="259"/>
         <source>Show password</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokaż hasło</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="264"/>
@@ -387,7 +387,7 @@
     <message>
         <location filename="../OptionsPopup.qml" line="285"/>
         <source>Time zone:</source>
-        <translation type="unfinished"></translation>
+        <translation>Strefa czasowa:</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="295"/>
@@ -412,7 +412,7 @@
     <message>
         <location filename="../OptionsPopup.qml" line="333"/>
         <source>SAVE</source>
-        <translation type="unfinished"></translation>
+        <translation>ZAPISZ</translation>
     </message>
 </context>
 <context>
@@ -443,12 +443,12 @@
     <message>
         <location filename="../UseSavedSettingsPopup.qml" line="106"/>
         <source>YES</source>
-        <translation type="unfinished"></translation>
+        <translation>TAK</translation>
     </message>
     <message>
         <location filename="../UseSavedSettingsPopup.qml" line="118"/>
         <source>EDIT SETTINGS</source>
-        <translation type="unfinished"></translation>
+        <translation>EDYTUJ USTAWIENIA</translation>
     </message>
 </context>
 <context>
@@ -457,12 +457,12 @@
         <location filename="../main.qml" line="105"/>
         <location filename="../main.qml" line="360"/>
         <source>Operating System</source>
-        <translation type="unfinished"></translation>
+        <translation>System operacyjny</translation>
     </message>
     <message>
         <location filename="../main.qml" line="117"/>
         <source>CHOOSE OS</source>
-        <translation type="unfinished"></translation>
+        <translation>WYBIERZ OS</translation>
     </message>
     <message>
         <location filename="../main.qml" line="132"/>
@@ -484,7 +484,7 @@
     <message>
         <location filename="../main.qml" line="226"/>
         <source>WRITE</source>
-        <translation type="unfinished"></translation>
+        <translation>ZAPISZ</translation>
     </message>
     <message>
         <location filename="../main.qml" line="231"/>
@@ -553,7 +553,7 @@
     <message>
         <location filename="../main.qml" line="157"/>
         <source>CONFIGURE</source>
-        <translation type="unfinished"></translation>
+        <translation>CONFIGURUJ</translation>
     </message>
     <message>
         <location filename="../main.qml" line="171"/>
@@ -568,7 +568,7 @@
     <message>
         <location filename="../main.qml" line="421"/>
         <source>Go back to main menu</source>
-        <translation type="unfinished"></translation>
+        <translation>Powrót do głównego menu</translation>
     </message>
     <message>
         <location filename="../main.qml" line="536"/>

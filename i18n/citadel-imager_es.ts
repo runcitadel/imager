@@ -590,7 +590,7 @@
     <message>
         <location filename="../main.qml" line="543"/>
         <source>Online - %1 GB download</source>
-        <translation>En línea - descarga de %1 GB</translation>
+        <translation type="unfinished">En línea — descarga de %1 GB</translation>
     </message>
     <message>
         <location filename="../main.qml" line="705"/>
