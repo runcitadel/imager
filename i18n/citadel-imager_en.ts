@@ -263,7 +263,7 @@
     <message>
         <location filename="../imagewriter.cpp" line="921"/>
         <source>Would you like to prefill the wifi password from the system keychain?</source>
-        <translation>Would you like to prefill the wifi password from the system keychain?</translation>
+        <translation>Prefill the Wi-Fi password from the system keychain?</translation>
     </message>
 </context>
 <context>
@@ -377,7 +377,7 @@
     <message>
         <location filename="../OptionsPopup.qml" line="264"/>
         <source>Wifi country:</source>
-        <translation>Wifi country:</translation>
+        <translation>Wi-Fi country:</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="275"/>
@@ -588,7 +588,7 @@
     <message>
         <location filename="../main.qml" line="543"/>
         <source>Online - %1 GB download</source>
-        <translation>Online - %1 GB download</translation>
+        <translation>Online — %1 GB download</translation>
     </message>
     <message>
         <location filename="../main.qml" line="705"/>
