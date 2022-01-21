@@ -357,7 +357,7 @@
     <message>
         <location filename="../OptionsPopup.qml" line="211"/>
         <source>Configure wifi</source>
-        <translation>Nastaviť wifi</translation>
+        <translation>Nastaviť Wi-Fi</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="230"/>
