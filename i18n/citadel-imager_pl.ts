@@ -110,7 +110,7 @@
     <message>
         <location filename="../downloadthread.cpp" line="1016"/>
         <source>Customizing image</source>
-        <translation type="unfinished"></translation>
+        <translation>Dostosowywanie obrazu</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="1027"/>
