@@ -620,7 +620,7 @@
     <message>
         <location filename="../main.qml" line="843"/>
         <source>Update available</source>
-        <translation>Update available</translation>
+        <translation>New version available</translation>
     </message>
     <message>
         <location filename="../main.qml" line="844"/>
