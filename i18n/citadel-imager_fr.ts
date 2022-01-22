@@ -263,7 +263,7 @@
     <message>
         <location filename="../imagewriter.cpp" line="921"/>
         <source>Would you like to prefill the wifi password from the system keychain?</source>
-        <translation>Voulez-vous pré-remplir le mot de passe wifi à partir du gestionaire système ?</translation>
+        <translation>Voulez-vous pré-remplir le mot de passe Wi-Fi à partir du gestionaire système&#xa0;?</translation>
     </message>
 </context>
 <context>
@@ -615,7 +615,7 @@
     <message>
         <location filename="../main.qml" line="843"/>
         <source>Update available</source>
-        <translation>Mise à jour disponible</translation>
+        <translation>Nouvelle version disponible</translation>
     </message>
     <message>
         <location filename="../main.qml" line="844"/>
