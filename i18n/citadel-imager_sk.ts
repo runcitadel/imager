@@ -658,7 +658,7 @@
     <message>
         <location filename="../main.qml" line="543"/>
         <source>Online - %1 GB download</source>
-        <translation>Online %1 GB na stiahnutie</translation>
+        <translation>Online — %1 GB na stiahnutie</translation>
     </message>
     <message>
         <location filename="../main.qml" line="705"/>

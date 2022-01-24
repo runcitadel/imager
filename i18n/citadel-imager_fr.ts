@@ -6,7 +6,7 @@
     <message>
         <location filename="../downloadextractthread.cpp" line="173"/>
         <source>Error writing to storage</source>
-        <translation>Erreur d&apos;écriture dans le stockage</translation>
+        <translation>Erreur lors de l&apos;écriture dans le stockage</translation>
     </message>
     <message>
         <location filename="../downloadextractthread.cpp" line="196"/>
@@ -27,7 +27,7 @@
     <message>
         <location filename="../downloadextractthread.cpp" line="310"/>
         <source>Error changing to directory &apos;%1&apos;</source>
-        <translation>Erreur lors du changement du répertoire &apos;%1&apos;</translation>
+        <translation>Erreur lors du changement de répertoire &apos;%1&apos;</translation>
     </message>
 </context>
 <context>
@@ -50,12 +50,12 @@
     <message>
         <location filename="../downloadthread.cpp" line="208"/>
         <source>Error running authopen to gain access to disk device &apos;%1&apos;</source>
-        <translation>Erreur lors de l&apos;exécution d&apos;authopen pour accéder au périphérique du stockage &apos;%1&apos;</translation>
+        <translation>Erreur lors de l&apos;exécution d&apos;authopen pour accéder au périphérique de stockage &apos;%1&apos;</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="209"/>
         <source>Please verify if &apos;Raspberry Pi Imager&apos; is allowed access to &apos;removable volumes&apos; in privacy settings (under &apos;files and folders&apos; or alternatively give it &apos;full disk access&apos;).</source>
-        <translation type="unfinished"></translation>
+        <translation>Veuillez vérifier que &apos;Raspberry Pi Imager&apos; est autorisé a accéder a &apos;removable volumes&apos; dans les réglages de confidentialité. (Sous &apos;fichiers et dossiers&apos;, soit donner directement &apos;accès complet au disque&apos;.).</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="230"/>
@@ -65,12 +65,12 @@
     <message>
         <location filename="../downloadthread.cpp" line="278"/>
         <source>discarding existing data on drive</source>
-        <translation type="unfinished"></translation>
+        <translation>suppression des données existantes sur le disque</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="298"/>
         <source>zeroing out first and last MB of drive</source>
-        <translation type="unfinished"></translation>
+        <translation>mise à zéro du premier et du dernier MO du lecteur</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="304"/>
@@ -80,7 +80,7 @@
     <message>
         <location filename="../downloadthread.cpp" line="424"/>
         <source>Controlled Folder Access seems to be enabled. Please add both citadel-imager.exe and fat32format.exe to the list of allowed apps and try again.</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;accès contrôlé aux dossiers semble être activé. Veuillez ajouter citadel-imager.exe et fat32format.exe à la liste des applications autorisées et réessayez.</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="785"/>
@@ -90,57 +90,57 @@
     <message>
         <location filename="../downloadthread.cpp" line="862"/>
         <source>Waiting for FAT partition to be mounted</source>
-        <translation type="unfinished"></translation>
+        <translation>Attente du montage de la partition FAT</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="952"/>
         <source>Error mounting FAT32 partition</source>
-        <translation type="unfinished">Erreur lors du montage de la partition FAT32</translation>
+        <translation>Erreur lors du montage de la partition FAT32</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="975"/>
         <source>Operating system did not mount FAT32 partition</source>
-        <translation type="unfinished">Le système d&apos;exploitation n&apos;a pas monté la partition FAT32</translation>
+        <translation>Le système d&apos;exploitation n&apos;a pas monté la partition FAT32</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="1012"/>
         <source>Unable to customize. File &apos;%1&apos; does not exist.</source>
-        <translation type="unfinished"></translation>
+        <translation>Impossible de personnaliser. Le fichier &apos;%1&apos; n&apos;existe pas.</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="1016"/>
         <source>Customizing image</source>
-        <translation type="unfinished"></translation>
+        <translation>Personnalisation de l&apos;image</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="1027"/>
         <source>Error creating firstrun.sh on FAT partition</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur lors de la création de firstrun.sh sur une partition FAT</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="1076"/>
         <source>Error writing to config.txt on FAT partition</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur d&apos;écriture dans le fichier config.txt sur une partition FAT</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="1099"/>
         <source>Error writing to cmdline.txt on FAT partition</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur d&apos;écriture dans cmdline.txt sur une partition FAT</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="419"/>
         <source>Access denied error while writing file to disk.</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur accès refusé lors de l&apos;écriture d&apos;un fichier sur le disque.</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="430"/>
         <source>Error writing file to disk</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur d&apos;écriture du fichier sur le disque</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="455"/>
         <source>Error downloading: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur de téléchargement : %1</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="685"/>
@@ -160,17 +160,17 @@
     <message>
         <location filename="../downloadthread.cpp" line="121"/>
         <source>opening drive</source>
-        <translation type="unfinished"></translation>
+        <translation>ouvrir disque</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="313"/>
         <source>Write error while trying to zero out last part of card.&lt;br&gt;Card could be advertising wrong capacity (possible counterfeit).</source>
-        <translation>Erreur d&apos;écriture lors de la tentative de formatage de la dernière partie de la carte.&lt;br&gt;Le stockage pourrait annoncer une mauvaise capacité (contrefaçon possible).</translation>
+        <translation>Erreur d&apos;écriture lors de la tentative de formatage de la dernière partie de la carte.&lt;br&gt; La capacité annoncé pourrait être fausse. (contrefaçon possible).</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="377"/>
         <source>starting download</source>
-        <translation type="unfinished"></translation>
+        <translation>démarrage du téléchargement</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="719"/>
@@ -263,7 +263,7 @@
     <message>
         <location filename="../imagewriter.cpp" line="921"/>
         <source>Would you like to prefill the wifi password from the system keychain?</source>
-        <translation type="unfinished"></translation>
+        <translation>Voulez-vous pré-remplir le mot de passe Wi-Fi à partir du gestionaire système&#xa0;?</translation>
     </message>
 </context>
 <context>
@@ -271,7 +271,7 @@
     <message>
         <location filename="../localfileextractthread.cpp" line="36"/>
         <source>opening image file</source>
-        <translation type="unfinished"></translation>
+        <translation>ouverture du fichier image disque</translation>
     </message>
     <message>
         <location filename="../localfileextractthread.cpp" line="41"/>
@@ -299,7 +299,7 @@
     <message>
         <location filename="../MsgPopup.qml" line="135"/>
         <source>QUIT</source>
-        <translation type="unfinished"></translation>
+        <translation>SORTIR</translation>
     </message>
 </context>
 <context>
@@ -307,112 +307,112 @@
     <message>
         <location filename="../OptionsPopup.qml" line="74"/>
         <source>Advanced options</source>
-        <translation type="unfinished"></translation>
+        <translation>Options avancées</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="91"/>
         <source>Image customization options</source>
-        <translation type="unfinished"></translation>
+        <translation>Options de personnalisation des images</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="99"/>
         <source>for this session only</source>
-        <translation type="unfinished"></translation>
+        <translation>pour cette session uniquement</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="100"/>
         <source>to always use</source>
-        <translation type="unfinished"></translation>
+        <translation>pour toujours</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="112"/>
         <source>Set hostname:</source>
-        <translation type="unfinished"></translation>
+        <translation>Définir le nom d&apos;hôte :</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="131"/>
         <source>Enable SSH</source>
-        <translation type="unfinished"></translation>
+        <translation>Activer SSH</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="142"/>
         <source>Use password authentication</source>
-        <translation type="unfinished"></translation>
+        <translation>Utiliser l&apos;authentification par mot de passe</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="184"/>
         <source>Allow public-key authentication only</source>
-        <translation type="unfinished"></translation>
+        <translation>Autoriser l&apos;authentification par clé publique uniquement</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="158"/>
         <source>Set password for &apos;citadel&apos; user (will be changed during setup):</source>
-        <translation type="unfinished"></translation>
+        <translation>Définissez le mot de passe de l&apos;utilisateur &apos;citadel&apos; (qui sera modifié pendant la configuration) :</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="199"/>
         <source>Set authorized_keys for &apos;citadel&apos;:</source>
-        <translation type="unfinished"></translation>
+        <translation>Définir authorized_keys pour &apos;citadel&apos; :</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="211"/>
         <source>Configure wifi</source>
-        <translation type="unfinished"></translation>
+        <translation>Configurer le Wi-Fi</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="230"/>
         <source>SSID:</source>
-        <translation type="unfinished"></translation>
+        <translation>SSID :</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="243"/>
         <source>Password:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mot de passe :</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="259"/>
         <source>Show password</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher le mot de passe</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="264"/>
         <source>Wifi country:</source>
-        <translation type="unfinished"></translation>
+        <translation>Pays du Wi-Fi :</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="275"/>
         <source>Set locale settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Définir les paramètres locaux</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="285"/>
         <source>Time zone:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fuseau horaire :</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="295"/>
         <source>Keyboard layout:</source>
-        <translation type="unfinished"></translation>
+        <translation>Disposition du clavier :</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="308"/>
         <source>Persistent settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Paramètres persistants</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="316"/>
         <source>Play sound when finished</source>
-        <translation type="unfinished"></translation>
+        <translation>Jouer un son une fois terminé</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="320"/>
         <source>Eject media when finished</source>
-        <translation type="unfinished"></translation>
+        <translation>Éjecter le media une fois terminé</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="333"/>
         <source>SAVE</source>
-        <translation type="unfinished"></translation>
+        <translation>SAUVER</translation>
     </message>
 </context>
 <context>
@@ -428,27 +428,27 @@
     <message>
         <location filename="../UseSavedSettingsPopup.qml" line="71"/>
         <source>Warning: advanced settings set</source>
-        <translation type="unfinished"></translation>
+        <translation>Attention : paramètres avancés définis</translation>
     </message>
     <message>
         <location filename="../UseSavedSettingsPopup.qml" line="85"/>
         <source>Would you like to apply the image customization settings saved earlier?</source>
-        <translation type="unfinished"></translation>
+        <translation>Souhaitez-vous appliquer les paramètres de personnalisation d&apos;image enregistrés précédemment ?</translation>
     </message>
     <message>
         <location filename="../UseSavedSettingsPopup.qml" line="94"/>
         <source>NO, CLEAR SETTINGS</source>
-        <translation type="unfinished"></translation>
+        <translation>NON, EFFACER LES PARAMÈTRES</translation>
     </message>
     <message>
         <location filename="../UseSavedSettingsPopup.qml" line="106"/>
         <source>YES</source>
-        <translation type="unfinished">OUI</translation>
+        <translation>OUI</translation>
     </message>
     <message>
         <location filename="../UseSavedSettingsPopup.qml" line="118"/>
         <source>EDIT SETTINGS</source>
-        <translation type="unfinished"></translation>
+        <translation>MODIFIER LES PARAMÈTRES</translation>
     </message>
 </context>
 <context>
@@ -518,7 +518,7 @@
         <location filename="../main.qml" line="461"/>
         <location filename="../main.qml" line="958"/>
         <source>Erase</source>
-        <translation>Formatter</translation>
+        <translation>Formater</translation>
     </message>
     <message>
         <location filename="../main.qml" line="462"/>
@@ -528,7 +528,7 @@
     <message>
         <location filename="../main.qml" line="470"/>
         <source>Use custom</source>
-        <translation>Utiliser image personnalisée</translation>
+        <translation>Utiliser une image personnalisée</translation>
     </message>
     <message>
         <location filename="../main.qml" line="471"/>
@@ -543,27 +543,27 @@
     <message>
         <location filename="../main.qml" line="23"/>
         <source>Citadel Pi Imager v%1</source>
-        <translation type="unfinished"></translation>
+        <translation>Imageur Citadel Pi v%1</translation>
     </message>
     <message>
         <location filename="../main.qml" line="145"/>
         <source>Select additional options</source>
-        <translation type="unfinished"></translation>
+        <translation>Sélectionnez des options supplémentaires</translation>
     </message>
     <message>
         <location filename="../main.qml" line="157"/>
         <source>CONFIGURE</source>
-        <translation type="unfinished"></translation>
+        <translation>CONFIGURER</translation>
     </message>
     <message>
         <location filename="../main.qml" line="171"/>
         <source>Select this button to change operating system settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Sélectionnez ce bouton pour modifier les paramètres du système d&apos;exploitation</translation>
     </message>
     <message>
         <location filename="../main.qml" line="209"/>
         <source>Select this button to change the destination storage device</source>
-        <translation type="unfinished"></translation>
+        <translation>Sélectionnez ce bouton pour changer le périphérique de stockage de destination</translation>
     </message>
     <message>
         <location filename="../main.qml" line="421"/>
@@ -573,12 +573,12 @@
     <message>
         <location filename="../main.qml" line="536"/>
         <source>Released: %1</source>
-        <translation>Sorti le : %1</translation>
+        <translation>Publié le : %1</translation>
     </message>
     <message>
         <location filename="../main.qml" line="539"/>
         <source>Cached on your computer</source>
-        <translation>Mis en cache sur votre ordinateur</translation>
+        <translation>En cache sur votre ordinateur</translation>
     </message>
     <message>
         <location filename="../main.qml" line="541"/>
@@ -588,19 +588,19 @@
     <message>
         <location filename="../main.qml" line="543"/>
         <source>Online - %1 GB download</source>
-        <translation type="unfinished">En ligne — %1 GO téléchargé</translation>
+        <translation>En ligne — %1 GO téléchargé</translation>
     </message>
     <message>
         <location filename="../main.qml" line="705"/>
         <location filename="../main.qml" line="757"/>
         <location filename="../main.qml" line="763"/>
         <source>Mounted as %1</source>
-        <translation>Mounté à %1</translation>
+        <translation>Monté en tant que %1</translation>
     </message>
     <message>
         <location filename="../main.qml" line="759"/>
         <source>[WRITE PROTECTED]</source>
-        <translation type="unfinished"></translation>
+        <translation>[PROTÉGÉ EN ÉCRITURE]</translation>
     </message>
     <message>
         <location filename="../main.qml" line="801"/>
@@ -610,27 +610,27 @@
     <message>
         <location filename="../main.qml" line="819"/>
         <source>Preparing to write...</source>
-        <translation type="unfinished"></translation>
+        <translation>Se préparer à écrire…</translation>
     </message>
     <message>
         <location filename="../main.qml" line="843"/>
         <source>Update available</source>
-        <translation type="unfinished"></translation>
+        <translation>Nouvelle version disponible</translation>
     </message>
     <message>
         <location filename="../main.qml" line="844"/>
         <source>There is a newer version of Imager available.&lt;br&gt;Would you like to visit the website to download it?</source>
-        <translation type="unfinished"></translation>
+        <translation>Une version plus récente d&apos;Imageur est disponible.&lt;br&gt;Souhaitez-vous visiter le site Web pour la télécharger ?</translation>
     </message>
     <message>
         <location filename="../main.qml" line="935"/>
         <source>Preparing to write... (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Préparation à l&apos;écriture… (%1)</translation>
     </message>
     <message>
         <location filename="../main.qml" line="1119"/>
         <source>SD card is write protected.&lt;br&gt;Push the lock switch on the left side of the card upwards, and try again.</source>
-        <translation type="unfinished"></translation>
+        <translation>La carte SD est protégée en écriture.&lt;br&gt;Poussez vers le haut l&apos;interrupteur de verrouillage situé sur le côté gauche de la carte, et réessayez.</translation>
     </message>
     <message>
         <location filename="../main.qml" line="813"/>
@@ -650,7 +650,7 @@
     <message>
         <location filename="../main.qml" line="802"/>
         <source>Citadel Imager is still busy.&lt;br&gt;Are you sure you want to quit?</source>
-        <translation type="unfinished"></translation>
+        <translation>Citadel Imageur est toujours occupé.&lt;br&gt;Voulez-vous vraiment quitter ?</translation>
     </message>
     <message>
         <location filename="../main.qml" line="884"/>
@@ -690,7 +690,7 @@
     <message>
         <location filename="../main.qml" line="1104"/>
         <source>Connect an USB stick containing images first.&lt;br&gt;The images must be located in the root folder of the USB stick.</source>
-        <translation>Connectez en premier une clé USB contenant les images.&lt;br&gt;Les images doivent se trouver dans le dossier racine de la clé USB.</translation>
+        <translation>Connectez d&apos;abord une clé USB contenant les images.&lt;br&gt;Les images doivent se trouver dans le dossier racine de la clé USB.</translation>
     </message>
 </context>
 </TS>

@@ -6,7 +6,7 @@
     <message>
         <location filename="../downloadextractthread.cpp" line="173"/>
         <source>Error writing to storage</source>
-        <translation>Error al escribir en la unidad de almacenamiento</translation>
+        <translation>Error al escribir el la unidad de almacenamiento</translation>
     </message>
     <message>
         <location filename="../downloadextractthread.cpp" line="196"/>
@@ -61,7 +61,7 @@
     <message>
         <location filename="../downloadthread.cpp" line="209"/>
         <source>Please verify if &apos;Raspberry Pi Imager&apos; is allowed access to &apos;removable volumes&apos; in privacy settings (under &apos;files and folders&apos; or alternatively give it &apos;full disk access&apos;).</source>
-        <translation type="unfinished"></translation>
+        <translation>Verifique si &apos;Raspberry Pi Imager&apos; tiene permitido el acceso a &apos;volúmenes extraíbles&apos; en la configuración de privacidad (en &apos;archivos y carpetas&apos; o, alternativamente, déle &apos;acceso completo al disco&apos;).</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="230"/>
@@ -102,7 +102,7 @@
     <message>
         <location filename="../downloadthread.cpp" line="424"/>
         <source>Controlled Folder Access seems to be enabled. Please add both citadel-imager.exe and fat32format.exe to the list of allowed apps and try again.</source>
-        <translation type="unfinished"></translation>
+        <translation>El acceso controlado a carpetas parece estar habilitado. Agregue citadel-imager.exe y fat32format.exe a la lista de aplicaciones permitidas y vuelva a intentarlo.</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="430"/>
@@ -590,7 +590,7 @@
     <message>
         <location filename="../main.qml" line="543"/>
         <source>Online - %1 GB download</source>
-        <translation type="unfinished">En línea — descarga de %1 GB</translation>
+        <translation>En línea — descarga de %1 GB</translation>
     </message>
     <message>
         <location filename="../main.qml" line="705"/>

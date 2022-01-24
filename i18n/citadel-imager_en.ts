@@ -263,7 +263,7 @@
     <message>
         <location filename="../imagewriter.cpp" line="921"/>
         <source>Would you like to prefill the wifi password from the system keychain?</source>
-        <translation>Prefill the Wi-Fi password from the system keychain?</translation>
+        <translation>Would you like to prefill the Wi-Fi password from the system keychain?</translation>
     </message>
 </context>
 <context>
