@@ -595,7 +595,7 @@
         <location filename="../main.qml" line="757"/>
         <location filename="../main.qml" line="763"/>
         <source>Mounted as %1</source>
-        <translation>%1 olarak bağlandı.</translation>
+        <translation>%1 olarak bağlandı</translation>
     </message>
     <message>
         <location filename="../main.qml" line="759"/>
