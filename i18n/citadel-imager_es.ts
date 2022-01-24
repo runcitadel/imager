@@ -632,7 +632,7 @@
     <message>
         <location filename="../main.qml" line="843"/>
         <source>Update available</source>
-        <translation type="unfinished">Actualización disponible</translation>
+        <translation>Actualización disponible</translation>
     </message>
     <message>
         <location filename="../main.qml" line="844"/>
