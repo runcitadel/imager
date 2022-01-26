@@ -266,7 +266,7 @@ Bitte stellen Sie sicher, dass &apos;Raspberry Pi Imager&apos; Zugriff auf &apos
     <message>
         <location filename="../imagewriter.cpp" line="921"/>
         <source>Would you like to prefill the wifi password from the system keychain?</source>
-        <translation>Möchten Sie das WiFi-Passwort dieses Systems übernehmen?</translation>
+        <translation>Möchten Sie das Wi-Fi-Passwort dieses Systems übernehmen?</translation>
     </message>
 </context>
 <context>
@@ -360,7 +360,7 @@ Bitte stellen Sie sicher, dass &apos;Raspberry Pi Imager&apos; Zugriff auf &apos
     <message>
         <location filename="../OptionsPopup.qml" line="211"/>
         <source>Configure wifi</source>
-        <translation>Wifi enrichten</translation>
+        <translation>Wi-Fi enrichten</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="230"/>
@@ -380,7 +380,7 @@ Bitte stellen Sie sicher, dass &apos;Raspberry Pi Imager&apos; Zugriff auf &apos
     <message>
         <location filename="../OptionsPopup.qml" line="264"/>
         <source>Wifi country:</source>
-        <translation>Wifi-Land:</translation>
+        <translation>Wi-Fi-Land:</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="275"/>
@@ -623,7 +623,7 @@ Bitte stellen Sie sicher, dass &apos;Raspberry Pi Imager&apos; Zugriff auf &apos
     <message>
         <location filename="../main.qml" line="843"/>
         <source>Update available</source>
-        <translation type="unfinished">Update verfügbar</translation>
+        <translation>Update verfügbar</translation>
     </message>
     <message>
         <location filename="../main.qml" line="844"/>
