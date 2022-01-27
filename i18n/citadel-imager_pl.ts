@@ -342,17 +342,17 @@
     <message>
         <location filename="../OptionsPopup.qml" line="184"/>
         <source>Allow public-key authentication only</source>
-        <translation type="unfinished"></translation>
+        <translation>Zezwalaj na uwierzytelnianie tylko za pomocą klucza publicznego</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="158"/>
         <source>Set password for &apos;citadel&apos; user (will be changed during setup):</source>
-        <translation type="unfinished"></translation>
+        <translation>Ustaw hasło dla użytkownika &apos;citadel&apos; (zostanie zmienione podczas konfiguracji):</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="199"/>
         <source>Set authorized_keys for &apos;citadel&apos;:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ustaw autoryzowane_klucze dla &apos;citadel&apos;:</translation>
     </message>
     <message>
         <location filename="../OptionsPopup.qml" line="211"/>
