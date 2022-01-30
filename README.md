@@ -2,6 +2,12 @@
 
 Citadel Pi Imaging Utility
 
+## Translation progress
+
+<a href="https://hosted.weblate.org/engage/citadel/">
+<img src="https://hosted.weblate.org/widgets/citadel/-/imager/multi-auto.svg" alt="Übersetzungsstatus" />
+</a>
+
 ## License
 
 The main code of the Imaging Utility is made available under the terms of the Apache license.
