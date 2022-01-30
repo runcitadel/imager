@@ -50,7 +50,7 @@
     <message>
         <location filename="../downloadthread.cpp" line="208"/>
         <source>Error running authopen to gain access to disk device &apos;%1&apos;</source>
-        <translation>Kunne ikke kjøre «authopen» for å få tilgang til diskenheten «%1».</translation>
+        <translation>Kunne ikke kjøre «authopen» for å få tilgang til diskenheten «%1»</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="209"/>
@@ -90,7 +90,7 @@
     <message>
         <location filename="../downloadthread.cpp" line="862"/>
         <source>Waiting for FAT partition to be mounted</source>
-        <translation>Venter på at FAT-partisjonen skal monteres …</translation>
+        <translation>Venter på at FAT-partisjonen skal monteres</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="952"/>
@@ -155,7 +155,7 @@
     <message>
         <location filename="../downloadthread.cpp" line="673"/>
         <source>Download corrupt. Hash does not match</source>
-        <translation>Nedlastningen er skadet. Sjekksummen samsvarer ikke.</translation>
+        <translation>Nedlastningen er skadet. Sjekksummen samsvarer ikke</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="121"/>
