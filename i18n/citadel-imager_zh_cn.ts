@@ -299,7 +299,7 @@
     <message>
         <location filename="../MsgPopup.qml" line="135"/>
         <source>QUIT</source>
-        <translation type="unfinished"></translation>
+        <translation>退出</translation>
     </message>
 </context>
 <context>
