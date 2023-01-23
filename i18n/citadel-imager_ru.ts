@@ -6,13 +6,13 @@
     <message>
         <location filename="../downloadextractthread.cpp" line="173"/>
         <source>Error writing to storage</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка записи в хранилище</translation>
     </message>
     <message>
         <location filename="../downloadextractthread.cpp" line="196"/>
         <location filename="../downloadextractthread.cpp" line="394"/>
         <source>Error extracting archive: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>ошибка извлечения архива: %1</translation>
     </message>
     <message>
         <location filename="../downloadextractthread.cpp" line="264"/>
@@ -27,7 +27,7 @@
     <message>
         <location filename="../downloadextractthread.cpp" line="310"/>
         <source>Error changing to directory &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Ошибка изменения директории &apos;%1&apos;</translation>
     </message>
 </context>
 <context>
