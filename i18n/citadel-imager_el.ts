@@ -60,7 +60,7 @@
     <message>
         <location filename="../downloadthread.cpp" line="230"/>
         <source>Cannot open storage device &apos;%1&apos;.</source>
-        <translation>Δεν είναι δυνατό το άνοιγμα της συσκευής αποθήκευσης &quot;% 1&quot;</translation>
+        <translation>Δεν είναι δυνατό το άνοιγμα της συσκευής αποθήκευσης &apos;%1&apos;.</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="278"/>
@@ -80,7 +80,7 @@
     <message>
         <location filename="../downloadthread.cpp" line="424"/>
         <source>Controlled Folder Access seems to be enabled. Please add both citadel-imager.exe and fat32format.exe to the list of allowed apps and try again.</source>
-        <translation>Η πρόσβαση στον  φάκελο φαίνεται να είναι περιορισμένη. Προσθέστε το citadel-imager.exe και το fat32format.exe στη λίστα των επιτρεπόμενων εφαρμογών και δοκιμάστε ξανά.</translation>
+        <translation>Η πρόσβαση στον φάκελο φαίνεται να είναι περιορισμένη. Προσθέστε το citadel-imager.exe και το fat32format.exe στη λίστα των επιτρεπόμενων εφαρμογών και δοκιμάστε ξανά.</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="785"/>
@@ -670,27 +670,27 @@
     <message>
         <location filename="../main.qml" line="959"/>
         <source>&lt;b&gt;%1&lt;/b&gt; has been erased&lt;br&gt;&lt;br&gt;You can now remove the SD card from the reader</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;%1&lt;/b&gt; έχει διαγραφεί&lt;br&gt;&lt;br&gt;Μπορείς τώρα να αφαιρέσεις την κάρτα μνήμης SD απο την υποδοχή</translation>
     </message>
     <message>
         <location filename="../main.qml" line="961"/>
         <source>&lt;b&gt;%1&lt;/b&gt; has been written to &lt;b&gt;%2&lt;/b&gt;&lt;br&gt;&lt;br&gt;You can now remove the SD card from the reader</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;%1&lt;/b&gt; η εγγραφή ολοκληρώθηκε&lt;b&gt;%2&lt;/b&gt;&lt;br&gt;&lt;br&gt;Μπορείς τώρα να αφαιρέσεις την κάρτα μνήμης απο τον αναγνώστη καρτών</translation>
     </message>
     <message>
         <location filename="../main.qml" line="1003"/>
         <source>Error parsing os_list.json</source>
-        <translation type="unfinished"></translation>
+        <translation>σφάλμα ανάλυσης os_list.json</translation>
     </message>
     <message>
         <location filename="../main.qml" line="1104"/>
         <source>Connect an USB stick containing images first.&lt;br&gt;The images must be located in the root folder of the USB stick.</source>
-        <translation type="unfinished"></translation>
+        <translation>Εισάγεται ένα USB stick που περιέχει το εικονικό αρχείο.&lt;br&gt;Το εικονικό αρχείο θα πρέπει να είναι αποθηκευμένο στον φάκελο root του USB stick.</translation>
     </message>
     <message>
         <location filename="../main.qml" line="1119"/>
         <source>SD card is write protected.&lt;br&gt;Push the lock switch on the left side of the card upwards, and try again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Η κάρτα SD έχει προστασία εγγραφής.&lt;br&gt;Πιέστε το κουμπί στην αριστερή πλευρά της κάρτας και προσπαθήστε ξανά..</translation>
     </message>
 </context>
 </TS>

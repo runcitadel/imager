@@ -95,7 +95,7 @@
     <message>
         <location filename="../downloadthread.cpp" line="952"/>
         <source>Error mounting FAT32 partition</source>
-        <translation type="unfinished">FAT32 bölümü bağlanırken hata oluştu</translation>
+        <translation>FAT32 bölümü bağlanırken hata oluştu</translation>
     </message>
     <message>
         <location filename="../downloadthread.cpp" line="975"/>
